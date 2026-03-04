@@ -1,35 +1,58 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import {
+  ActionIcon,
+  AppShell,
+  Group,
+  Text,
+  useComputedColorScheme,
+  useMantineColorScheme,
+} from "@mantine/core";
+import { IconMoon, IconSun } from "@tabler/icons-react";
+import { PageMain } from "./pages/main/page";
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <AppShell padding="md">
+      <Header />
+
+      <AppShell.Main>
+        <PageMain />
+      </AppShell.Main>
+    </AppShell>
+  );
 }
 
-export default App
+export default App;
+
+const Header = () => {
+  const { setColorScheme } = useMantineColorScheme();
+  const computedColorScheme = useComputedColorScheme("light", {
+    getInitialValueInEffect: true,
+  });
+
+  return (
+    <AppShell.Header p={"xs"} pos={"relative"}>
+      <Group h="100%" w="100%" px="md" justify="space-between">
+        <Text fw={700} size="lg">
+          Голосование
+        </Text>
+        <Group justify="center">
+          <ActionIcon
+            onClick={() =>
+              setColorScheme(computedColorScheme === "light" ? "dark" : "light")
+            }
+            variant="default"
+            size="xl"
+            radius="md"
+            aria-label="Toggle color scheme"
+          >
+            {computedColorScheme == "dark" ? (
+              <IconSun stroke={1.5} />
+            ) : (
+              <IconMoon stroke={1.5} />
+            )}
+          </ActionIcon>
+        </Group>
+      </Group>
+    </AppShell.Header>
+  );
+};

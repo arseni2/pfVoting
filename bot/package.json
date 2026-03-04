@@ -1,0 +1,23 @@
+{
+  "name": "bot",
+  "version": "1.0.0",
+  "description": "Telegram bot for pfVoting",
+  "main": "dist/index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "typecheck": "tsc --noEmit"
+  },
+  "keywords": ["telegram", "bot", "telegraf"],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/node": "^25.3.3",
+    "dotenv": "^17.3.1",
+    "telegraf": "^4.16.3",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3"
+  }
+}
