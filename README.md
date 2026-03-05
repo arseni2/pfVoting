@@ -86,8 +86,7 @@ MIT
 
 ---
 
-Пример работы:
-    написать ф фигме
+Пример работы: https://www.figma.com/design/bENlqR21jY8CGuuHuqxw84/Untitled?node-id=5-87&t=EWOUcg4FdI34QtYT-1
 
 
 ---
@@ -129,6 +128,7 @@ Table pizza_orders {
   department_id integer [not null]
   pizza_name varchar [not null]
   addons text
+  comment text
   created_at timestamp [default: `CURRENT_TIMESTAMP`]
   is_voted boolean [default: false]
   vote_count integer [default: 0]
