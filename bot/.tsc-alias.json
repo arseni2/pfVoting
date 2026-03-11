@@ -1,0 +1,7 @@
+{
+  "outDir": "./dist",
+  "fileExtensions": {
+    "input": ".ts",
+    "output": ".js"
+  }
+}
