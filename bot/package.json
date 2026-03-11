@@ -19,7 +19,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@types/node": "^25.3.3",
+    "@prisma/adapter-better-sqlite3": "^7.5.0",
+    "@prisma/client": "^7.5.0",
     "dotenv": "^17.3.1",
     "telegraf": "^4.16.3",
     "tsx": "^4.21.0",
@@ -27,9 +28,12 @@
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
+    "@types/better-sqlite3": "^7.6.13",
+    "@types/node": "^25.4.0",
     "eslint": "^10.0.3",
     "globals": "^17.4.0",
     "prettier": "3.8.1",
+    "prisma": "^7.5.0",
     "tsc-alias": "^1.8.16",
     "typescript-eslint": "^8.57.0",
     "vitest": "^4.0.18"
