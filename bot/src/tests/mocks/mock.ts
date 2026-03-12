@@ -1,12 +1,30 @@
-import { vi } from 'vitest'
 import { Context } from 'telegraf'
-import { Message, User } from 'telegraf/types'
+import { User } from 'telegraf/types'
+import { vi } from 'vitest'
 
 export const mockCtx = (overrides: Partial<Context> = {}) => {
   const ctx = {
     from: { id: 123, first_name: 'Test', is_bot: false } as User,
     chat: { id: 456, type: 'private' },
-    message: { text: '' } as Message,
+    message: {
+      text: '',
+      message_id: 1,
+      date: Math.floor(Date.now() / 1000),
+      chat: {
+        id: 456,
+        type: 'private',
+        first_name: 'Test',
+        username: 'test',
+      },
+      from: {
+        id: 123,
+        first_name: 'Test',
+        username: 'test',
+        last_name: undefined,
+        is_bot: false,
+        language_code: 'ru',
+      },
+    },
     reply: vi.fn().mockResolvedValue(true),
     replyWithHTML: vi.fn().mockResolvedValue(true),
     answerCbQuery: vi.fn().mockResolvedValue(true),

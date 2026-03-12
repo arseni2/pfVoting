@@ -8,11 +8,51 @@ datasource db {
 }
 
 model User {
-  id           Int           @id @default(autoincrement())
-  tg_id        BigInt        @unique
+  id           Int      @id @default(autoincrement())
+  tg_id        Int      @unique
   username     String?
   first_name   String?
   last_name    String?
-  created_at   DateTime      @default(now())
-  updated_at   DateTime      @updatedAt
+  created_at   DateTime @default(now())
+  updated_at   DateTime @updatedAt
+  
+  rooms_created  Room[]       @relation("RoomCreator")      
+  memberships    RoomMember[] @relation("UserToRoomMember") 
+  
+  @@index([tg_id])
+}
+
+model Room {
+  id           Int      @id @default(autoincrement())
+  name         String
+  creator_id   Int
+  is_active    Boolean  @default(true)
+  deleted_at   DateTime?
+  deleted_by   Int?
+  created_at   DateTime @default(now())
+  updated_at   DateTime @updatedAt
+  
+  creator      User         @relation("RoomCreator", fields: [creator_id], references: [id])
+  roomMembers  RoomMember[] @relation("RoomToRoomMember") 
+  
+  @@index([is_active])
+  @@index([creator_id])
+  @@index([created_at])
+}
+
+model RoomMember {
+  id        Int      @id @default(autoincrement())
+  room_id   Int
+  user_id   Int
+  joined_at DateTime @default(now())
+  left_at   DateTime?
+  is_active Boolean  @default(true)
+  
+  room  Room @relation("RoomToRoomMember", fields: [room_id], references: [id], onDelete: Cascade)
+  user  User @relation("UserToRoomMember", fields: [user_id], references: [id], onDelete: Cascade)
+  
+  @@unique([room_id, user_id])
+  @@index([room_id])
+  @@index([user_id])
+  @@index([is_active])
 }
