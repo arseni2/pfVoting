@@ -3,5 +3,6 @@ import path from 'path'
 dotenv.config({ path: path.join(import.meta.dirname, '../../../.env') })
 
 export const AppConstant = {
-  BOT_TOKEN: process.env.TELEGRAM_BOT_TOKEN!,
+  BOT_TOKEN: process.env.TELEGRAM_BOT_TOKEN!.trim(),
+  PROXY_URL: process.env.PROXY_URL!.trim(),
 }

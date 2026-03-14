@@ -1,9 +1,16 @@
-import { session, Telegraf } from 'telegraf'
 import { AppConstant } from '@/constants/env/constant'
-import { startControllerConfig } from '@/controllers/start/controller'
 import { roomsControllerConfig } from '@/controllers/rooms/controller'
+import { startControllerConfig } from '@/controllers/start/controller'
+import { HttpsProxyAgent } from 'https-proxy-agent'
+import { session, Telegraf } from 'telegraf'
 
-const bot = new Telegraf(AppConstant.BOT_TOKEN)
+const agent = new HttpsProxyAgent(AppConstant.PROXY_URL);
+
+const bot = new Telegraf(AppConstant.BOT_TOKEN, {
+  telegram: {
+    agent,
+  },
+})
 
 interface SessionData {
   creatingRoom?: boolean
