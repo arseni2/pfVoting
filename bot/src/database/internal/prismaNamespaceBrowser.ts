@@ -53,7 +53,8 @@ export const AnyNull = runtime.AnyNull
 export const ModelName = {
   User: 'User',
   Room: 'Room',
-  RoomMember: 'RoomMember'
+  RoomMember: 'RoomMember',
+  Order: 'Order'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -87,7 +88,6 @@ export const RoomScalarFieldEnum = {
   name: 'name',
   creator_id: 'creator_id',
   is_active: 'is_active',
-  is_deleted: 'is_deleted',
   deleted_at: 'deleted_at',
   deleted_by: 'deleted_by',
   created_at: 'created_at',
@@ -107,6 +107,22 @@ export const RoomMemberScalarFieldEnum = {
 } as const
 
 export type RoomMemberScalarFieldEnum = (typeof RoomMemberScalarFieldEnum)[keyof typeof RoomMemberScalarFieldEnum]
+
+
+export const OrderScalarFieldEnum = {
+  id: 'id',
+  room_id: 'room_id',
+  user_id: 'user_id',
+  pizza_name: 'pizza_name',
+  addons: 'addons',
+  comment: 'comment',
+  quantity: 'quantity',
+  is_deleted: 'is_deleted',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+} as const
+
+export type OrderScalarFieldEnum = (typeof OrderScalarFieldEnum)[keyof typeof OrderScalarFieldEnum]
 
 
 export const SortOrder = {

@@ -32,3 +32,8 @@ export type Room = Prisma.RoomModel
  * 
  */
 export type RoomMember = Prisma.RoomMemberModel
+/**
+ * Model Order
+ * 
+ */
+export type Order = Prisma.OrderModel

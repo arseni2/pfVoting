@@ -11,4 +11,5 @@
 export type * from './models/User'
 export type * from './models/Room'
 export type * from './models/RoomMember'
+export type * from './models/Order'
 export type * from './commonInputTypes'

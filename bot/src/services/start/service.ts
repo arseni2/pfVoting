@@ -1,16 +1,31 @@
 import { prisma } from '@/config/orm/config'
+import { Prisma } from '@/database/client'
 import { UserCreateInput } from '@/database/models'
-import { User } from '@/database/client'
 
-
+export type UserWithRoomMembers = Prisma.UserGetPayload<{
+  include: {
+    memberships: {
+      include: {
+        room: true
+      }
+    }
+  }
+}>
 export interface IStartService {
-  findOrCreateUser(data: UserCreateInput): Promise<User>
+  findOrCreateUser(data: UserCreateInput): Promise<UserWithRoomMembers>
 }
 
 export class StartService implements IStartService {
-  async findOrCreateUser(data: UserCreateInput): Promise<User> {
+  async findOrCreateUser(data: UserCreateInput): Promise<UserWithRoomMembers> {
     const existingUser = await prisma.user.findUnique({
       where: { tg_id: data.tg_id },
+      include: {
+        memberships: {
+          include: {
+            room: true
+          }
+        }
+      }
     })
 
     if (existingUser) {

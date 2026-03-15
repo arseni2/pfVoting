@@ -66,7 +66,7 @@ model Order {
   pizza_name String
   addons     String?
   comment    String?
-  quantity   Int?     @default(1)
+  quantity   Int?
   is_deleted Boolean  @default(false)
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt

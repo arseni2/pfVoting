@@ -43,7 +43,6 @@ export type RoomMinAggregateOutputType = {
   name: string | null
   creator_id: number | null
   is_active: boolean | null
-  is_deleted: boolean | null
   deleted_at: Date | null
   deleted_by: number | null
   created_at: Date | null
@@ -55,7 +54,6 @@ export type RoomMaxAggregateOutputType = {
   name: string | null
   creator_id: number | null
   is_active: boolean | null
-  is_deleted: boolean | null
   deleted_at: Date | null
   deleted_by: number | null
   created_at: Date | null
@@ -67,7 +65,6 @@ export type RoomCountAggregateOutputType = {
   name: number
   creator_id: number
   is_active: number
-  is_deleted: number
   deleted_at: number
   deleted_by: number
   created_at: number
@@ -93,7 +90,6 @@ export type RoomMinAggregateInputType = {
   name?: true
   creator_id?: true
   is_active?: true
-  is_deleted?: true
   deleted_at?: true
   deleted_by?: true
   created_at?: true
@@ -105,7 +101,6 @@ export type RoomMaxAggregateInputType = {
   name?: true
   creator_id?: true
   is_active?: true
-  is_deleted?: true
   deleted_at?: true
   deleted_by?: true
   created_at?: true
@@ -117,7 +112,6 @@ export type RoomCountAggregateInputType = {
   name?: true
   creator_id?: true
   is_active?: true
-  is_deleted?: true
   deleted_at?: true
   deleted_by?: true
   created_at?: true
@@ -216,7 +210,6 @@ export type RoomGroupByOutputType = {
   name: string
   creator_id: number
   is_active: boolean
-  is_deleted: boolean
   deleted_at: Date | null
   deleted_by: number | null
   created_at: Date
@@ -251,13 +244,13 @@ export type RoomWhereInput = {
   name?: Prisma.StringFilter<"Room"> | string
   creator_id?: Prisma.IntFilter<"Room"> | number
   is_active?: Prisma.BoolFilter<"Room"> | boolean
-  is_deleted?: Prisma.BoolFilter<"Room"> | boolean
   deleted_at?: Prisma.DateTimeNullableFilter<"Room"> | Date | string | null
   deleted_by?: Prisma.IntNullableFilter<"Room"> | number | null
   created_at?: Prisma.DateTimeFilter<"Room"> | Date | string
   updated_at?: Prisma.DateTimeFilter<"Room"> | Date | string
   creator?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   roomMembers?: Prisma.RoomMemberListRelationFilter
+  orders?: Prisma.OrderListRelationFilter
 }
 
 export type RoomOrderByWithRelationInput = {
@@ -265,13 +258,13 @@ export type RoomOrderByWithRelationInput = {
   name?: Prisma.SortOrder
   creator_id?: Prisma.SortOrder
   is_active?: Prisma.SortOrder
-  is_deleted?: Prisma.SortOrder
   deleted_at?: Prisma.SortOrderInput | Prisma.SortOrder
   deleted_by?: Prisma.SortOrderInput | Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
   creator?: Prisma.UserOrderByWithRelationInput
   roomMembers?: Prisma.RoomMemberOrderByRelationAggregateInput
+  orders?: Prisma.OrderOrderByRelationAggregateInput
 }
 
 export type RoomWhereUniqueInput = Prisma.AtLeast<{
@@ -282,13 +275,13 @@ export type RoomWhereUniqueInput = Prisma.AtLeast<{
   name?: Prisma.StringFilter<"Room"> | string
   creator_id?: Prisma.IntFilter<"Room"> | number
   is_active?: Prisma.BoolFilter<"Room"> | boolean
-  is_deleted?: Prisma.BoolFilter<"Room"> | boolean
   deleted_at?: Prisma.DateTimeNullableFilter<"Room"> | Date | string | null
   deleted_by?: Prisma.IntNullableFilter<"Room"> | number | null
   created_at?: Prisma.DateTimeFilter<"Room"> | Date | string
   updated_at?: Prisma.DateTimeFilter<"Room"> | Date | string
   creator?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   roomMembers?: Prisma.RoomMemberListRelationFilter
+  orders?: Prisma.OrderListRelationFilter
 }, "id">
 
 export type RoomOrderByWithAggregationInput = {
@@ -296,7 +289,6 @@ export type RoomOrderByWithAggregationInput = {
   name?: Prisma.SortOrder
   creator_id?: Prisma.SortOrder
   is_active?: Prisma.SortOrder
-  is_deleted?: Prisma.SortOrder
   deleted_at?: Prisma.SortOrderInput | Prisma.SortOrder
   deleted_by?: Prisma.SortOrderInput | Prisma.SortOrder
   created_at?: Prisma.SortOrder
@@ -316,7 +308,6 @@ export type RoomScalarWhereWithAggregatesInput = {
   name?: Prisma.StringWithAggregatesFilter<"Room"> | string
   creator_id?: Prisma.IntWithAggregatesFilter<"Room"> | number
   is_active?: Prisma.BoolWithAggregatesFilter<"Room"> | boolean
-  is_deleted?: Prisma.BoolWithAggregatesFilter<"Room"> | boolean
   deleted_at?: Prisma.DateTimeNullableWithAggregatesFilter<"Room"> | Date | string | null
   deleted_by?: Prisma.IntNullableWithAggregatesFilter<"Room"> | number | null
   created_at?: Prisma.DateTimeWithAggregatesFilter<"Room"> | Date | string
@@ -326,13 +317,13 @@ export type RoomScalarWhereWithAggregatesInput = {
 export type RoomCreateInput = {
   name: string
   is_active?: boolean
-  is_deleted?: boolean
   deleted_at?: Date | string | null
   deleted_by?: number | null
   created_at?: Date | string
   updated_at?: Date | string
   creator: Prisma.UserCreateNestedOneWithoutRooms_createdInput
   roomMembers?: Prisma.RoomMemberCreateNestedManyWithoutRoomInput
+  orders?: Prisma.OrderCreateNestedManyWithoutRoomInput
 }
 
 export type RoomUncheckedCreateInput = {
@@ -340,24 +331,24 @@ export type RoomUncheckedCreateInput = {
   name: string
   creator_id: number
   is_active?: boolean
-  is_deleted?: boolean
   deleted_at?: Date | string | null
   deleted_by?: number | null
   created_at?: Date | string
   updated_at?: Date | string
   roomMembers?: Prisma.RoomMemberUncheckedCreateNestedManyWithoutRoomInput
+  orders?: Prisma.OrderUncheckedCreateNestedManyWithoutRoomInput
 }
 
 export type RoomUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deleted_by?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   creator?: Prisma.UserUpdateOneRequiredWithoutRooms_createdNestedInput
   roomMembers?: Prisma.RoomMemberUpdateManyWithoutRoomNestedInput
+  orders?: Prisma.OrderUpdateManyWithoutRoomNestedInput
 }
 
 export type RoomUncheckedUpdateInput = {
@@ -365,12 +356,12 @@ export type RoomUncheckedUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   creator_id?: Prisma.IntFieldUpdateOperationsInput | number
   is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deleted_by?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   roomMembers?: Prisma.RoomMemberUncheckedUpdateManyWithoutRoomNestedInput
+  orders?: Prisma.OrderUncheckedUpdateManyWithoutRoomNestedInput
 }
 
 export type RoomCreateManyInput = {
@@ -378,7 +369,6 @@ export type RoomCreateManyInput = {
   name: string
   creator_id: number
   is_active?: boolean
-  is_deleted?: boolean
   deleted_at?: Date | string | null
   deleted_by?: number | null
   created_at?: Date | string
@@ -388,7 +378,6 @@ export type RoomCreateManyInput = {
 export type RoomUpdateManyMutationInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deleted_by?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -400,7 +389,6 @@ export type RoomUncheckedUpdateManyInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   creator_id?: Prisma.IntFieldUpdateOperationsInput | number
   is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deleted_by?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -422,7 +410,6 @@ export type RoomCountOrderByAggregateInput = {
   name?: Prisma.SortOrder
   creator_id?: Prisma.SortOrder
   is_active?: Prisma.SortOrder
-  is_deleted?: Prisma.SortOrder
   deleted_at?: Prisma.SortOrder
   deleted_by?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
@@ -440,7 +427,6 @@ export type RoomMaxOrderByAggregateInput = {
   name?: Prisma.SortOrder
   creator_id?: Prisma.SortOrder
   is_active?: Prisma.SortOrder
-  is_deleted?: Prisma.SortOrder
   deleted_at?: Prisma.SortOrder
   deleted_by?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
@@ -452,7 +438,6 @@ export type RoomMinOrderByAggregateInput = {
   name?: Prisma.SortOrder
   creator_id?: Prisma.SortOrder
   is_active?: Prisma.SortOrder
-  is_deleted?: Prisma.SortOrder
   deleted_at?: Prisma.SortOrder
   deleted_by?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
@@ -546,27 +531,41 @@ export type RoomUpdateOneRequiredWithoutRoomMembersNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.RoomUpdateToOneWithWhereWithoutRoomMembersInput, Prisma.RoomUpdateWithoutRoomMembersInput>, Prisma.RoomUncheckedUpdateWithoutRoomMembersInput>
 }
 
+export type RoomCreateNestedOneWithoutOrdersInput = {
+  create?: Prisma.XOR<Prisma.RoomCreateWithoutOrdersInput, Prisma.RoomUncheckedCreateWithoutOrdersInput>
+  connectOrCreate?: Prisma.RoomCreateOrConnectWithoutOrdersInput
+  connect?: Prisma.RoomWhereUniqueInput
+}
+
+export type RoomUpdateOneRequiredWithoutOrdersNestedInput = {
+  create?: Prisma.XOR<Prisma.RoomCreateWithoutOrdersInput, Prisma.RoomUncheckedCreateWithoutOrdersInput>
+  connectOrCreate?: Prisma.RoomCreateOrConnectWithoutOrdersInput
+  upsert?: Prisma.RoomUpsertWithoutOrdersInput
+  connect?: Prisma.RoomWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.RoomUpdateToOneWithWhereWithoutOrdersInput, Prisma.RoomUpdateWithoutOrdersInput>, Prisma.RoomUncheckedUpdateWithoutOrdersInput>
+}
+
 export type RoomCreateWithoutCreatorInput = {
   name: string
   is_active?: boolean
-  is_deleted?: boolean
   deleted_at?: Date | string | null
   deleted_by?: number | null
   created_at?: Date | string
   updated_at?: Date | string
   roomMembers?: Prisma.RoomMemberCreateNestedManyWithoutRoomInput
+  orders?: Prisma.OrderCreateNestedManyWithoutRoomInput
 }
 
 export type RoomUncheckedCreateWithoutCreatorInput = {
   id?: number
   name: string
   is_active?: boolean
-  is_deleted?: boolean
   deleted_at?: Date | string | null
   deleted_by?: number | null
   created_at?: Date | string
   updated_at?: Date | string
   roomMembers?: Prisma.RoomMemberUncheckedCreateNestedManyWithoutRoomInput
+  orders?: Prisma.OrderUncheckedCreateNestedManyWithoutRoomInput
 }
 
 export type RoomCreateOrConnectWithoutCreatorInput = {
@@ -602,7 +601,6 @@ export type RoomScalarWhereInput = {
   name?: Prisma.StringFilter<"Room"> | string
   creator_id?: Prisma.IntFilter<"Room"> | number
   is_active?: Prisma.BoolFilter<"Room"> | boolean
-  is_deleted?: Prisma.BoolFilter<"Room"> | boolean
   deleted_at?: Prisma.DateTimeNullableFilter<"Room"> | Date | string | null
   deleted_by?: Prisma.IntNullableFilter<"Room"> | number | null
   created_at?: Prisma.DateTimeFilter<"Room"> | Date | string
@@ -612,12 +610,12 @@ export type RoomScalarWhereInput = {
 export type RoomCreateWithoutRoomMembersInput = {
   name: string
   is_active?: boolean
-  is_deleted?: boolean
   deleted_at?: Date | string | null
   deleted_by?: number | null
   created_at?: Date | string
   updated_at?: Date | string
   creator: Prisma.UserCreateNestedOneWithoutRooms_createdInput
+  orders?: Prisma.OrderCreateNestedManyWithoutRoomInput
 }
 
 export type RoomUncheckedCreateWithoutRoomMembersInput = {
@@ -625,11 +623,11 @@ export type RoomUncheckedCreateWithoutRoomMembersInput = {
   name: string
   creator_id: number
   is_active?: boolean
-  is_deleted?: boolean
   deleted_at?: Date | string | null
   deleted_by?: number | null
   created_at?: Date | string
   updated_at?: Date | string
+  orders?: Prisma.OrderUncheckedCreateNestedManyWithoutRoomInput
 }
 
 export type RoomCreateOrConnectWithoutRoomMembersInput = {
@@ -651,12 +649,12 @@ export type RoomUpdateToOneWithWhereWithoutRoomMembersInput = {
 export type RoomUpdateWithoutRoomMembersInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deleted_by?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   creator?: Prisma.UserUpdateOneRequiredWithoutRooms_createdNestedInput
+  orders?: Prisma.OrderUpdateManyWithoutRoomNestedInput
 }
 
 export type RoomUncheckedUpdateWithoutRoomMembersInput = {
@@ -664,18 +662,79 @@ export type RoomUncheckedUpdateWithoutRoomMembersInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   creator_id?: Prisma.IntFieldUpdateOperationsInput | number
   is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deleted_by?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  orders?: Prisma.OrderUncheckedUpdateManyWithoutRoomNestedInput
+}
+
+export type RoomCreateWithoutOrdersInput = {
+  name: string
+  is_active?: boolean
+  deleted_at?: Date | string | null
+  deleted_by?: number | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  creator: Prisma.UserCreateNestedOneWithoutRooms_createdInput
+  roomMembers?: Prisma.RoomMemberCreateNestedManyWithoutRoomInput
+}
+
+export type RoomUncheckedCreateWithoutOrdersInput = {
+  id?: number
+  name: string
+  creator_id: number
+  is_active?: boolean
+  deleted_at?: Date | string | null
+  deleted_by?: number | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  roomMembers?: Prisma.RoomMemberUncheckedCreateNestedManyWithoutRoomInput
+}
+
+export type RoomCreateOrConnectWithoutOrdersInput = {
+  where: Prisma.RoomWhereUniqueInput
+  create: Prisma.XOR<Prisma.RoomCreateWithoutOrdersInput, Prisma.RoomUncheckedCreateWithoutOrdersInput>
+}
+
+export type RoomUpsertWithoutOrdersInput = {
+  update: Prisma.XOR<Prisma.RoomUpdateWithoutOrdersInput, Prisma.RoomUncheckedUpdateWithoutOrdersInput>
+  create: Prisma.XOR<Prisma.RoomCreateWithoutOrdersInput, Prisma.RoomUncheckedCreateWithoutOrdersInput>
+  where?: Prisma.RoomWhereInput
+}
+
+export type RoomUpdateToOneWithWhereWithoutOrdersInput = {
+  where?: Prisma.RoomWhereInput
+  data: Prisma.XOR<Prisma.RoomUpdateWithoutOrdersInput, Prisma.RoomUncheckedUpdateWithoutOrdersInput>
+}
+
+export type RoomUpdateWithoutOrdersInput = {
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deleted_by?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  creator?: Prisma.UserUpdateOneRequiredWithoutRooms_createdNestedInput
+  roomMembers?: Prisma.RoomMemberUpdateManyWithoutRoomNestedInput
+}
+
+export type RoomUncheckedUpdateWithoutOrdersInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  creator_id?: Prisma.IntFieldUpdateOperationsInput | number
+  is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deleted_by?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  roomMembers?: Prisma.RoomMemberUncheckedUpdateManyWithoutRoomNestedInput
 }
 
 export type RoomCreateManyCreatorInput = {
   id?: number
   name: string
   is_active?: boolean
-  is_deleted?: boolean
   deleted_at?: Date | string | null
   deleted_by?: number | null
   created_at?: Date | string
@@ -685,31 +744,30 @@ export type RoomCreateManyCreatorInput = {
 export type RoomUpdateWithoutCreatorInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deleted_by?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   roomMembers?: Prisma.RoomMemberUpdateManyWithoutRoomNestedInput
+  orders?: Prisma.OrderUpdateManyWithoutRoomNestedInput
 }
 
 export type RoomUncheckedUpdateWithoutCreatorInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deleted_by?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   roomMembers?: Prisma.RoomMemberUncheckedUpdateManyWithoutRoomNestedInput
+  orders?: Prisma.OrderUncheckedUpdateManyWithoutRoomNestedInput
 }
 
 export type RoomUncheckedUpdateManyWithoutCreatorInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deleted_by?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -723,10 +781,12 @@ export type RoomUncheckedUpdateManyWithoutCreatorInput = {
 
 export type RoomCountOutputType = {
   roomMembers: number
+  orders: number
 }
 
 export type RoomCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   roomMembers?: boolean | RoomCountOutputTypeCountRoomMembersArgs
+  orders?: boolean | RoomCountOutputTypeCountOrdersArgs
 }
 
 /**
@@ -746,19 +806,26 @@ export type RoomCountOutputTypeCountRoomMembersArgs<ExtArgs extends runtime.Type
   where?: Prisma.RoomMemberWhereInput
 }
 
+/**
+ * RoomCountOutputType without action
+ */
+export type RoomCountOutputTypeCountOrdersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.OrderWhereInput
+}
+
 
 export type RoomSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
   creator_id?: boolean
   is_active?: boolean
-  is_deleted?: boolean
   deleted_at?: boolean
   deleted_by?: boolean
   created_at?: boolean
   updated_at?: boolean
   creator?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   roomMembers?: boolean | Prisma.Room$roomMembersArgs<ExtArgs>
+  orders?: boolean | Prisma.Room$ordersArgs<ExtArgs>
   _count?: boolean | Prisma.RoomCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["room"]>
 
@@ -767,7 +834,6 @@ export type RoomSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   name?: boolean
   creator_id?: boolean
   is_active?: boolean
-  is_deleted?: boolean
   deleted_at?: boolean
   deleted_by?: boolean
   created_at?: boolean
@@ -780,7 +846,6 @@ export type RoomSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   name?: boolean
   creator_id?: boolean
   is_active?: boolean
-  is_deleted?: boolean
   deleted_at?: boolean
   deleted_by?: boolean
   created_at?: boolean
@@ -793,17 +858,17 @@ export type RoomSelectScalar = {
   name?: boolean
   creator_id?: boolean
   is_active?: boolean
-  is_deleted?: boolean
   deleted_at?: boolean
   deleted_by?: boolean
   created_at?: boolean
   updated_at?: boolean
 }
 
-export type RoomOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "creator_id" | "is_active" | "is_deleted" | "deleted_at" | "deleted_by" | "created_at" | "updated_at", ExtArgs["result"]["room"]>
+export type RoomOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "creator_id" | "is_active" | "deleted_at" | "deleted_by" | "created_at" | "updated_at", ExtArgs["result"]["room"]>
 export type RoomInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   creator?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   roomMembers?: boolean | Prisma.Room$roomMembersArgs<ExtArgs>
+  orders?: boolean | Prisma.Room$ordersArgs<ExtArgs>
   _count?: boolean | Prisma.RoomCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type RoomIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -818,13 +883,13 @@ export type $RoomPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   objects: {
     creator: Prisma.$UserPayload<ExtArgs>
     roomMembers: Prisma.$RoomMemberPayload<ExtArgs>[]
+    orders: Prisma.$OrderPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
     name: string
     creator_id: number
     is_active: boolean
-    is_deleted: boolean
     deleted_at: Date | null
     deleted_by: number | null
     created_at: Date
@@ -1225,6 +1290,7 @@ export interface Prisma__RoomClient<T, Null = never, ExtArgs extends runtime.Typ
   readonly [Symbol.toStringTag]: "PrismaPromise"
   creator<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   roomMembers<T extends Prisma.Room$roomMembersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Room$roomMembersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RoomMemberPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  orders<T extends Prisma.Room$ordersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Room$ordersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$OrderPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1258,7 +1324,6 @@ export interface RoomFieldRefs {
   readonly name: Prisma.FieldRef<"Room", 'String'>
   readonly creator_id: Prisma.FieldRef<"Room", 'Int'>
   readonly is_active: Prisma.FieldRef<"Room", 'Boolean'>
-  readonly is_deleted: Prisma.FieldRef<"Room", 'Boolean'>
   readonly deleted_at: Prisma.FieldRef<"Room", 'DateTime'>
   readonly deleted_by: Prisma.FieldRef<"Room", 'Int'>
   readonly created_at: Prisma.FieldRef<"Room", 'DateTime'>
@@ -1683,6 +1748,30 @@ export type Room$roomMembersArgs<ExtArgs extends runtime.Types.Extensions.Intern
   take?: number
   skip?: number
   distinct?: Prisma.RoomMemberScalarFieldEnum | Prisma.RoomMemberScalarFieldEnum[]
+}
+
+/**
+ * Room.orders
+ */
+export type Room$ordersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Order
+   */
+  select?: Prisma.OrderSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Order
+   */
+  omit?: Prisma.OrderOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.OrderInclude<ExtArgs> | null
+  where?: Prisma.OrderWhereInput
+  orderBy?: Prisma.OrderOrderByWithRelationInput | Prisma.OrderOrderByWithRelationInput[]
+  cursor?: Prisma.OrderWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.OrderScalarFieldEnum | Prisma.OrderScalarFieldEnum[]
 }
 
 /**

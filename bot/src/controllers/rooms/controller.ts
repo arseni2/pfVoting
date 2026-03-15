@@ -63,7 +63,7 @@ export class RoomsController {
       reply_markup: Markup.inlineKeyboard([
         [
           Markup.button.callback(
-            MessagesConstant.BUTTON_ROOMS_CREATE_BACK,
+            MessagesConstant.BUTTON_BACK,
             MessagesConstant.BUTTON_ROOMS_CREATE_BACK_COMMAND
           ),
         ],
@@ -169,7 +169,7 @@ export class RoomsController {
             [
               Markup.button.callback(
                 MessagesConstant.BUTTON_ROOMS_SUCCESS_ORDER,
-                MessagesConstant.BUTTON_ROOMS_SUCCESS_ORDER_COMMAND
+                MessagesConstant.ORDER_CREATE_ACTION
               )
             ],
           ]).reply_markup,
@@ -246,9 +246,5 @@ export const roomsControllerConfig = (bot: Telegraf<Context<Update>>) => {
     await ctx.answerCbQuery()
     const roomId = parseInt(ctx.match![1], 10)
     return roomsController.leaveRoom(ctx, roomId)
-  })
-
-  bot.on(message('text'), async (ctx) => {
-    await roomsController.createRoomHandleTitle(ctx)
   })
 }

@@ -214,7 +214,7 @@ describe('RoomsController', () => {
             inline_keyboard: expect.arrayContaining([
               expect.arrayContaining([
                 expect.objectContaining({
-                  text: MessagesConstant.BUTTON_ROOMS_CREATE_BACK,
+                  text: MessagesConstant.BUTTON_BACK,
                   callback_data:
                     MessagesConstant.BUTTON_ROOMS_CREATE_BACK_COMMAND,
                 }),
