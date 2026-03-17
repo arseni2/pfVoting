@@ -5,7 +5,6 @@ import {
   OrderWithUser,
 } from '@/services/orders/service'
 import { Context, Markup, Telegraf } from 'telegraf'
-import { message } from 'telegraf/filters'
 import { Update } from 'telegraf/types'
 
 export class OrdersController {
@@ -130,7 +129,9 @@ export class OrdersController {
       const parsed = this.parseOrderInput(text)
 
       if (!parsed) {
-        await ctx.reply(MessagesConstant.ORDER_INVALID_FORMAT)
+        await ctx.reply(MessagesConstant.ORDER_INVALID_FORMAT, {
+          parse_mode: "HTML"
+        })
         return
       }
       const userId = ctx.from?.id
@@ -267,7 +268,7 @@ export class OrdersController {
 
   async updateOrderHandleData(ctx: Context) {
     const text = ctx.message?.text?.trim()
-    console.log(text)
+ 
     if (!ctx.session?.updatingOrderId) {
       return
     }

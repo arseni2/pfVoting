@@ -22,16 +22,15 @@ export class StartService implements IStartService {
       include: {
         memberships: {
           include: {
-            room: true
-          }
-        }
-      }
+            room: true,
+          },
+        },
+      },
     })
 
     if (existingUser) {
       return existingUser
     }
-
 
     return prisma.user.create({
       data: {
@@ -39,6 +38,14 @@ export class StartService implements IStartService {
         username: data.username,
         first_name: data.first_name,
         last_name: data.last_name,
+      },
+      include: {
+        memberships: {
+          include: {
+            room: true,
+            user: true,
+          },
+        },
       },
     })
   }

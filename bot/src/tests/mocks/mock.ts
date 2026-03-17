@@ -3,9 +3,12 @@ import { User } from 'telegraf/types'
 import { vi } from 'vitest'
 
 export const mockCtx = (overrides: Partial<Context> = {}) => {
-  const ctx = {
+  const ctx: Context = {
     from: { id: 123, first_name: 'Test', is_bot: false } as User,
     chat: { id: 456, type: 'private' },
+    botInfo: {
+      username: 'PizzaDay123Bot',
+    },
     message: {
       text: '',
       message_id: 1,
@@ -24,6 +27,12 @@ export const mockCtx = (overrides: Partial<Context> = {}) => {
         is_bot: false,
         language_code: 'ru',
       },
+    },
+    user: {
+      id: 1,
+      tg_id: 123,
+      username: 'test',
+      first_name: 'Test',
     },
     reply: vi.fn().mockResolvedValue(true),
     replyWithHTML: vi.fn().mockResolvedValue(true),

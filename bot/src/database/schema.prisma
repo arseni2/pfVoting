@@ -16,9 +16,11 @@ model User {
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 
-  rooms_created Room[]       @relation("RoomCreator")
-  memberships   RoomMember[] @relation("UserToRoomMember")
+  rooms_created Room[]        @relation("RoomCreator")
+  memberships   RoomMember[]  @relation("UserToRoomMember")
   orders        Order[]
+  voteSessions  VoteSession[] @relation("VoteSessionCreator")
+  votes         Vote[]        @relation("UserVotes")
 
   @@index([tg_id])
 }
@@ -33,9 +35,10 @@ model Room {
   created_at DateTime  @default(now())
   updated_at DateTime  @updatedAt
 
-  creator     User         @relation("RoomCreator", fields: [creator_id], references: [id])
-  roomMembers RoomMember[] @relation("RoomToRoomMember")
-  orders      Order[]
+  creator       User          @relation("RoomCreator", fields: [creator_id], references: [id])
+  roomMembers   RoomMember[]  @relation("RoomToRoomMember")
+  orders        Order[]
+  vote_sessions VoteSession[]
 
   @@index([is_active])
   @@index([creator_id])
@@ -66,17 +69,73 @@ model Order {
   pizza_name String
   addons     String?
   comment    String?
-  quantity   Int?
+  quantity   Int      @default(1)
   is_deleted Boolean  @default(false)
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 
-  room Room @relation(fields: [room_id], references: [id], onDelete: Cascade)
-  user User @relation(fields: [user_id], references: [id])
+  room  Room   @relation(fields: [room_id], references: [id], onDelete: Cascade)
+  user  User   @relation(fields: [user_id], references: [id])
+  votes Vote[]
 
   @@index([room_id])
   @@index([user_id])
   @@index([is_deleted])
   @@index([created_at])
   @@index([room_id, is_deleted])
+}
+
+model VoteSession {
+  id                    Int        @id @default(autoincrement())
+  room_id               Int
+  user_creator_id       Int
+  started_at            DateTime   @default(now())
+  completed_at          DateTime?
+  status                VoteStatus @default(ACTIVE)
+  participants_snapshot Json
+  is_deleted            Boolean    @default(false)
+  created_at            DateTime   @default(now())
+  updated_at            DateTime   @updatedAt
+
+  room    Room   @relation(fields: [room_id], references: [id], onDelete: Cascade)
+  creator User   @relation("VoteSessionCreator", fields: [user_creator_id], references: [id])
+  votes   Vote[]
+
+  @@index([room_id])
+  @@index([status])
+  @@index([user_creator_id])
+  @@index([is_deleted])
+  @@index([started_at])
+}
+
+model Vote {
+  id              Int      @id @default(autoincrement())
+  vote_session_id Int
+  order_id        Int
+  voter_id        Int
+  vote_type       VoteType
+  created_at      DateTime @default(now())
+  updated_at      DateTime @updatedAt
+
+  vote_session VoteSession @relation(fields: [vote_session_id], references: [id], onDelete: Cascade)
+  order        Order       @relation(fields: [order_id], references: [id], onDelete: Cascade)
+  voter        User        @relation("UserVotes", fields: [voter_id], references: [id])
+
+  @@unique([vote_session_id, order_id, voter_id])
+  @@index([vote_session_id])
+  @@index([order_id])
+  @@index([voter_id])
+  @@index([vote_type])
+}
+
+enum VoteStatus {
+  ACTIVE
+  COMPLETED
+  CANCELLED
+  EXPIRED
+}
+
+enum VoteType {
+  FOR
+  AGAINST
 }

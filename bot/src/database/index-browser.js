@@ -160,9 +160,36 @@ exports.Prisma.OrderScalarFieldEnum = {
   updated_at: 'updated_at'
 };
 
+exports.Prisma.VoteSessionScalarFieldEnum = {
+  id: 'id',
+  room_id: 'room_id',
+  user_creator_id: 'user_creator_id',
+  started_at: 'started_at',
+  completed_at: 'completed_at',
+  status: 'status',
+  participants_snapshot: 'participants_snapshot',
+  is_deleted: 'is_deleted',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.VoteScalarFieldEnum = {
+  id: 'id',
+  vote_session_id: 'vote_session_id',
+  order_id: 'order_id',
+  voter_id: 'voter_id',
+  vote_type: 'vote_type',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
+};
+
+exports.Prisma.JsonNullValueInput = {
+  JsonNull: Prisma.JsonNull
 };
 
 exports.Prisma.NullsOrder = {
@@ -170,12 +197,35 @@ exports.Prisma.NullsOrder = {
   last: 'last'
 };
 
+exports.Prisma.JsonNullValueFilter = {
+  DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull,
+  AnyNull: Prisma.AnyNull
+};
+
+exports.Prisma.QueryMode = {
+  default: 'default',
+  insensitive: 'insensitive'
+};
+exports.VoteStatus = exports.$Enums.VoteStatus = {
+  ACTIVE: 'ACTIVE',
+  COMPLETED: 'COMPLETED',
+  CANCELLED: 'CANCELLED',
+  EXPIRED: 'EXPIRED'
+};
+
+exports.VoteType = exports.$Enums.VoteType = {
+  FOR: 'FOR',
+  AGAINST: 'AGAINST'
+};
 
 exports.Prisma.ModelName = {
   User: 'User',
   Room: 'Room',
   RoomMember: 'RoomMember',
-  Order: 'Order'
+  Order: 'Order',
+  VoteSession: 'VoteSession',
+  Vote: 'Vote'
 };
 
 /**

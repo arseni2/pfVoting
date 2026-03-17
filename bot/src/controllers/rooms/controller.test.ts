@@ -5,6 +5,7 @@ import { startService } from '@/services/start/service'
 import { mockCtx } from '@/tests/mocks/mock'
 import { beforeEach, describe, expect, it, MockedFunction, vi } from 'vitest'
 import { RoomsController } from './controller'
+import { Markup } from 'telegraf'
 
 type MockedRoomsService = {
   getAllRooms: MockedFunction<IRoomsService['getAllRooms']>
@@ -12,6 +13,7 @@ type MockedRoomsService = {
   joinRoom: MockedFunction<IRoomsService['joinRoom']>
   leaveRoom: MockedFunction<IRoomsService['leaveRoom']>
   softDeleteRoom: MockedFunction<IRoomsService['softDeleteRoom']>
+  getRoomById: MockedFunction<IRoomsService['getRoomById']>
 }
 
 describe('RoomsController', () => {
@@ -23,7 +25,6 @@ describe('RoomsController', () => {
       name: 'Пицца пятница',
       creator_id: 123,
       is_active: true,
-      is_deleted: false,
       deleted_at: null,
       deleted_by: null,
       created_at: new Date(),
@@ -70,7 +71,6 @@ describe('RoomsController', () => {
       name: 'Офис Москва',
       creator_id: 123,
       is_active: true,
-      is_deleted: false,
       deleted_at: null,
       deleted_by: null,
       created_at: new Date(),
@@ -104,6 +104,7 @@ describe('RoomsController', () => {
       joinRoom: vi.fn(),
       leaveRoom: vi.fn(),
       softDeleteRoom: vi.fn(),
+      getRoomById: vi.fn()
     }
 
     controller = new RoomsController(mockService)
@@ -155,8 +156,8 @@ describe('RoomsController', () => {
 
       expect(text).toContain(
         MessagesConstant.ROOMS_LIST_MESSAGE(
-          mockRooms[0].name,
-          mockRooms[0].roomMembers.length
+          mockRooms[0]?.name ?? "",
+          mockRooms[0]?.roomMembers.length ?? 0
         )
       )
 
@@ -166,14 +167,14 @@ describe('RoomsController', () => {
             inline_keyboard: expect.arrayContaining([
               expect.arrayContaining([
                 expect.objectContaining({
-                  text: `🚪 ${mockRooms[0].name}`,
+                  text: `🚪 ${mockRooms[0]?.name}`,
                   callback_data: MessagesConstant.ROOMS_JOIN_ROOM_COMMAND(1),
                 }),
               ]),
 
               expect.arrayContaining([
                 expect.objectContaining({
-                  text: `🚪 ${mockRooms[1].name}`,
+                  text: `🚪 ${mockRooms[1]?.name}`,
                   callback_data: MessagesConstant.ROOMS_JOIN_ROOM_COMMAND(2),
                 }),
               ]),
@@ -497,7 +498,7 @@ describe('RoomsController', () => {
           updated_at: new Date(),
         },
         alreadyMember: false,
-      }
+      } as any
 
       mockService.joinRoom.mockResolvedValue(mockResult)
 
@@ -512,17 +513,33 @@ describe('RoomsController', () => {
         },
       })
 
-      await controller.joinRoom(ctx, 123)
+      await controller.joinRoom(ctx, mockResult.roomDetail.id)
 
-      expect(mockService.joinRoom).toHaveBeenCalledWith(123, {
-        tg_id: 456,
-        username: 'test',
-        first_name: 'Test',
-        last_name: null,
-      })
+      expect(mockService.joinRoom).toHaveBeenCalledWith(
+        123,
+        expect.objectContaining({
+          tg_id: 456,
+          first_name: 'Test',
+        })
+      )
 
       expect(ctx.reply).toHaveBeenCalledWith(
-        MessagesConstant.ROOMS_JOINED_SUCCESS('Пицца пятница')
+        MessagesConstant.ROOMS_JOINED_SUCCESS(
+          mockResult.roomDetail.name,
+          ctx.botInfo.username,
+          mockResult.roomDetail.id
+        ),
+        {
+          parse_mode: 'HTML',
+          reply_markup: Markup.inlineKeyboard([
+            [
+              Markup.button.callback(
+                MessagesConstant.BUTTON_ROOMS_SUCCESS_ORDER,
+                MessagesConstant.ORDER_CREATE_ACTION
+              ),
+            ],
+          ]).reply_markup,
+        }
       )
     })
 

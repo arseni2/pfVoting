@@ -1,5 +1,6 @@
 import { prisma } from '@/config/orm/config'
 import { Order, Prisma, User } from '@/database/client'
+import { UserWithRoomMembers } from '../start/service'
 
 export type OrderWithUser = Prisma.OrderGetPayload<{
   include: {
@@ -63,7 +64,7 @@ export class OrdersService implements IOrdersService {
     })
   }
 
-  async getOrderByUser(user: User): Promise<OrderWithUser[]> {
+  async getOrderByUser(user: UserWithRoomMembers): Promise<OrderWithUser[]> {
     const membership = user.memberships.at(0)
     if (!membership?.room_id) {
       return []

@@ -6,7 +6,6 @@ import {
 } from '@/services/rooms/service'
 import { startService } from '@/services/start/service'
 import { Context, Markup, Telegraf } from 'telegraf'
-import { message } from 'telegraf/filters'
 import { Update } from 'telegraf/types'
 
 export class RoomsController {
@@ -205,7 +204,7 @@ export class RoomsController {
     return this.get(ctx)
   }
 
-  async updateRoom(ctx: Context, roomId: number) {}
+  // async updateRoom(ctx: Context, roomId: number) {}
 }
 
 export const roomsController = new RoomsController(roomsService)
@@ -234,8 +233,8 @@ export const roomsControllerConfig = (bot: Telegraf<Context<Update>>) => {
   })
   bot.action(/^room_edit_(\d+)$/, async (ctx) => {
     await ctx.answerCbQuery()
-    const roomId = parseInt(ctx.match![1], 10)
-    return roomsController.updateRoom(ctx, roomId)
+    // const roomId = parseInt(ctx.match![1], 10)
+    // return roomsController.updateRoom(ctx, roomId)
   })
   bot.action(/^room_delete_(\d+)$/, async (ctx) => {
     await ctx.answerCbQuery()

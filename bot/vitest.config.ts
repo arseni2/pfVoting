@@ -8,7 +8,8 @@ export default defineConfig({
     },
   },
   test: {
+    globals: true,
     exclude: ['node_modules', 'dist'],
-    include: ['src/tests/**/*.{test,spec}.?(c|m)[jt]s?(x)', 'src/**/*.test.ts'],
+    include: ['src/**/*.{test,spec}.?(c|m)[jt]s?(x)'],
   },
 })

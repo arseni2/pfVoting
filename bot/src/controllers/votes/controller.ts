@@ -1,0 +1,1 @@
+//BUTTON_VOTE_START_COMMAND - create vote ssesion 
