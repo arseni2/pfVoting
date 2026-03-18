@@ -2,6 +2,16 @@ import { prisma } from '@/config/orm/config'
 import { Order, Prisma, User } from '@/database/client'
 import { UserWithRoomMembers } from '../start/service'
 
+export type OrderWithUserVotes = Prisma.Result<
+  typeof prisma.order,
+  {
+    include: {
+      user: true
+      votes: true
+    }
+  },
+  'findMany'
+>[number]
 export type OrderWithUser = Prisma.OrderGetPayload<{
   include: {
     user: true
@@ -9,8 +19,8 @@ export type OrderWithUser = Prisma.OrderGetPayload<{
 }>
 
 export interface IOrdersService {
-  getOrderInRoom(roomId: number): Promise<OrderWithUser[]>
-  getOrderByUser(user: User): Promise<OrderWithUser[]>
+  getOrderInRoom(roomId: number): Promise<OrderWithUserVotes[]>
+  getOrderByUser(user: User, roomId: number): Promise<OrderWithUser[]>
   create(
     pizzaName: string,
     user: User,
@@ -49,7 +59,7 @@ export class OrdersService implements IOrdersService {
     })
   }
 
-  async getOrderInRoom(roomId: number): Promise<OrderWithUser[]> {
+  async getOrderInRoom(roomId: number): Promise<OrderWithUserVotes[]> {
     return prisma.order.findMany({
       where: {
         is_deleted: false,
@@ -57,6 +67,7 @@ export class OrdersService implements IOrdersService {
       },
       include: {
         user: true,
+        votes: true
       },
       orderBy: {
         created_at: 'asc',
@@ -64,16 +75,11 @@ export class OrdersService implements IOrdersService {
     })
   }
 
-  async getOrderByUser(user: UserWithRoomMembers): Promise<OrderWithUser[]> {
-    const membership = user.memberships.at(0)
-    if (!membership?.room_id) {
-      return []
-    }
-
+  async getOrderByUser(user: UserWithRoomMembers, roomId: number): Promise<OrderWithUser[]> {
     return prisma.order.findMany({
       where: {
         is_deleted: false,
-        room_id: membership.room_id,
+        room_id: roomId,
         user_id: user.id,
       },
       include: {

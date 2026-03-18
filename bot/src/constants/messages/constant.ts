@@ -111,5 +111,9 @@ export const MessagesConstant = {
   BUTTON_ORDERS_ROOM_COMMAND: 'cmd_orders_room',
   BUTTON_ORDER_UPDATE_COMMAND: 'cmd_orders_update',
   BUTTON_ORDER_UPDATE_BACK_COMMAND: 'cmd_orders_update_back',
-  BUTTON_VOTE_START_COMMAND: 'cmd_vote',
+
+  BUTTON_VOTE_START_COMMAND: `cmd_vote_start`,
+  VOTE_START_SUCCESS: `Голосование успешно начато`,
+  VOTE_ORDERS_SUCCESS: `Пиццы для голосования:`,
+  VOTE_GET_ACTIVE_ACTION: `cmd_vote_get_active`
 } as const

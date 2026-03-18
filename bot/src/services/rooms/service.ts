@@ -12,6 +12,11 @@ export type RoomWithMembers = Prisma.RoomGetPayload<{
     }
   }
 }>
+export type RoomMemberWithRoom = Prisma.RoomMemberGetPayload<{
+  include: {
+    room: true
+  }
+}>
 export interface IRoomsService {
   getAllRooms(): Promise<RoomWithMembers[]>
   createRoom(roomTitle: string, user: User): Promise<Room>

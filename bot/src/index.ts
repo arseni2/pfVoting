@@ -1,11 +1,18 @@
 import { AppConstant } from '@/constants/env/constant'
-import { ordersController, ordersControllerConfig } from '@/controllers/orders/controller'
-import { roomsController, roomsControllerConfig } from '@/controllers/rooms/controller'
+import { MessagesConstant } from '@/constants/messages/constant'
+import {
+  ordersController,
+  ordersControllerConfig,
+} from '@/controllers/orders/controller'
+import {
+  roomsController,
+  roomsControllerConfig,
+} from '@/controllers/rooms/controller'
 import { startControllerConfig } from '@/controllers/start/controller'
+import { votesControllerConfig } from '@/controllers/votes/controller'
+import { startService, UserWithRoomMembers } from '@/services/start/service'
 import { HttpsProxyAgent } from 'https-proxy-agent'
 import { session, Telegraf } from 'telegraf'
-import { MessagesConstant } from './constants/messages/constant'
-import { startService, UserWithRoomMembers } from './services/start/service'
 import { message } from 'telegraf/filters'
 
 const agent = new HttpsProxyAgent(AppConstant.PROXY_URL)
@@ -31,7 +38,11 @@ declare module 'telegraf' {
 
 bot.use(
   session({
-    defaultSession: () => ({ creatingRoom: false, creatingOrder: false, updatingOrderId: undefined }),
+    defaultSession: () => ({
+      creatingRoom: false,
+      creatingOrder: false,
+      updatingOrderId: undefined,
+    }),
   })
 )
 
@@ -55,13 +66,14 @@ bot.use(async (ctx, next) => {
 startControllerConfig(bot)
 roomsControllerConfig(bot)
 ordersControllerConfig(bot)
+votesControllerConfig(bot)
 
 bot.on(message('text'), async (ctx) => {
-  if(ctx.session?.updatingOrderId) {
+  if (ctx.session?.updatingOrderId) {
     return ordersController.updateOrderHandleData(ctx)
   }
-  if(ctx.session?.creatingOrder) {
-    return ordersController.createOrderHandleData(ctx) 
+  if (ctx.session?.creatingOrder) {
+    return ordersController.createOrderHandleData(ctx)
   }
   await roomsController.createRoomHandleTitle(ctx)
 })

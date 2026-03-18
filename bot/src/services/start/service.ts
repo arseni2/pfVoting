@@ -1,6 +1,8 @@
 import { prisma } from '@/config/orm/config'
 import { Prisma } from '@/database/client'
 import { UserCreateInput } from '@/database/models'
+import { Context } from 'telegraf'
+import { RoomMemberWithRoom } from '../rooms/service'
 
 export type UserWithRoomMembers = Prisma.UserGetPayload<{
   include: {
@@ -13,6 +15,7 @@ export type UserWithRoomMembers = Prisma.UserGetPayload<{
 }>
 export interface IStartService {
   findOrCreateUser(data: UserCreateInput): Promise<UserWithRoomMembers>
+  getRoomIdByUser(ctx: Context): Promise<RoomMemberWithRoom>
 }
 
 export class StartService implements IStartService {
@@ -48,6 +51,19 @@ export class StartService implements IStartService {
         },
       },
     })
+  }
+
+  async getRoomIdByUser(ctx: Context): Promise<RoomMemberWithRoom> {
+    if (!ctx.user.memberships[0]?.room_id) {
+      await ctx.reply('Пользователь не в комнате')
+      throw new Error('пользователь не в комнате')
+    }
+    const roomMember = ctx.user.memberships.find((item) => item.is_active)
+    if (!roomMember) {
+      await ctx.reply('Пользователь не в комнате')
+      throw new Error('пользователь не в комнате')
+    }
+    return roomMember
   }
 }
 

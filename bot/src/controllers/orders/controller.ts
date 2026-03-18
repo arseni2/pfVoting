@@ -4,11 +4,15 @@ import {
   ordersService,
   OrderWithUser,
 } from '@/services/orders/service'
+import { IStartService, startService } from '@/services/start/service'
 import { Context, Markup, Telegraf } from 'telegraf'
 import { Update } from 'telegraf/types'
 
 export class OrdersController {
-  constructor(private readonly ordersService: IOrdersService) {}
+  constructor(
+    private readonly ordersService: IOrdersService,
+    private readonly usersService: IStartService
+  ) {}
 
   private async sendOrders(
     ctx: Context,
@@ -66,6 +70,12 @@ export class OrdersController {
           MessagesConstant.BUTTON_ORDERS_MY_COMMAND
         ),
       ],
+      [
+        Markup.button.callback(
+          'Активное голосование',
+          MessagesConstant.VOTE_GET_ACTIVE_ACTION
+        ),
+      ]
     ]
 
     await ctx.reply(text, {
@@ -115,7 +125,7 @@ export class OrdersController {
 
   async createOrderHandleData(ctx: Context) {
     const text = ctx.message?.text?.trim()
-    console.log(text)
+
     if (!ctx.session?.creatingOrder) {
       return
     }
@@ -135,7 +145,8 @@ export class OrdersController {
         return
       }
       const userId = ctx.from?.id
-      const roomId = ctx.user.memberships.at(0)?.room_id
+      const roomMember = await this.usersService.getRoomIdByUser(ctx)
+      const roomId = roomMember.room_id
 
       if (!userId || !roomId) {
         await ctx.reply(MessagesConstant.ROOMS_USER_NOT_FOUND)
@@ -201,7 +212,9 @@ export class OrdersController {
   }
 
   async get(ctx: Context) {
-    const orders = await this.ordersService.getOrderByUser(ctx.user)
+    const roomMember = await this.usersService.getRoomIdByUser(ctx)
+    const roomId = roomMember.room_id
+    const orders = await this.ordersService.getOrderByUser(ctx.user, roomId)
 
     return this.sendOrders(ctx, orders)
   }
@@ -356,7 +369,7 @@ export class OrdersController {
   }
 }
 
-export const ordersController = new OrdersController(ordersService)
+export const ordersController = new OrdersController(ordersService, startService)
 
 export const ordersControllerConfig = (bot: Telegraf<Context<Update>>) => {
   bot.command(MessagesConstant.BUTTON_ORDERS_MY_COMMAND, ordersController.get)
