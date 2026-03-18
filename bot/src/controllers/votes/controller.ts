@@ -1,7 +1,7 @@
 import { MessagesConstant } from '@/constants/messages/constant'
 import { $Enums } from '@/database'
 import { IOrdersService, ordersService } from '@/services/orders/service'
-import { IStartService, startService } from '@/services/start/service'
+import { IUserService, startService } from '@/services/start/service'
 import { IVotesService, votesService } from '@/services/votes/servce'
 import {
   IVotesSessionService,
@@ -15,7 +15,7 @@ export class VotesController {
     private readonly votesService: IVotesService,
     private readonly votesSessionService: IVotesSessionService,
     private readonly ordersService: IOrdersService,
-    private readonly usersService: IStartService
+    private readonly usersService: IUserService
   ) {}
 
   async startVoteSession(ctx: Context) {
@@ -25,11 +25,14 @@ export class VotesController {
         createdBy: ctx.user.id,
         roomId: roomMember.room.id,
       })
-
+      const data = await this.sendOrdersInRoom(ctx)
       await ctx.reply(MessagesConstant.VOTE_START_SUCCESS)
+      await ctx.reply(data.text, {
+        reply_markup: data.reply_markup,
+      })
       return this.sendOrdersInRoom(ctx)
     } catch (e) {
-      await ctx.reply(`Error - ${e}`)
+      await ctx.reply(MessagesConstant.VOTE_ERROR(e))
       const data = await this.sendOrdersInRoom(ctx)
       await ctx.reply(data.text, {
         reply_markup: data.reply_markup,
@@ -43,14 +46,14 @@ export class VotesController {
     const sessions = await this.votesSessionService.getSessionsByRoom(
       roomMember.room.id
     )
-    console.log("sessions = ", sessions)
     const activeOrCompletedSession = sessions.find(
-      (s) => s.status === $Enums.VoteStatus.ACTIVE || s.status === $Enums.VoteStatus.COMPLETED
+      (s) =>
+        s.status === $Enums.VoteStatus.ACTIVE ||
+        s.status === $Enums.VoteStatus.COMPLETED
     )
 
-    console.log("activeOrCompletedSession = ", activeOrCompletedSession)
     if (!activeOrCompletedSession) {
-      await ctx.reply('❌ Голосование не найдено')
+      await ctx.reply(MessagesConstant.VOTE_NOT_FOUND)
       return
     }
 
@@ -69,17 +72,37 @@ export class VotesController {
         const medal =
           index === 0 ? '🥇' : index === 1 ? '🥈' : index === 2 ? '🥉' : '  '
 
-        return `${medal} ${index + 1}. 🍕 ${pizza} ${addons} ${comment} [${order.quantity}] — ${userName}\n   👍 ${votes.for} | 👎 ${votes.against}`
+        return MessagesConstant.VOTE_RESULTS_ITEM(
+          medal,
+          index,
+          pizza,
+          addons,
+          comment,
+          order.quantity,
+          userName,
+          votes.for,
+          votes.against
+        )
       })
       .join('\n\n')
-      console.log("resultsText = ", resultsText)
+
     await ctx.reply(
-      `🗳️ Результаты голосования в комнате "${roomMember.room.name}"\n\n${resultsText}`,
+      `${MessagesConstant.VOTE_RESULTS_TITLE(roomMember.room.name)}\n\n${resultsText}`,
       {
         parse_mode: 'HTML',
         reply_markup: Markup.inlineKeyboard([
-          [Markup.button.callback('🔄 Обновить', 'vote_results_refresh')],
-          [Markup.button.callback('📋 Назад к заказам', 'vote_status')],
+          [
+            Markup.button.callback(
+              MessagesConstant.VOTE_BUTTON_REFRESH,
+              MessagesConstant.VOTE_RESULTS_REFRESH_ACTION
+            ),
+          ],
+          [
+            Markup.button.callback(
+              MessagesConstant.VOTE_BUTTON_BACK_TO_ORDERS,
+              MessagesConstant.BUTTON_ORDERS_MY_COMMAND
+            ),
+          ],
         ]).reply_markup,
       }
     )
@@ -95,17 +118,17 @@ export class VotesController {
       const activeSession = sessions.find((s) => s.status === 'ACTIVE')
 
       if (!activeSession) {
-        await ctx.reply('❌ Активное голосование не найдено')
+        await ctx.reply(MessagesConstant.VOTE_ACTIVE_NOT_FOUND)
         return
       }
 
       await this.votesSessionService.completeSession(activeSession.id)
 
-      await ctx.reply('✅ Голосование завершено!')
+      await ctx.reply(MessagesConstant.VOTE_COMPLETE_SUCCESS)
 
       return this.resultSession(ctx)
     } catch (e: any) {
-      await ctx.reply(`Ошибка завершения: ${e.message}`)
+      await ctx.reply(MessagesConstant.VOTE_COMPLETE_ERROR(e.message))
     }
   }
 
@@ -119,7 +142,7 @@ export class VotesController {
       const activeSession = sessions.find((s) => s.status === 'ACTIVE')
 
       if (!activeSession) {
-        await ctx.reply('❌ Активное голосование не найдено')
+        await ctx.reply(MessagesConstant.VOTE_ACTIVE_NOT_FOUND)
         return
       }
 
@@ -127,9 +150,9 @@ export class VotesController {
         activeSession.id,
         ctx.user.id
       )
-      await ctx.reply('Голосование успешно отменено')
+      await ctx.reply(MessagesConstant.VOTE_CANCEL_SUCCESS)
     } catch (e: any) {
-      await ctx.reply(`Ошибка отмены голосования: ${e.message}`)
+      await ctx.reply(MessagesConstant.VOTE_CANCEL_ERROR(e.message))
     }
   }
 
@@ -138,7 +161,7 @@ export class VotesController {
     const roomId = roomMember.room_id
     const orders = await this.ordersService.getOrderInRoom(roomId)
 
-    let messageText = `🗳️ Голосование в комнате "${roomMember.room.name}"\n\n`
+    let messageText = MessagesConstant.VOTE_SESSION_TITLE(roomMember.room.name)
     const keyboard: any[][] = []
 
     for (const order of orders) {
@@ -153,22 +176,39 @@ export class VotesController {
       )
 
       const row = [
-        Markup.button.callback('👍 За', `vote_for_${order.id}`),
-        Markup.button.callback('👎 Против', `vote_against_${order.id}`),
+        Markup.button.callback(
+          MessagesConstant.VOTE_BUTTON_FOR,
+          MessagesConstant.VOTE_FOR_ACTION(order.id)
+        ),
+        Markup.button.callback(
+          MessagesConstant.VOTE_BUTTON_AGAINST,
+          MessagesConstant.VOTE_AGAINST_ACTION(order.id)
+        ),
       ]
 
       if (userVote) {
-        row.push(Markup.button.callback('↩️', `vote_cancel_${order.id}`))
+        row.push(
+          Markup.button.callback(
+            MessagesConstant.VOTE_BUTTON_CANCEL,
+            MessagesConstant.VOTE_CANCEL_ACTION(order.id)
+          )
+        )
       }
 
       keyboard.push(row)
     }
 
     keyboard.push([
-      Markup.button.callback('🗳️ Завершить голосование', 'vote_complete'),
+      Markup.button.callback(
+        MessagesConstant.VOTE_BUTTON_COMPLETE,
+        MessagesConstant.VOTE_COMPLETE_ACTION
+      ),
     ])
     keyboard.push([
-      Markup.button.callback('🗳️ Отменить голосование', 'vote_cancel_session'),
+      Markup.button.callback(
+        MessagesConstant.VOTE_BUTTON_CANCEL_SESSION,
+        MessagesConstant.VOTE_CANCEL_SESSION_ACTION
+      ),
     ])
 
     return {
@@ -187,7 +227,7 @@ export class VotesController {
     const activeSession = sessions.find((s) => s.status === 'ACTIVE')
 
     if (!activeSession) {
-      await ctx.reply('❌ В комнате нет активного голосования')
+      await ctx.reply(MessagesConstant.VOTE_NO_ACTIVE_SESSION)
       return
     }
 
@@ -196,34 +236,45 @@ export class VotesController {
 
   async voteFor(ctx: Context, orderId: number) {
     const roomMember = await this.usersService.getRoomIdByUser(ctx)
-
-    await this.votesService.castVote({
-      orderId,
-      voterId: ctx.user.id,
-      voteType: $Enums.VoteType.FOR,
-      roomId: roomMember.room.id,
-    })
+    try {
+      await this.votesService.castVote({
+        orderId,
+        voterId: ctx.user.id,
+        voteType: $Enums.VoteType.FOR,
+        roomId: roomMember.room.id,
+      })
+    } catch (e) {
+      await ctx.reply(`Error: ${e}`)
+    }
   }
 
   async voteAgainst(ctx: Context, orderId: number) {
     const roomMember = await this.usersService.getRoomIdByUser(ctx)
 
-    await this.votesService.castVote({
-      orderId,
-      voterId: ctx.user.id,
-      voteType: $Enums.VoteType.AGAINST,
-      roomId: roomMember.room.id,
-    })
+    try {
+      await this.votesService.castVote({
+        orderId,
+        voterId: ctx.user.id,
+        voteType: $Enums.VoteType.AGAINST,
+        roomId: roomMember.room.id,
+      })
+    } catch (e) {
+      await ctx.reply(`Error: ${e}`)
+    }
   }
 
   async voteCancel(ctx: Context, orderId: number) {
     const roomMember = await this.usersService.getRoomIdByUser(ctx)
 
-    await this.votesService.revokeVote({
-      orderId,
-      voterId: ctx.user.id,
-      roomId: roomMember.room.id,
-    })
+    try {
+      await this.votesService.revokeVote({
+        orderId,
+        voterId: ctx.user.id,
+        roomId: roomMember.room.id,
+      })
+    } catch (e) {
+      await ctx.reply(`Error: ${e}`)
+    }
   }
 }
 
@@ -306,12 +357,12 @@ export const votesControllerConfig = (bot: Telegraf<Context<Update>>) => {
     }
   })
 
-  bot.action('vote_complete', async (ctx) => {
+  bot.action(MessagesConstant.VOTE_COMPLETE_ACTION, async (ctx) => {
     await ctx.answerCbQuery()
     await votesController.completeSession(ctx)
   })
 
-  bot.action('vote_cancel_session', async (ctx) => {
+  bot.action(MessagesConstant.VOTE_CANCEL_SESSION_ACTION, async (ctx) => {
     await ctx.answerCbQuery()
     await votesController.cancelSession(ctx)
   })

@@ -1,6 +1,6 @@
 import { MessagesConstant } from '@/constants/messages/constant'
 import {
-  IStartService,
+  IUserService,
   startService
 } from '@/services/start/service'
 import { Context, Markup, Telegraf } from 'telegraf'
@@ -8,7 +8,7 @@ import { Update } from 'telegraf/types'
 import { roomsController } from '../rooms/controller'
 
 export const createStartController = (deps: {
-  startService: IStartService
+  startService: IUserService
 }) => {
   return async (ctx: Context) => {
     //@ts-ignore

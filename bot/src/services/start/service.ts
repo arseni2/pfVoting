@@ -13,12 +13,12 @@ export type UserWithRoomMembers = Prisma.UserGetPayload<{
     }
   }
 }>
-export interface IStartService {
+export interface IUserService {
   findOrCreateUser(data: UserCreateInput): Promise<UserWithRoomMembers>
   getRoomIdByUser(ctx: Context): Promise<RoomMemberWithRoom>
 }
 
-export class StartService implements IStartService {
+export class UsersService implements IUserService {
   async findOrCreateUser(data: UserCreateInput): Promise<UserWithRoomMembers> {
     const existingUser = await prisma.user.findUnique({
       where: { tg_id: data.tg_id },
@@ -67,4 +67,4 @@ export class StartService implements IStartService {
   }
 }
 
-export const startService = new StartService()
+export const startService = new UsersService()

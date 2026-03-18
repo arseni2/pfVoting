@@ -194,7 +194,6 @@ export class VotesService implements IVotesService {
     }
 
     const participants = session.participants_snapshot as number[]
-    console.log(participants)
     if (!participants.includes(voterId)) {
       throw new Error('USER_NOT_PARTICIPANT')
     }

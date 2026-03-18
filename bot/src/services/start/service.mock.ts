@@ -1,11 +1,11 @@
 import { vi } from 'vitest'
-import { IStartService } from './service'
+import { IUserService } from './service'
 import { UserCreateInput } from '@/database/models'
 import { User } from '@/database/client'
 
 export const StartServiceMock = (
-  overrides: Partial<IStartService> = {}
-): IStartService => ({
+  overrides: Partial<IUserService> = {}
+): IUserService => ({
   findOrCreateUser: vi.fn().mockImplementation(
     async (data: UserCreateInput): Promise<User> => ({
       id: 1,

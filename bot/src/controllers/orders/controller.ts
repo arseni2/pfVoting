@@ -4,14 +4,14 @@ import {
   ordersService,
   OrderWithUser,
 } from '@/services/orders/service'
-import { IStartService, startService } from '@/services/start/service'
+import { IUserService, startService } from '@/services/start/service'
 import { Context, Markup, Telegraf } from 'telegraf'
 import { Update } from 'telegraf/types'
 
 export class OrdersController {
   constructor(
     private readonly ordersService: IOrdersService,
-    private readonly usersService: IStartService
+    private readonly usersService: IUserService
   ) {}
 
   private async sendOrders(

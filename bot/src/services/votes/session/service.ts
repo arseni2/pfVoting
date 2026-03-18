@@ -132,7 +132,6 @@ export class VotesSessionService implements IVotesSessionService {
         is_active: true,
       }
     })
-    console.log(members)
     return members.map((m) => m.user_id)
   }
 }

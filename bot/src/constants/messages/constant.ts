@@ -115,5 +115,49 @@ export const MessagesConstant = {
   BUTTON_VOTE_START_COMMAND: `cmd_vote_start`,
   VOTE_START_SUCCESS: `Голосование успешно начато`,
   VOTE_ORDERS_SUCCESS: `Пиццы для голосования:`,
-  VOTE_GET_ACTIVE_ACTION: `cmd_vote_get_active`
+  VOTE_GET_ACTIVE_ACTION: `cmd_vote_get_active`,
+
+  // Vote errors
+  VOTE_ERROR: (e: unknown) => `Error - ${e}`,
+  VOTE_NOT_FOUND: '❌ Голосование не найдено',
+  VOTE_ACTIVE_NOT_FOUND: '❌ Активное голосование не найдено',
+  VOTE_COMPLETE_SUCCESS: '✅ Голосование завершено!',
+  VOTE_COMPLETE_ERROR: (e: string) => `Ошибка завершения: ${e}`,
+  VOTE_CANCEL_SUCCESS: 'Голосование успешно отменено',
+  VOTE_CANCEL_ERROR: (e: string) => `Ошибка отмены голосования: ${e}`,
+  VOTE_NO_ACTIVE_SESSION: '❌ В комнате нет активного голосования',
+  VOTE_RESULTS_TITLE: (roomName: string) =>
+    `🗳️ Результаты голосования в комнате "${roomName}"`,
+  VOTE_RESULTS_ITEM: (
+    medal: string,
+    index: number,
+    pizza: string,
+    addons: string,
+    comment: string,
+    quantity: number,
+    userName: string,
+    votesFor: number,
+    votesAgainst: number
+  ) =>
+    `${medal} ${index + 1}. 🍕 ${pizza} ${addons} ${comment} [${quantity}] — ${userName}\n   👍 ${votesFor} | 👎 ${votesAgainst}`,
+
+  // Vote session
+  VOTE_SESSION_TITLE: (roomName: string) =>
+    `🗳️ Голосование в комнате "${roomName}"\n\n`,
+  VOTE_BUTTON_FOR: '👍 За',
+  VOTE_BUTTON_AGAINST: '👎 Против',
+  VOTE_BUTTON_CANCEL: '↩️',
+  VOTE_BUTTON_COMPLETE: '🗳️ Завершить голосование',
+  VOTE_BUTTON_CANCEL_SESSION: '🗳️ Отменить голосование',
+  VOTE_BUTTON_REFRESH: '🔄 Обновить',
+  VOTE_BUTTON_BACK_TO_ORDERS: '📋 Назад к заказам',
+
+  // Vote actions
+  VOTE_FOR_ACTION: (orderId: number) => `vote_for_${orderId}`,
+  VOTE_AGAINST_ACTION: (orderId: number) => `vote_against_${orderId}`,
+  VOTE_CANCEL_ACTION: (orderId: number) => `vote_cancel_${orderId}`,
+  VOTE_COMPLETE_ACTION: 'vote_complete',
+  VOTE_CANCEL_SESSION_ACTION: 'vote_cancel_session',
+  VOTE_RESULTS_REFRESH_ACTION: 'vote_results_refresh',
+  VOTE_STATUS_ACTION: 'vote_status',
 } as const

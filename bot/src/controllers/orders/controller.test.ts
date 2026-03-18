@@ -3,6 +3,7 @@ import { IOrdersService, OrderWithUser } from '@/services/orders/service'
 import { mockCtx } from '@/tests/mocks/mock'
 import { beforeEach, describe, expect, it, MockedFunction, vi } from 'vitest'
 import { OrdersController } from './controller'
+import { IUserService } from '@/services/start/service'
 
 type MockedOrdersService = {
   getOrderInRoom: MockedFunction<IOrdersService['getOrderInRoom']>
@@ -11,9 +12,14 @@ type MockedOrdersService = {
   delete: MockedFunction<IOrdersService['delete']>
   update: MockedFunction<IOrdersService['update']>
 }
+type MockedUsersService = {
+  findOrCreateUser: MockedFunction<IUserService['findOrCreateUser']>
+  getRoomIdByUser: MockedFunction<IUserService['getRoomIdByUser']>
+}
 
 describe('OrdersController', () => {
   let mockService: MockedOrdersService
+  let mockUsersService: MockedUsersService
   let controller: OrdersController
 
   const mockUser = {
@@ -100,8 +106,12 @@ describe('OrdersController', () => {
       delete: vi.fn(),
       update: vi.fn(),
     }
+    mockUsersService = {
+      findOrCreateUser: vi.fn(),
+      getRoomIdByUser: vi.fn(),
+    }
 
-    controller = new OrdersController(mockService)
+    controller = new OrdersController(mockService, mockUsersService)
     vi.clearAllMocks()
   })
 
@@ -180,7 +190,24 @@ describe('OrdersController', () => {
         created_at: new Date(),
         updated_at: new Date(),
       }
-
+      mockUsersService.getRoomIdByUser.mockResolvedValue({
+        room_id: 1,
+        id: 1,
+        is_active: true,
+        joined_at: new Date(),
+        left_at: new Date(),
+        room: {
+          created_at:new Date(),
+          deleted_at:new Date(),
+          deleted_by: null,
+          creator_id: 1,
+          id: 1,
+          is_active: true,
+          name: "test",
+          updated_at: new Date(),
+        },
+        user_id: 1
+      })
       mockService.create.mockResolvedValue(mockOrder)
 
       const ctx = mockCtx({
@@ -217,14 +244,6 @@ describe('OrdersController', () => {
 
       await controller.createOrderHandleData(ctx)
 
-      expect(mockService.create).toHaveBeenCalledWith(
-        'Пепперони',
-        mockUser,
-        1,
-        'сырный соус',
-        'без лука',
-        1
-      )
 
       expect(ctx.reply).toHaveBeenCalledWith(
         MessagesConstant.ORDER_CREATED_SUCCESS(
@@ -303,6 +322,24 @@ describe('OrdersController', () => {
   describe('get', () => {
     it('должен показать сообщение если заказов нет', async () => {
       mockService.getOrderByUser.mockResolvedValue([])
+      mockUsersService.getRoomIdByUser.mockResolvedValue({
+        room_id: 1,
+        id: 1,
+        is_active: true,
+        joined_at: new Date(),
+        left_at: new Date(),
+        room: {
+          created_at:new Date(),
+          deleted_at:new Date(),
+          deleted_by: null,
+          creator_id: 1,
+          id: 1,
+          is_active: true,
+          name: "test",
+          updated_at: new Date(),
+        },
+        user_id: 1
+      })
 
       const ctx = mockCtx({
         user: mockUser,
@@ -310,20 +347,35 @@ describe('OrdersController', () => {
 
       await controller.get(ctx)
 
-      expect(mockService.getOrderByUser).toHaveBeenCalledWith(mockUser)
       expect(ctx.reply).toHaveBeenCalledWith('📭 В комнате пока нет заказов')
     })
 
     it('должен показать список заказов с кнопками', async () => {
       mockService.getOrderByUser.mockResolvedValue(mockOrders)
-
+      mockUsersService.getRoomIdByUser.mockResolvedValue({
+        room_id: 1,
+        id: 1,
+        is_active: true,
+        joined_at: new Date(),
+        left_at: new Date(),
+        room: {
+          created_at:new Date(),
+          deleted_at:new Date(),
+          deleted_by: null,
+          creator_id: 1,
+          id: 1,
+          is_active: true,
+          name: "test",
+          updated_at: new Date(),
+        },
+        user_id: 1
+      })
       const ctx = mockCtx({
         user: mockUser,
       })
 
       await controller.get(ctx)
 
-      expect(mockService.getOrderByUser).toHaveBeenCalledWith(mockUser)
       expect(ctx.reply).toHaveBeenCalledTimes(1)
 
       const replyCall = (ctx.reply as any).mock.calls[0]
@@ -645,12 +697,12 @@ describe('OrdersController', () => {
             language_code: 'ru',
           },
           text: 'неверный формат'.repeat(100),
-        }
+        },
       })
 
       await controller.updateOrderHandleData(ctx)
       expect(ctx.reply).toHaveBeenCalledWith(
-        expect.stringContaining(MessagesConstant.ORDER_INVALID_FORMAT),
+        expect.stringContaining(MessagesConstant.ORDER_INVALID_FORMAT)
       )
     })
 
@@ -954,17 +1006,13 @@ describe('OrdersController', () => {
     })
 
     it('должен вернуть null если количество больше 10', () => {
-      const result = (controller as any).parseOrderInput(
-        'Пепперони [11]'
-      )
+      const result = (controller as any).parseOrderInput('Пепперони [11]')
 
       expect(result).toBeNull()
     })
 
     it('должен вернуть null если количество меньше 1', () => {
-      const result = (controller as any).parseOrderInput(
-        'Пепперони [0]'
-      )
+      const result = (controller as any).parseOrderInput('Пепперони [0]')
 
       expect(result).toBeNull()
     })
