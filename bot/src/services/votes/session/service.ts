@@ -1,5 +1,6 @@
 import { prisma } from '@/config/orm/config'
 import { Prisma, VoteSession, $Enums } from '@/database'
+import { Context } from 'telegraf'
 
 export type VoteSessionWithDetails = Prisma.VoteSessionGetPayload<{
   include: {
@@ -20,10 +21,15 @@ export interface IVotesSessionService {
   getSessionsByRoom(roomId: number): Promise<VoteSession[]>
   cancelSession(sessionId: number, userId: number): Promise<VoteSession>
   completeSession(sessionId: number): Promise<VoteSession>
+  // sendActiveSessions(ctx: Context): Promise<void>
   //   getRoomActiveMembers(roomId: number): Promise<number[]>
 }
 
 export class VotesSessionService implements IVotesSessionService {
+  // async sendActiveSessions(ctx: Context) {
+
+  // }
+
   async completeSession(
     sessionId: number,
   ): Promise<VoteSession> {

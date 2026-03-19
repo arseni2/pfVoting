@@ -1556,6 +1556,7 @@ export namespace Prisma {
     tg_id: number | null
     username: string | null
     first_name: string | null
+    chat_id: string | null
     last_name: string | null
     created_at: Date | null
     updated_at: Date | null
@@ -1566,6 +1567,7 @@ export namespace Prisma {
     tg_id: number | null
     username: string | null
     first_name: string | null
+    chat_id: string | null
     last_name: string | null
     created_at: Date | null
     updated_at: Date | null
@@ -1576,6 +1578,7 @@ export namespace Prisma {
     tg_id: number
     username: number
     first_name: number
+    chat_id: number
     last_name: number
     created_at: number
     updated_at: number
@@ -1598,6 +1601,7 @@ export namespace Prisma {
     tg_id?: true
     username?: true
     first_name?: true
+    chat_id?: true
     last_name?: true
     created_at?: true
     updated_at?: true
@@ -1608,6 +1612,7 @@ export namespace Prisma {
     tg_id?: true
     username?: true
     first_name?: true
+    chat_id?: true
     last_name?: true
     created_at?: true
     updated_at?: true
@@ -1618,6 +1623,7 @@ export namespace Prisma {
     tg_id?: true
     username?: true
     first_name?: true
+    chat_id?: true
     last_name?: true
     created_at?: true
     updated_at?: true
@@ -1715,6 +1721,7 @@ export namespace Prisma {
     tg_id: number
     username: string | null
     first_name: string | null
+    chat_id: string | null
     last_name: string | null
     created_at: Date
     updated_at: Date
@@ -1744,6 +1751,7 @@ export namespace Prisma {
     tg_id?: boolean
     username?: boolean
     first_name?: boolean
+    chat_id?: boolean
     last_name?: boolean
     created_at?: boolean
     updated_at?: boolean
@@ -1760,6 +1768,7 @@ export namespace Prisma {
     tg_id?: boolean
     username?: boolean
     first_name?: boolean
+    chat_id?: boolean
     last_name?: boolean
     created_at?: boolean
     updated_at?: boolean
@@ -1770,6 +1779,7 @@ export namespace Prisma {
     tg_id?: boolean
     username?: boolean
     first_name?: boolean
+    chat_id?: boolean
     last_name?: boolean
     created_at?: boolean
     updated_at?: boolean
@@ -1780,12 +1790,13 @@ export namespace Prisma {
     tg_id?: boolean
     username?: boolean
     first_name?: boolean
+    chat_id?: boolean
     last_name?: boolean
     created_at?: boolean
     updated_at?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "tg_id" | "username" | "first_name" | "last_name" | "created_at" | "updated_at", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "tg_id" | "username" | "first_name" | "chat_id" | "last_name" | "created_at" | "updated_at", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     rooms_created?: boolean | User$rooms_createdArgs<ExtArgs>
     memberships?: boolean | User$membershipsArgs<ExtArgs>
@@ -1811,6 +1822,7 @@ export namespace Prisma {
       tg_id: number
       username: string | null
       first_name: string | null
+      chat_id: string | null
       last_name: string | null
       created_at: Date
       updated_at: Date
@@ -2246,6 +2258,7 @@ export namespace Prisma {
     readonly tg_id: FieldRef<"User", 'Int'>
     readonly username: FieldRef<"User", 'String'>
     readonly first_name: FieldRef<"User", 'String'>
+    readonly chat_id: FieldRef<"User", 'String'>
     readonly last_name: FieldRef<"User", 'String'>
     readonly created_at: FieldRef<"User", 'DateTime'>
     readonly updated_at: FieldRef<"User", 'DateTime'>
@@ -8707,6 +8720,7 @@ export namespace Prisma {
     tg_id: 'tg_id',
     username: 'username',
     first_name: 'first_name',
+    chat_id: 'chat_id',
     last_name: 'last_name',
     created_at: 'created_at',
     updated_at: 'updated_at'
@@ -8905,6 +8919,7 @@ export namespace Prisma {
     tg_id?: IntFilter<"User"> | number
     username?: StringNullableFilter<"User"> | string | null
     first_name?: StringNullableFilter<"User"> | string | null
+    chat_id?: StringNullableFilter<"User"> | string | null
     last_name?: StringNullableFilter<"User"> | string | null
     created_at?: DateTimeFilter<"User"> | Date | string
     updated_at?: DateTimeFilter<"User"> | Date | string
@@ -8920,6 +8935,7 @@ export namespace Prisma {
     tg_id?: SortOrder
     username?: SortOrderInput | SortOrder
     first_name?: SortOrderInput | SortOrder
+    chat_id?: SortOrderInput | SortOrder
     last_name?: SortOrderInput | SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
@@ -8938,6 +8954,7 @@ export namespace Prisma {
     NOT?: UserWhereInput | UserWhereInput[]
     username?: StringNullableFilter<"User"> | string | null
     first_name?: StringNullableFilter<"User"> | string | null
+    chat_id?: StringNullableFilter<"User"> | string | null
     last_name?: StringNullableFilter<"User"> | string | null
     created_at?: DateTimeFilter<"User"> | Date | string
     updated_at?: DateTimeFilter<"User"> | Date | string
@@ -8953,6 +8970,7 @@ export namespace Prisma {
     tg_id?: SortOrder
     username?: SortOrderInput | SortOrder
     first_name?: SortOrderInput | SortOrder
+    chat_id?: SortOrderInput | SortOrder
     last_name?: SortOrderInput | SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
@@ -8971,6 +8989,7 @@ export namespace Prisma {
     tg_id?: IntWithAggregatesFilter<"User"> | number
     username?: StringNullableWithAggregatesFilter<"User"> | string | null
     first_name?: StringNullableWithAggregatesFilter<"User"> | string | null
+    chat_id?: StringNullableWithAggregatesFilter<"User"> | string | null
     last_name?: StringNullableWithAggregatesFilter<"User"> | string | null
     created_at?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updated_at?: DateTimeWithAggregatesFilter<"User"> | Date | string
@@ -9377,6 +9396,7 @@ export namespace Prisma {
     tg_id: number
     username?: string | null
     first_name?: string | null
+    chat_id?: string | null
     last_name?: string | null
     created_at?: Date | string
     updated_at?: Date | string
@@ -9392,6 +9412,7 @@ export namespace Prisma {
     tg_id: number
     username?: string | null
     first_name?: string | null
+    chat_id?: string | null
     last_name?: string | null
     created_at?: Date | string
     updated_at?: Date | string
@@ -9406,6 +9427,7 @@ export namespace Prisma {
     tg_id?: IntFieldUpdateOperationsInput | number
     username?: NullableStringFieldUpdateOperationsInput | string | null
     first_name?: NullableStringFieldUpdateOperationsInput | string | null
+    chat_id?: NullableStringFieldUpdateOperationsInput | string | null
     last_name?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -9421,6 +9443,7 @@ export namespace Prisma {
     tg_id?: IntFieldUpdateOperationsInput | number
     username?: NullableStringFieldUpdateOperationsInput | string | null
     first_name?: NullableStringFieldUpdateOperationsInput | string | null
+    chat_id?: NullableStringFieldUpdateOperationsInput | string | null
     last_name?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -9436,6 +9459,7 @@ export namespace Prisma {
     tg_id: number
     username?: string | null
     first_name?: string | null
+    chat_id?: string | null
     last_name?: string | null
     created_at?: Date | string
     updated_at?: Date | string
@@ -9445,6 +9469,7 @@ export namespace Prisma {
     tg_id?: IntFieldUpdateOperationsInput | number
     username?: NullableStringFieldUpdateOperationsInput | string | null
     first_name?: NullableStringFieldUpdateOperationsInput | string | null
+    chat_id?: NullableStringFieldUpdateOperationsInput | string | null
     last_name?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -9455,6 +9480,7 @@ export namespace Prisma {
     tg_id?: IntFieldUpdateOperationsInput | number
     username?: NullableStringFieldUpdateOperationsInput | string | null
     first_name?: NullableStringFieldUpdateOperationsInput | string | null
+    chat_id?: NullableStringFieldUpdateOperationsInput | string | null
     last_name?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -9943,6 +9969,7 @@ export namespace Prisma {
     tg_id?: SortOrder
     username?: SortOrder
     first_name?: SortOrder
+    chat_id?: SortOrder
     last_name?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
@@ -9958,6 +9985,7 @@ export namespace Prisma {
     tg_id?: SortOrder
     username?: SortOrder
     first_name?: SortOrder
+    chat_id?: SortOrder
     last_name?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
@@ -9968,6 +9996,7 @@ export namespace Prisma {
     tg_id?: SortOrder
     username?: SortOrder
     first_name?: SortOrder
+    chat_id?: SortOrder
     last_name?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
@@ -11619,6 +11648,7 @@ export namespace Prisma {
     tg_id: number
     username?: string | null
     first_name?: string | null
+    chat_id?: string | null
     last_name?: string | null
     created_at?: Date | string
     updated_at?: Date | string
@@ -11633,6 +11663,7 @@ export namespace Prisma {
     tg_id: number
     username?: string | null
     first_name?: string | null
+    chat_id?: string | null
     last_name?: string | null
     created_at?: Date | string
     updated_at?: Date | string
@@ -11754,6 +11785,7 @@ export namespace Prisma {
     tg_id?: IntFieldUpdateOperationsInput | number
     username?: NullableStringFieldUpdateOperationsInput | string | null
     first_name?: NullableStringFieldUpdateOperationsInput | string | null
+    chat_id?: NullableStringFieldUpdateOperationsInput | string | null
     last_name?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -11768,6 +11800,7 @@ export namespace Prisma {
     tg_id?: IntFieldUpdateOperationsInput | number
     username?: NullableStringFieldUpdateOperationsInput | string | null
     first_name?: NullableStringFieldUpdateOperationsInput | string | null
+    chat_id?: NullableStringFieldUpdateOperationsInput | string | null
     last_name?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -11859,6 +11892,7 @@ export namespace Prisma {
     tg_id: number
     username?: string | null
     first_name?: string | null
+    chat_id?: string | null
     last_name?: string | null
     created_at?: Date | string
     updated_at?: Date | string
@@ -11873,6 +11907,7 @@ export namespace Prisma {
     tg_id: number
     username?: string | null
     first_name?: string | null
+    chat_id?: string | null
     last_name?: string | null
     created_at?: Date | string
     updated_at?: Date | string
@@ -11938,6 +11973,7 @@ export namespace Prisma {
     tg_id?: IntFieldUpdateOperationsInput | number
     username?: NullableStringFieldUpdateOperationsInput | string | null
     first_name?: NullableStringFieldUpdateOperationsInput | string | null
+    chat_id?: NullableStringFieldUpdateOperationsInput | string | null
     last_name?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -11952,6 +11988,7 @@ export namespace Prisma {
     tg_id?: IntFieldUpdateOperationsInput | number
     username?: NullableStringFieldUpdateOperationsInput | string | null
     first_name?: NullableStringFieldUpdateOperationsInput | string | null
+    chat_id?: NullableStringFieldUpdateOperationsInput | string | null
     last_name?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -11995,6 +12032,7 @@ export namespace Prisma {
     tg_id: number
     username?: string | null
     first_name?: string | null
+    chat_id?: string | null
     last_name?: string | null
     created_at?: Date | string
     updated_at?: Date | string
@@ -12009,6 +12047,7 @@ export namespace Prisma {
     tg_id: number
     username?: string | null
     first_name?: string | null
+    chat_id?: string | null
     last_name?: string | null
     created_at?: Date | string
     updated_at?: Date | string
@@ -12100,6 +12139,7 @@ export namespace Prisma {
     tg_id?: IntFieldUpdateOperationsInput | number
     username?: NullableStringFieldUpdateOperationsInput | string | null
     first_name?: NullableStringFieldUpdateOperationsInput | string | null
+    chat_id?: NullableStringFieldUpdateOperationsInput | string | null
     last_name?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -12114,6 +12154,7 @@ export namespace Prisma {
     tg_id?: IntFieldUpdateOperationsInput | number
     username?: NullableStringFieldUpdateOperationsInput | string | null
     first_name?: NullableStringFieldUpdateOperationsInput | string | null
+    chat_id?: NullableStringFieldUpdateOperationsInput | string | null
     last_name?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -12173,6 +12214,7 @@ export namespace Prisma {
     tg_id: number
     username?: string | null
     first_name?: string | null
+    chat_id?: string | null
     last_name?: string | null
     created_at?: Date | string
     updated_at?: Date | string
@@ -12187,6 +12229,7 @@ export namespace Prisma {
     tg_id: number
     username?: string | null
     first_name?: string | null
+    chat_id?: string | null
     last_name?: string | null
     created_at?: Date | string
     updated_at?: Date | string
@@ -12278,6 +12321,7 @@ export namespace Prisma {
     tg_id?: IntFieldUpdateOperationsInput | number
     username?: NullableStringFieldUpdateOperationsInput | string | null
     first_name?: NullableStringFieldUpdateOperationsInput | string | null
+    chat_id?: NullableStringFieldUpdateOperationsInput | string | null
     last_name?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -12292,6 +12336,7 @@ export namespace Prisma {
     tg_id?: IntFieldUpdateOperationsInput | number
     username?: NullableStringFieldUpdateOperationsInput | string | null
     first_name?: NullableStringFieldUpdateOperationsInput | string | null
+    chat_id?: NullableStringFieldUpdateOperationsInput | string | null
     last_name?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -12381,6 +12426,7 @@ export namespace Prisma {
     tg_id: number
     username?: string | null
     first_name?: string | null
+    chat_id?: string | null
     last_name?: string | null
     created_at?: Date | string
     updated_at?: Date | string
@@ -12395,6 +12441,7 @@ export namespace Prisma {
     tg_id: number
     username?: string | null
     first_name?: string | null
+    chat_id?: string | null
     last_name?: string | null
     created_at?: Date | string
     updated_at?: Date | string
@@ -12496,6 +12543,7 @@ export namespace Prisma {
     tg_id?: IntFieldUpdateOperationsInput | number
     username?: NullableStringFieldUpdateOperationsInput | string | null
     first_name?: NullableStringFieldUpdateOperationsInput | string | null
+    chat_id?: NullableStringFieldUpdateOperationsInput | string | null
     last_name?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -12510,6 +12558,7 @@ export namespace Prisma {
     tg_id?: IntFieldUpdateOperationsInput | number
     username?: NullableStringFieldUpdateOperationsInput | string | null
     first_name?: NullableStringFieldUpdateOperationsInput | string | null
+    chat_id?: NullableStringFieldUpdateOperationsInput | string | null
     last_name?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string

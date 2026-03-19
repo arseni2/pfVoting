@@ -122,6 +122,7 @@ exports.Prisma.UserScalarFieldEnum = {
   tg_id: 'tg_id',
   username: 'username',
   first_name: 'first_name',
+  chat_id: 'chat_id',
   last_name: 'last_name',
   created_at: 'created_at',
   updated_at: 'updated_at'

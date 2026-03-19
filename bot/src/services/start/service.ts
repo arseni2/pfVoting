@@ -1,6 +1,6 @@
 import { prisma } from '@/config/orm/config'
 import { Prisma } from '@/database/client'
-import { UserCreateInput } from '@/database/models'
+import { UserCreateInput, UserUpdateInput } from '@/database/models'
 import { Context } from 'telegraf'
 import { RoomMemberWithRoom } from '../rooms/service'
 
@@ -20,7 +20,7 @@ export interface IUserService {
 
 export class UsersService implements IUserService {
   async findOrCreateUser(data: UserCreateInput): Promise<UserWithRoomMembers> {
-    const existingUser = await prisma.user.findUnique({
+    const existingUser = await prisma.user.update({
       where: { tg_id: data.tg_id },
       include: {
         memberships: {
@@ -29,6 +29,7 @@ export class UsersService implements IUserService {
           },
         },
       },
+      data: data
     })
 
     if (existingUser) {

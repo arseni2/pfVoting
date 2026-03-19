@@ -27,10 +27,29 @@ export interface IRoomsService {
   softDeleteRoom(roomId: number, user: UserCreateInput): Promise<Room>
   getRoomById(roomId: number): Promise<Room | null>
   leaveRoom(roomId: number, user: UserCreateInput): Promise<RoomMember>
+  getUsersInRoom(roomId: number): Promise<User[]>
   // updateRoom(data: RoomUpdateInput): Promise<Room>
 }
 
 export class RoomsService implements IRoomsService {
+  async getUsersInRoom(roomId: number) {
+    const room = await prisma.room.findUnique({
+      where: {
+        id: roomId,
+      },
+      include: {
+        roomMembers: {
+          include: {
+            user: true,
+          },
+        },
+      },
+    })
+    if (!room) throw new Error(`Нет комнаты с id ${roomId}`)
+
+    return room.roomMembers.map(roomMember => roomMember.user)  
+  }
+
   async leaveRoom(roomId: number, user: UserCreateInput): Promise<RoomMember> {
     const userData = await startService.findOrCreateUser({
       tg_id: user.tg_id,

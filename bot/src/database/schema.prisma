@@ -12,6 +12,7 @@ model User {
   tg_id      Int      @unique
   username   String?
   first_name String?
+  chat_id    String?
   last_name  String?
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt

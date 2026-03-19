@@ -1,6 +1,7 @@
 import { MessagesConstant } from '@/constants/messages/constant'
 import { $Enums } from '@/database'
 import { IOrdersService, ordersService } from '@/services/orders/service'
+import { IRoomsService, roomsService } from '@/services/rooms/service'
 import { IUserService, startService } from '@/services/start/service'
 import { IVotesService, votesService } from '@/services/votes/servce'
 import {
@@ -15,7 +16,8 @@ export class VotesController {
     private readonly votesService: IVotesService,
     private readonly votesSessionService: IVotesSessionService,
     private readonly ordersService: IOrdersService,
-    private readonly usersService: IUserService
+    private readonly usersService: IUserService,
+    private readonly roomsService: IRoomsService
   ) {}
 
   async startVoteSession(ctx: Context) {
@@ -25,7 +27,7 @@ export class VotesController {
         createdBy: ctx.user.id,
         roomId: roomMember.room.id,
       })
-      const data = await this.sendOrdersInRoom(ctx)
+      const data = await this.sendOrdersInRoom(ctx, true)
       await ctx.reply(MessagesConstant.VOTE_START_SUCCESS)
       await ctx.reply(data.text, {
         reply_markup: data.reply_markup,
@@ -33,7 +35,7 @@ export class VotesController {
       return this.sendOrdersInRoom(ctx)
     } catch (e) {
       await ctx.reply(MessagesConstant.VOTE_ERROR(e))
-      const data = await this.sendOrdersInRoom(ctx)
+      const data = await this.sendOrdersInRoom(ctx, true)
       await ctx.reply(data.text, {
         reply_markup: data.reply_markup,
       })
@@ -42,7 +44,6 @@ export class VotesController {
 
   async resultSession(ctx: Context) {
     const roomMember = await this.usersService.getRoomIdByUser(ctx)
-
     const sessions = await this.votesSessionService.getSessionsByRoom(
       roomMember.room.id
     )
@@ -85,6 +86,35 @@ export class VotesController {
         )
       })
       .join('\n\n')
+
+    const users = (
+      await roomsService.getUsersInRoom(roomMember.room.id)
+    ).filter((u) => u.id != ctx.user.id)
+    for (const user of users) {
+      const chatId = user.chat_id
+      if (!chatId) continue
+      ctx.telegram.sendMessage(
+        chatId,
+        `${MessagesConstant.VOTE_RESULTS_TITLE(roomMember.room.name)}\n\n${resultsText}`,
+        {
+          parse_mode: 'HTML',
+          reply_markup: Markup.inlineKeyboard([
+            [
+              Markup.button.callback(
+                MessagesConstant.VOTE_BUTTON_REFRESH,
+                MessagesConstant.VOTE_RESULTS_REFRESH_ACTION
+              ),
+            ],
+            [
+              Markup.button.callback(
+                MessagesConstant.VOTE_BUTTON_BACK_TO_ORDERS,
+                MessagesConstant.BUTTON_ORDERS_MY_COMMAND
+              ),
+            ],
+          ]).reply_markup,
+        }
+      )
+    }
 
     await ctx.reply(
       `${MessagesConstant.VOTE_RESULTS_TITLE(roomMember.room.name)}\n\n${resultsText}`,
@@ -156,7 +186,7 @@ export class VotesController {
     }
   }
 
-  async sendOrdersInRoom(ctx: Context) {
+  async sendOrdersInRoom(ctx: Context, sendAllUserNotification?: boolean) {
     const roomMember = await this.usersService.getRoomIdByUser(ctx)
     const roomId = roomMember.room_id
     const orders = await this.ordersService.getOrderInRoom(roomId)
@@ -210,6 +240,19 @@ export class VotesController {
         MessagesConstant.VOTE_CANCEL_SESSION_ACTION
       ),
     ])
+
+    if (sendAllUserNotification) {
+      const users = (await roomsService.getUsersInRoom(roomId)).filter(
+        (u) => u.id != ctx.user.id
+      )
+      for (const user of users) {
+        const chatId = user.chat_id
+        if (!chatId) continue
+        ctx.telegram.sendMessage(chatId, messageText, {
+          reply_markup: Markup.inlineKeyboard(keyboard).reply_markup,
+        })
+      }
+    }
 
     return {
       text: messageText,
@@ -282,7 +325,8 @@ export const votesController = new VotesController(
   votesService,
   votesSessionService,
   ordersService,
-  startService
+  startService,
+  roomsService
 )
 
 export const votesControllerConfig = (bot: Telegraf<Context<Update>>) => {
@@ -292,7 +336,7 @@ export const votesControllerConfig = (bot: Telegraf<Context<Update>>) => {
 
   bot.command(MessagesConstant.VOTE_GET_ACTIVE_ACTION, async (ctx) => {
     const data = await votesController.getActiveVoteSession(ctx)
-    if(!data?.text) return
+    if (!data?.text) return
 
     await ctx.reply(data.text, {
       reply_markup: data.reply_markup,
@@ -306,7 +350,7 @@ export const votesControllerConfig = (bot: Telegraf<Context<Update>>) => {
   bot.action(MessagesConstant.VOTE_GET_ACTIVE_ACTION, async (ctx) => {
     await ctx.answerCbQuery()
     const data = await votesController.getActiveVoteSession(ctx)
-    if(!data?.text) return
+    if (!data?.text) return
     await ctx.reply(data.text, {
       reply_markup: data.reply_markup,
     })
