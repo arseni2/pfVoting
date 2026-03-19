@@ -169,7 +169,7 @@ export class RoomsController {
               Markup.button.callback(
                 MessagesConstant.BUTTON_ROOMS_SUCCESS_ORDER,
                 MessagesConstant.ORDER_CREATE_ACTION
-              )
+              ),
             ],
           ]).reply_markup,
         }
@@ -210,8 +210,12 @@ export class RoomsController {
 export const roomsController = new RoomsController(roomsService)
 
 export const roomsControllerConfig = (bot: Telegraf<Context<Update>>) => {
-  bot.command(MessagesConstant.ROOMS_GET_ACTION, roomsController.get)
-  bot.command(MessagesConstant.ROOMS_CREATE_ACTION, roomsController.create)
+  bot.command(MessagesConstant.ROOMS_GET_ACTION, (ctx) => {
+    return roomsController.get(ctx)
+  })
+  bot.command(MessagesConstant.ROOMS_CREATE_ACTION, (ctx) => {
+    return roomsController.create(ctx)
+  })
 
   bot.action(MessagesConstant.BUTTON_ROOMS_GET_COMMAND, async (ctx) => {
     await ctx.answerCbQuery()

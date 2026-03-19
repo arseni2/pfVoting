@@ -18,7 +18,7 @@ export interface IVotesSessionService {
   createSession(input: CreateVoteSessionInput): Promise<VoteSession>
   getSessionById(id: number): Promise<VoteSessionWithDetails | null>
   getSessionsByRoom(roomId: number): Promise<VoteSession[]>
-  cancelSession(roomId: number, userId: number): Promise<VoteSession>
+  cancelSession(sessionId: number, userId: number): Promise<VoteSession>
   completeSession(sessionId: number): Promise<VoteSession>
   //   getRoomActiveMembers(roomId: number): Promise<number[]>
 }
@@ -89,17 +89,18 @@ export class VotesSessionService implements IVotesSessionService {
     })
   }
 
-  async cancelSession(roomId: number, userId: number): Promise<VoteSession> {
+  async cancelSession(sessionId: number, userId: number): Promise<VoteSession> {
     const voteSession = await prisma.voteSession.findFirst({
       where: {
-        room_id: roomId,
+        id: sessionId,
         status: $Enums.VoteStatus.ACTIVE
       },
     })
-    if (voteSession?.status != $Enums.VoteStatus.ACTIVE) {
-      throw new Error(`Голосование не активно, статус ${voteSession?.status}`)
+
+    if (!voteSession) {
+      throw new Error(`Голосование не найдено`)
     }
-    const sessionId = voteSession.id
+    
     const session = await prisma.voteSession.findUnique({
       where: { id: sessionId },
       include: { room: true },

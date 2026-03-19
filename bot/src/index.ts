@@ -1,5 +1,6 @@
 import { AppConstant } from '@/constants/env/constant'
 import { MessagesConstant } from '@/constants/messages/constant'
+import { helpControllerConfig } from '@/controllers/help/controller'
 import {
   ordersController,
   ordersControllerConfig,
@@ -67,6 +68,7 @@ startControllerConfig(bot)
 roomsControllerConfig(bot)
 ordersControllerConfig(bot)
 votesControllerConfig(bot)
+helpControllerConfig(bot)
 
 bot.on(message('text'), async (ctx) => {
   if (ctx.session?.updatingOrderId) {

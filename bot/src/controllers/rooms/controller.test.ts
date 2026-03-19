@@ -1,7 +1,6 @@
 import { MessagesConstant } from '@/constants/messages/constant'
-import { User } from '@/database/client'
 import { IRoomsService, RoomWithMembers } from '@/services/rooms/service'
-import { startService } from '@/services/start/service'
+import { startService, UserWithRoomMembers } from '@/services/start/service'
 import { mockCtx } from '@/tests/mocks/mock'
 import { beforeEach, describe, expect, it, MockedFunction, vi } from 'vitest'
 import { RoomsController } from './controller'
@@ -328,7 +327,7 @@ describe('RoomsController', () => {
     })
 
     it('должен создать комнату и показать подтверждение', async () => {
-      const mockUser: User = {
+      const mockUser: UserWithRoomMembers = {
         id: 1,
         tg_id: 123,
         username: 'test',
@@ -336,6 +335,7 @@ describe('RoomsController', () => {
         last_name: null,
         created_at: new Date(),
         updated_at: new Date(),
+        memberships: [],
       }
 
       const mockRoom = {
@@ -425,6 +425,7 @@ describe('RoomsController', () => {
         last_name: null,
         created_at: new Date(),
         updated_at: new Date(),
+        memberships: [],
       })
 
       mockService.createRoom.mockRejectedValue(new Error('DB error'))

@@ -36,8 +36,8 @@ export class OrdersController {
         const comment = order.comment
         const quantity = order.quantity ?? 1
         return !roomName
-          ? `${pizza} ${addons ? `+ ${addons}` : ""} ${comment ? `(${comment})` : ""} [${quantity}]`
-          : `👤 ${userName} — ${pizza} ${addons ? `+ ${addons}` : ""} ${comment ? `(${comment})` : ""} [${quantity}]`
+          ? `${pizza} ${addons ? `+ ${addons}` : ''} ${comment ? `(${comment})` : ''} [${quantity}]`
+          : `👤 ${userName} — ${pizza} ${addons ? `+ ${addons}` : ''} ${comment ? `(${comment})` : ''} [${quantity}]`
       })
       .join('\n')
 
@@ -49,10 +49,7 @@ export class OrdersController {
           `🗑️ Удалить: ${order.pizza_name}`,
           `order_delete_${order.id}`
         ),
-        Markup.button.callback(
-          `✏️ Изменить`,
-          `order_update_${order.id}`
-        ),
+        Markup.button.callback(`✏️ Изменить`, `order_update_${order.id}`),
       ]),
       [
         Markup.button.callback(
@@ -66,7 +63,7 @@ export class OrdersController {
           MessagesConstant.ORDER_CREATE_ACTION
         ),
         Markup.button.callback(
-          '📋 Мои заказы',
+          MessagesConstant.BUTTON_ORDERS_MY,
           MessagesConstant.BUTTON_ORDERS_MY_COMMAND
         ),
       ],
@@ -75,7 +72,13 @@ export class OrdersController {
           'Активное голосование',
           MessagesConstant.VOTE_GET_ACTIVE_ACTION
         ),
-      ]
+      ],
+      [
+        Markup.button.callback(
+          MessagesConstant.BUTTON_ORDERS_MY_DELETE,
+          MessagesConstant.BUTTON_ORDERS_MY_DELETE_COMMAND
+        ),
+      ],
     ]
 
     await ctx.reply(text, {
@@ -140,7 +143,7 @@ export class OrdersController {
 
       if (!parsed) {
         await ctx.reply(MessagesConstant.ORDER_INVALID_FORMAT, {
-          parse_mode: "HTML"
+          parse_mode: 'HTML',
         })
         return
       }
@@ -281,7 +284,7 @@ export class OrdersController {
 
   async updateOrderHandleData(ctx: Context) {
     const text = ctx.message?.text?.trim()
- 
+
     if (!ctx.session?.updatingOrderId) {
       return
     }
@@ -367,21 +370,37 @@ export class OrdersController {
       ]).reply_markup,
     })
   }
+
+  async deleteMany(ctx: Context) {
+    try {
+      await this.ordersService.deleteMany(ctx.user.id)
+      await ctx.reply(MessagesConstant.BUTTON_ORDERS_MY_DELETE_SUCCESS)
+    } catch (e) {
+      ctx.reply(MessagesConstant.BUTTON_ORDERS_MY_DELETE_ERROR(e))
+    }
+  }
 }
 
-export const ordersController = new OrdersController(ordersService, startService)
+export const ordersController = new OrdersController(
+  ordersService,
+  startService
+)
 
 export const ordersControllerConfig = (bot: Telegraf<Context<Update>>) => {
-  bot.command(MessagesConstant.BUTTON_ORDERS_MY_COMMAND, ordersController.get)
+  bot.command(MessagesConstant.BUTTON_ORDERS_MY_COMMAND, (ctx) => ordersController.get(ctx))
   bot.command(
     MessagesConstant.BUTTON_ORDERS_ROOM_COMMAND,
-    ordersController.getAllOrdersInRoom
+    (ctx) => ordersController.getAllOrdersInRoom(ctx)
   )
-  bot.command(MessagesConstant.ORDER_CREATE_ACTION, ordersController.create)
+  bot.command(MessagesConstant.ORDER_CREATE_ACTION, (ctx) => ordersController.create(ctx))
 
   bot.action(MessagesConstant.ORDER_CREATE_ACTION, async (ctx) => {
     await ctx.answerCbQuery()
     return ordersController.create(ctx)
+  })
+  bot.action(MessagesConstant.BUTTON_ORDERS_MY_DELETE_COMMAND, async (ctx) => {
+    await ctx.answerCbQuery()
+    return ordersController.deleteMany(ctx)
   })
   bot.action(MessagesConstant.BUTTON_ORDERS_MY_COMMAND, async (ctx) => {
     await ctx.answerCbQuery()

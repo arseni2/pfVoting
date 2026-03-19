@@ -1,5 +1,5 @@
 import { MessagesConstant } from '@/constants/messages/constant'
-import { IOrdersService, OrderWithUser } from '@/services/orders/service'
+import { IOrdersService, OrderWithUser, OrderWithUserVotes } from '@/services/orders/service'
 import { mockCtx } from '@/tests/mocks/mock'
 import { beforeEach, describe, expect, it, MockedFunction, vi } from 'vitest'
 import { OrdersController } from './controller'
@@ -11,6 +11,7 @@ type MockedOrdersService = {
   create: MockedFunction<IOrdersService['create']>
   delete: MockedFunction<IOrdersService['delete']>
   update: MockedFunction<IOrdersService['update']>
+  deleteMany: MockedFunction<IOrdersService['deleteMany']>
 }
 type MockedUsersService = {
   findOrCreateUser: MockedFunction<IUserService['findOrCreateUser']>
@@ -98,6 +99,53 @@ describe('OrdersController', () => {
     },
   ]
 
+  const mockOrdersWithVotes: OrderWithUserVotes[] = [
+    {
+      id: 1,
+      pizza_name: 'Пепперони',
+      addons: 'сырный соус',
+      comment: 'без лука',
+      quantity: 1,
+      room_id: 1,
+      user_id: 1,
+      is_deleted: false,
+      created_at: new Date(),
+      updated_at: new Date(),
+      user: {
+        id: 1,
+        tg_id: 123,
+        username: 'test',
+        first_name: 'Test',
+        last_name: null,
+        created_at: new Date(),
+        updated_at: new Date(),
+      },
+      votes: [],
+    },
+    {
+      id: 2,
+      pizza_name: 'Маргарита',
+      addons: null,
+      comment: null,
+      quantity: 2,
+      room_id: 1,
+      user_id: 1,
+      is_deleted: false,
+      created_at: new Date(),
+      updated_at: new Date(),
+      user: {
+        id: 1,
+        tg_id: 123,
+        username: 'test',
+        first_name: 'Test',
+        last_name: null,
+        created_at: new Date(),
+        updated_at: new Date(),
+      },
+      votes: [],
+    },
+  ]
+
   beforeEach(() => {
     mockService = {
       getOrderInRoom: vi.fn(),
@@ -105,6 +153,7 @@ describe('OrdersController', () => {
       create: vi.fn(),
       delete: vi.fn(),
       update: vi.fn(),
+      deleteMany: vi.fn(),
     }
     mockUsersService = {
       findOrCreateUser: vi.fn(),
@@ -450,7 +499,7 @@ describe('OrdersController', () => {
     })
 
     it('должен показать все заказы в комнате', async () => {
-      mockService.getOrderInRoom.mockResolvedValue(mockOrders)
+      mockService.getOrderInRoom.mockResolvedValue(mockOrdersWithVotes)
 
       const ctx = mockCtx({
         user: mockUser,
@@ -944,6 +993,41 @@ describe('OrdersController', () => {
             ]),
           }),
         })
+      )
+    })
+  })
+
+  describe('deleteMany', () => {
+    it('должен удалить все заказы и показать подтверждение', async () => {
+      mockService.deleteMany.mockResolvedValue({count: 2})
+
+      const ctx = mockCtx({
+        user: mockUser,
+      })
+
+      await controller.deleteMany(ctx)
+
+      expect(mockService.deleteMany).toHaveBeenCalledWith(mockUser.id)
+
+      expect(ctx.reply).toHaveBeenCalledWith(
+        MessagesConstant.BUTTON_ORDERS_MY_DELETE_SUCCESS
+      )
+    })
+
+    it('должен обработать ошибку при удалении заказов', async () => {
+      const mockError = new Error('Database error')
+      mockService.deleteMany.mockRejectedValue(mockError)
+
+      const ctx = mockCtx({
+        user: mockUser,
+      })
+
+      await controller.deleteMany(ctx)
+
+      expect(mockService.deleteMany).toHaveBeenCalledWith(mockUser.id)
+
+      expect(ctx.reply).toHaveBeenCalledWith(
+        MessagesConstant.BUTTON_ORDERS_MY_DELETE_ERROR(mockError)
       )
     })
   })

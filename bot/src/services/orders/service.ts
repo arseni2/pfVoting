@@ -1,6 +1,7 @@
 import { prisma } from '@/config/orm/config'
 import { Order, Prisma, User } from '@/database/client'
 import { UserWithRoomMembers } from '../start/service'
+import { BatchPayload } from '@/database/internal/prismaNamespace'
 
 export type OrderWithUserVotes = Prisma.Result<
   typeof prisma.order,
@@ -35,9 +36,18 @@ export interface IOrdersService {
     userId: number,
     data: Partial<{ pizza_name: string; addons: string | null; comment: string | null; quantity: number }>
   ): Promise<Order>
+  deleteMany(userId: number): Promise<BatchPayload>
 }
 
 export class OrdersService implements IOrdersService {
+  async deleteMany(userId: number) {
+    return prisma.order.deleteMany({
+      where: {
+        user_id: userId
+      }
+    })
+  }
+
   async delete(orderId: number, userId: number): Promise<Order> {
     const order = await prisma.order.findUnique({
       where: { id: orderId },

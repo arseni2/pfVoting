@@ -85,6 +85,8 @@ export const MessagesConstant = {
     `\nТеперь можно добавить ещё один заказ или дождаться голосования`,
   ORDER_CREATED_ERROR: '❌ Не удалось создать заказ. Попробуй позже.',
   ORDER_TOO_MANY: '❌ Слишком много заказов (макс. 3 на человека)',
+  BUTTON_ORDERS_MY_DELETE_SUCCESS: "Ваши заказы успешно удалены",
+  BUTTON_ORDERS_MY_DELETE_ERROR: (e: unknown) => `Произошла ошибка удаления заказов: ${e}`,
   ORDER_UPDATE_ENTER_DATA:
     '✏️ Введите новые данные заказа в формате:\n\n' +
     '<b>название пиццы + добавки (комментарий) [кол-во]</b>\n\n' +
@@ -107,6 +109,8 @@ export const MessagesConstant = {
   BUTTON_ORDER_CREATE: '➕ Сделать заказ',
   BUTTON_ORDER_CREATE_COMMAND: 'cmd_order_create',
   BUTTON_ORDERS_MY: '📋 Мои заказы',
+  BUTTON_ORDERS_MY_DELETE: '❌ Удалить заказы',
+  BUTTON_ORDERS_MY_DELETE_COMMAND: 'cmd_orders_my_delete',
   BUTTON_ORDERS_MY_COMMAND: 'cmd_orders_my',
   BUTTON_ORDERS_ROOM_COMMAND: 'cmd_orders_room',
   BUTTON_ORDER_UPDATE_COMMAND: 'cmd_orders_update',

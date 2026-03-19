@@ -286,10 +286,18 @@ export const votesController = new VotesController(
 )
 
 export const votesControllerConfig = (bot: Telegraf<Context<Update>>) => {
-  bot.command(
-    MessagesConstant.BUTTON_VOTE_START_COMMAND,
-    votesController.startVoteSession
+  bot.command(MessagesConstant.BUTTON_VOTE_START_COMMAND, (ctx) =>
+    votesController.startVoteSession(ctx)
   )
+
+  bot.command(MessagesConstant.VOTE_GET_ACTIVE_ACTION, async (ctx) => {
+    const data = await votesController.getActiveVoteSession(ctx)
+    if(!data?.text) return
+
+    await ctx.reply(data.text, {
+      reply_markup: data.reply_markup,
+    })
+  })
 
   bot.action(MessagesConstant.BUTTON_VOTE_START_COMMAND, async (ctx) => {
     await ctx.answerCbQuery()
@@ -298,8 +306,9 @@ export const votesControllerConfig = (bot: Telegraf<Context<Update>>) => {
   bot.action(MessagesConstant.VOTE_GET_ACTIVE_ACTION, async (ctx) => {
     await ctx.answerCbQuery()
     const data = await votesController.getActiveVoteSession(ctx)
-    await ctx.reply(data?.text ?? '', {
-      reply_markup: data?.reply_markup,
+    if(!data?.text) return
+    await ctx.reply(data.text, {
+      reply_markup: data.reply_markup,
     })
   })
 
