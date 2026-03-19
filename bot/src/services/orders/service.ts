@@ -1,18 +1,9 @@
 import { prisma } from '@/config/orm/config'
 import { Order, Prisma, User } from '@/database/client'
 import { UserWithRoomMembers } from '../start/service'
-import { BatchPayload } from '@/database/internal/prismaNamespace'
 
-export type OrderWithUserVotes = Prisma.Result<
-  typeof prisma.order,
-  {
-    include: {
-      user: true
-      votes: true
-    }
-  },
-  'findMany'
->[number]
+export type BatchPayload = { count: number }
+
 export type OrderWithUser = Prisma.OrderGetPayload<{
   include: {
     user: true
@@ -20,7 +11,7 @@ export type OrderWithUser = Prisma.OrderGetPayload<{
 }>
 
 export interface IOrdersService {
-  getOrderInRoom(roomId: number): Promise<OrderWithUserVotes[]>
+  getOrderInRoom(roomId: number): Promise<OrderWithUser[]>
   getOrderByUser(user: User, roomId: number): Promise<OrderWithUser[]>
   create(
     pizzaName: string,
@@ -69,7 +60,7 @@ export class OrdersService implements IOrdersService {
     })
   }
 
-  async getOrderInRoom(roomId: number): Promise<OrderWithUserVotes[]> {
+  async getOrderInRoom(roomId: number): Promise<OrderWithUser[]> {
     return prisma.order.findMany({
       where: {
         is_deleted: false,
@@ -77,7 +68,6 @@ export class OrdersService implements IOrdersService {
       },
       include: {
         user: true,
-        votes: true
       },
       orderBy: {
         created_at: 'asc',

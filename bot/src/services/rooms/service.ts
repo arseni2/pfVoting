@@ -1,7 +1,14 @@
 import { prisma } from '@/config/orm/config'
 import { Prisma, Room, RoomMember, User } from '@/database/client'
-import { UserCreateInput } from '@/database/models'
 import { startService } from '../start/service'
+
+export type UserCreateInput = {
+  tg_id: number
+  username?: string | null
+  first_name?: string | null
+  last_name?: string | null
+  chat_id?: string | null
+}
 
 export type RoomWithMembers = Prisma.RoomGetPayload<{
   include: {
@@ -27,7 +34,7 @@ export interface IRoomsService {
   softDeleteRoom(roomId: number, user: UserCreateInput): Promise<Room>
   getRoomById(roomId: number): Promise<Room | null>
   leaveRoom(roomId: number, user: UserCreateInput): Promise<RoomMember>
-  getUsersInRoom(roomId: number): Promise<User[]>
+  getUsersInRoom(roomId: number): Promise<{ chat_id: string | null; id: number; first_name: string | null; last_name: string | null; tg_id: number; username: string | null }[]>
   // updateRoom(data: RoomUpdateInput): Promise<Room>
 }
 
@@ -47,7 +54,14 @@ export class RoomsService implements IRoomsService {
     })
     if (!room) throw new Error(`Нет комнаты с id ${roomId}`)
 
-    return room.roomMembers.map(roomMember => roomMember.user)  
+    return room.roomMembers.map(roomMember => ({
+      id: roomMember.user.id,
+      tg_id: roomMember.user.tg_id,
+      username: roomMember.user.username,
+      first_name: roomMember.user.first_name,
+      last_name: roomMember.user.last_name,
+      chat_id: roomMember.user.chat_id,
+    }))
   }
 
   async leaveRoom(roomId: number, user: UserCreateInput): Promise<RoomMember> {

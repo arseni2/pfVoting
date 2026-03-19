@@ -1,6 +1,5 @@
 import { prisma } from '@/config/orm/config'
 import { Prisma, VoteSession, $Enums } from '@/database'
-import { Context } from 'telegraf'
 
 export type VoteSessionWithDetails = Prisma.VoteSessionGetPayload<{
   include: {
@@ -21,14 +20,68 @@ export interface IVotesSessionService {
   getSessionsByRoom(roomId: number): Promise<VoteSession[]>
   cancelSession(sessionId: number, userId: number): Promise<VoteSession>
   completeSession(sessionId: number): Promise<VoteSession>
-  // sendActiveSessions(ctx: Context): Promise<void>
-  //   getRoomActiveMembers(roomId: number): Promise<number[]>
+  saveTelegramPollId(sessionId: number, pollId: string): Promise<VoteSession>
+  saveTelegramMessageId(sessionId: number, messageId: number): Promise<VoteSession>
+  saveTelegramChatId(sessionId: number, chatId: string): Promise<VoteSession>
+  getTelegramPollId(sessionId: number): Promise<string | null>
+  getTelegramMessageId(sessionId: number): Promise<number | null>
+  getTelegramChatId(sessionId: number): Promise<string | null>
 }
 
 export class VotesSessionService implements IVotesSessionService {
-  // async sendActiveSessions(ctx: Context) {
+  async saveTelegramPollId(
+    sessionId: number,
+    pollId: string
+  ): Promise<VoteSession> {
+    return prisma.voteSession.update({
+      where: { id: sessionId },
+      data: { telegram_poll_id: pollId },
+    })
+  }
 
-  // }
+  async saveTelegramMessageId(
+    sessionId: number,
+    messageId: number
+  ): Promise<VoteSession> {
+    return prisma.voteSession.update({
+      where: { id: sessionId },
+      data: { telegram_message_id: messageId },
+    })
+  }
+
+  async saveTelegramChatId(
+    sessionId: number,
+    chatId: string
+  ): Promise<VoteSession> {
+    return prisma.voteSession.update({
+      where: { id: sessionId },
+      data: { telegram_chat_id: chatId },
+    })
+  }
+
+  async getTelegramPollId(sessionId: number): Promise<string | null> {
+    const session = await prisma.voteSession.findUnique({
+      where: { id: sessionId },
+      select: { telegram_poll_id: true },
+    })
+    return session?.telegram_poll_id ?? null
+  }
+
+  async getTelegramMessageId(sessionId: number): Promise<number | null> {
+    const session = await prisma.voteSession.findUnique({
+      where: { id: sessionId },
+      select: { telegram_message_id: true },
+    })
+    return session?.telegram_message_id ?? null
+  }
+
+  async getTelegramChatId(sessionId: number): Promise<string | null> {
+    const session = await prisma.voteSession.findUnique({
+      where: { id: sessionId },
+      select: { telegram_chat_id: true },
+    })
+    return session?.telegram_chat_id ?? null
+  }
 
   async completeSession(
     sessionId: number,

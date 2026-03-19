@@ -53,17 +53,20 @@ bot.use(async (ctx, next) => {
     await ctx.reply(MessagesConstant.ROOMS_USER_NOT_FOUND)
     return
   }
-  const userData = {
+  const userData: any = {
     tg_id: userId,
     username: ctx.from?.username ?? null,
     first_name: ctx.from?.first_name ?? null,
     last_name: ctx.from?.last_name ?? null,
   }
 
-  if (ctx.update.message?.chat?.id) {
+  // Получаем chat_id из сообщения или callback query
+  if ('message' in ctx.update && ctx.update.message?.chat?.id) {
     userData.chat_id = String(ctx.update.message.chat.id)
+  } else if ('callback_query' in ctx.update && ctx.update.callback_query?.message?.chat?.id) {
+    userData.chat_id = String(ctx.update.callback_query.message.chat.id)
   }
-  console.log("userData.chat_id = ", userData.chat_id)
+  
   const user = await startService.findOrCreateUser(userData)
 
   ctx.user = user

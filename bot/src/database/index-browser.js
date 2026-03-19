@@ -169,17 +169,10 @@ exports.Prisma.VoteSessionScalarFieldEnum = {
   completed_at: 'completed_at',
   status: 'status',
   participants_snapshot: 'participants_snapshot',
+  telegram_poll_id: 'telegram_poll_id',
+  telegram_message_id: 'telegram_message_id',
+  telegram_chat_id: 'telegram_chat_id',
   is_deleted: 'is_deleted',
-  created_at: 'created_at',
-  updated_at: 'updated_at'
-};
-
-exports.Prisma.VoteScalarFieldEnum = {
-  id: 'id',
-  vote_session_id: 'vote_session_id',
-  order_id: 'order_id',
-  voter_id: 'voter_id',
-  vote_type: 'vote_type',
   created_at: 'created_at',
   updated_at: 'updated_at'
 };
@@ -215,18 +208,12 @@ exports.VoteStatus = exports.$Enums.VoteStatus = {
   EXPIRED: 'EXPIRED'
 };
 
-exports.VoteType = exports.$Enums.VoteType = {
-  FOR: 'FOR',
-  AGAINST: 'AGAINST'
-};
-
 exports.Prisma.ModelName = {
   User: 'User',
   Room: 'Room',
   RoomMember: 'RoomMember',
   Order: 'Order',
-  VoteSession: 'VoteSession',
-  Vote: 'Vote'
+  VoteSession: 'VoteSession'
 };
 
 /**

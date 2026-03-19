@@ -1,8 +1,15 @@
 import { prisma } from '@/config/orm/config'
 import { Prisma } from '@/database/client'
-import { UserCreateInput, UserUpdateInput } from '@/database/models'
 import { Context } from 'telegraf'
 import { RoomMemberWithRoom } from '../rooms/service'
+
+export type UserCreateInput = {
+  tg_id: number
+  username?: string | null
+  first_name?: string | null
+  last_name?: string | null
+  chat_id?: string | null
+}
 
 export type UserWithRoomMembers = Prisma.UserGetPayload<{
   include: {
@@ -14,7 +21,7 @@ export type UserWithRoomMembers = Prisma.UserGetPayload<{
   }
 }>
 export interface IUserService {
-  findOrCreateUser(data: UserCreateInput): Promise<UserWithRoomMembers>
+  findOrCreateUser(data: any): Promise<UserWithRoomMembers>
   getRoomIdByUser(ctx: Context): Promise<RoomMemberWithRoom>
 }
 
@@ -29,7 +36,12 @@ export class UsersService implements IUserService {
           },
         },
       },
-      data: data
+      data: {
+        username: data.username,
+        first_name: data.first_name,
+        last_name: data.last_name,
+        chat_id: data.chat_id,
+      },
     })
 
     if (existingUser) {
@@ -42,6 +54,7 @@ export class UsersService implements IUserService {
         username: data.username,
         first_name: data.first_name,
         last_name: data.last_name,
+        chat_id: data.chat_id ?? null,
       },
       include: {
         memberships: {

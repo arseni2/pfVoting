@@ -3,17 +3,12 @@ import { $Enums } from '@/database'
 import { IOrdersService, ordersService } from '@/services/orders/service'
 import { IRoomsService, roomsService } from '@/services/rooms/service'
 import { IUserService, startService } from '@/services/start/service'
-import { IVotesService, votesService } from '@/services/votes/servce'
-import {
-  IVotesSessionService,
-  votesSessionService,
-} from '@/services/votes/session/service'
+import { IVotesSessionService, votesSessionService } from '@/services/votes/session/service'
 import { Context, Markup, Telegraf } from 'telegraf'
 import { Update } from 'telegraf/types'
 
 export class VotesController {
   constructor(
-    private readonly votesService: IVotesService,
     private readonly votesSessionService: IVotesSessionService,
     private readonly ordersService: IOrdersService,
     private readonly usersService: IUserService,
@@ -23,22 +18,116 @@ export class VotesController {
   async startVoteSession(ctx: Context) {
     const roomMember = await this.usersService.getRoomIdByUser(ctx)
     try {
-      await this.votesSessionService.createSession({
+      const session = await this.votesSessionService.createSession({
         createdBy: ctx.user.id,
         roomId: roomMember.room.id,
       })
-      const data = await this.sendOrdersInRoom(ctx, true)
+
+      const orders = await this.ordersService.getOrderInRoom(roomMember.room_id)
+
+      if (orders.length === 0) {
+        await ctx.reply('❌ Нет заказов для голосования')
+        await this.votesSessionService.cancelSession(session.id, ctx.user.id)
+        return
+      }
+
+      const pollOptions = orders.map((order) => {
+        const userName = order.user?.first_name ?? 'Аноним'
+        return MessagesConstant.VOTE_POLL_QUESTION(
+          order.pizza_name,
+          order.addons,
+          order.comment,
+          order.quantity,
+          userName
+        )
+      })
+
+      const poll = await ctx.replyWithPoll(
+        `🗳️ Голосование в комнате "${roomMember.room.name}"`,
+        pollOptions,
+        {
+          is_anonymous: false,
+          type: 'regular',
+          allows_multiple_answers: true,
+          reply_markup: Markup.inlineKeyboard([
+            [
+              Markup.button.callback(
+                MessagesConstant.VOTE_BUTTON_COMPLETE,
+                MessagesConstant.VOTE_COMPLETE_ACTION
+              ),
+            ],
+            [
+              Markup.button.callback(
+                MessagesConstant.VOTE_BUTTON_CANCEL_SESSION,
+                MessagesConstant.VOTE_CANCEL_SESSION_ACTION
+              ),
+            ],
+          ]).reply_markup,
+        } as any
+      )
+
+      // Сохраняем и poll.id, и message_id, и chat_id, и snapshot опций
+      await this.votesSessionService.saveTelegramPollId(
+        session.id,
+        poll.poll.id
+      )
+      await this.votesSessionService.saveTelegramMessageId(
+        session.id,
+        poll.message_id
+      )
+      if (ctx.chat) {
+        await this.votesSessionService.saveTelegramChatId(
+          session.id,
+          String(ctx.chat.id)
+        )
+      }
+
       await ctx.reply(MessagesConstant.VOTE_START_SUCCESS)
-      await ctx.reply(data.text, {
-        reply_markup: data.reply_markup,
-      })
-      return this.sendOrdersInRoom(ctx)
-    } catch (e) {
+
+      // Отправляем poll всем пользователям в комнате
+      const users = await this.roomsService.getUsersInRoom(roomMember.room.id)
+      for (const user of users) {
+        // Пропускаем текущего пользователя (ему уже отправлен poll)
+        if (user.id === ctx.user.id) continue
+
+        const chatId = user.chat_id
+        if (!chatId) {
+          console.warn(`У пользователя ${user.tg_id} нет chat_id`)
+          continue
+        }
+        try {
+          const userPoll = await ctx.telegram.sendPoll(
+            chatId,
+            `🗳️ Голосование в комнате "${roomMember.room.name}"`,
+            pollOptions,
+            {
+              is_anonymous: false,
+              type: 'regular',
+              allows_multiple_answers: true,
+              reply_markup: Markup.inlineKeyboard([
+                [
+                  Markup.button.callback(
+                    MessagesConstant.VOTE_BUTTON_COMPLETE,
+                    MessagesConstant.VOTE_COMPLETE_ACTION
+                  ),
+                ],
+                [
+                  Markup.button.callback(
+                    MessagesConstant.VOTE_BUTTON_CANCEL_SESSION,
+                    MessagesConstant.VOTE_CANCEL_SESSION_ACTION
+                  ),
+                ],
+              ]).reply_markup,
+            } as any
+          )
+          // Сохраняем message_id для этого пользователя (опционально)
+          console.log(`Poll отправлен пользователю ${user.tg_id}, message_id: ${userPoll.message_id}`)
+        } catch (e: any) {
+          console.error(`Ошибка отправки poll пользователю ${user.tg_id}:`, e.message)
+        }
+      }
+    } catch (e: any) {
       await ctx.reply(MessagesConstant.VOTE_ERROR(e))
-      const data = await this.sendOrdersInRoom(ctx, true)
-      await ctx.reply(data.text, {
-        reply_markup: data.reply_markup,
-      })
     }
   }
 
@@ -58,17 +147,36 @@ export class VotesController {
       return
     }
 
-    const results = await this.votesService.getOrdersSortedByVotes(
-      roomMember.room.id
-    )
+    const telegramMessageId = activeOrCompletedSession.telegram_message_id
+    const telegramChatId = activeOrCompletedSession.telegram_chat_id
+    
+    if (!telegramMessageId || !telegramChatId) {
+      await ctx.reply('❌ Poll не найден')
+      return
+    }
 
-    const resultsText = results
-      .map((item, index) => {
-        const { order, votes } = item
-        const userName = order.user?.first_name ?? 'Аноним'
-        const pizza = order.pizza_name
-        const addons = order.addons ? `+ ${order.addons}` : ''
-        const comment = order.comment ? `(${order.comment})` : ''
+    try {
+      // Получаем сообщение с poll через callApi
+      const message: any = await (ctx.telegram as any).callApi('getMessage', {
+        chat_id: telegramChatId,
+        message_id: telegramMessageId,
+      })
+      
+      const poll = message?.poll
+      if (!poll) {
+        await ctx.reply('❌ Poll не найден в сообщении')
+        return
+      }
+
+      const orders = await this.ordersService.getOrderInRoom(roomMember.room_id)
+
+      const results = poll.options.map((option: any, index: number) => {
+        const order = orders[index]
+        const userName = order?.user?.first_name ?? 'Аноним'
+        const pizza = order?.pizza_name ?? 'Неизвестно'
+        const addons = order?.addons ? `+ ${order.addons}` : ''
+        const comment = order?.comment ? `(${order.comment})` : ''
+        const quantity = order?.quantity ?? 0
 
         const medal =
           index === 0 ? '🥇' : index === 1 ? '🥈' : index === 2 ? '🥉' : '  '
@@ -79,32 +187,47 @@ export class VotesController {
           pizza,
           addons,
           comment,
-          order.quantity,
+          quantity,
           userName,
-          votes.for,
-          votes.against
+          option.voter_count,
+          0
         )
       })
-      .join('\n\n')
 
-    const users = (
-      await roomsService.getUsersInRoom(roomMember.room.id)
-    ).filter((u) => u.id != ctx.user.id)
-    for (const user of users) {
-      const chatId = user.chat_id
-      if (!chatId) continue
-      ctx.telegram.sendMessage(
-        chatId,
+      const resultsText = results.join('\n\n')
+
+      const users = await this.roomsService.getUsersInRoom(roomMember.room.id)
+      for (const user of users) {
+        if (user.id === ctx.user.id) continue
+
+        const userChatId = user.chat_id
+        if (!userChatId) continue
+        try {
+          await ctx.telegram.sendMessage(
+            userChatId,
+            `${MessagesConstant.VOTE_RESULTS_TITLE(roomMember.room.name)}\n\n${resultsText}`,
+            {
+              parse_mode: 'HTML',
+              reply_markup: Markup.inlineKeyboard([
+                [
+                  Markup.button.callback(
+                    MessagesConstant.VOTE_BUTTON_BACK_TO_ORDERS,
+                    MessagesConstant.BUTTON_ORDERS_MY_COMMAND
+                  ),
+                ],
+              ]).reply_markup,
+            }
+          )
+        } catch (e: any) {
+          console.error(`Ошибка отправки результатов пользователю ${user.tg_id}:`, e.message)
+        }
+      }
+
+      await ctx.reply(
         `${MessagesConstant.VOTE_RESULTS_TITLE(roomMember.room.name)}\n\n${resultsText}`,
         {
           parse_mode: 'HTML',
           reply_markup: Markup.inlineKeyboard([
-            [
-              Markup.button.callback(
-                MessagesConstant.VOTE_BUTTON_REFRESH,
-                MessagesConstant.VOTE_RESULTS_REFRESH_ACTION
-              ),
-            ],
             [
               Markup.button.callback(
                 MessagesConstant.VOTE_BUTTON_BACK_TO_ORDERS,
@@ -114,28 +237,9 @@ export class VotesController {
           ]).reply_markup,
         }
       )
+    } catch (e: any) {
+      await ctx.reply(`Ошибка получения результатов: ${e.message}`)
     }
-
-    await ctx.reply(
-      `${MessagesConstant.VOTE_RESULTS_TITLE(roomMember.room.name)}\n\n${resultsText}`,
-      {
-        parse_mode: 'HTML',
-        reply_markup: Markup.inlineKeyboard([
-          [
-            Markup.button.callback(
-              MessagesConstant.VOTE_BUTTON_REFRESH,
-              MessagesConstant.VOTE_RESULTS_REFRESH_ACTION
-            ),
-          ],
-          [
-            Markup.button.callback(
-              MessagesConstant.VOTE_BUTTON_BACK_TO_ORDERS,
-              MessagesConstant.BUTTON_ORDERS_MY_COMMAND
-            ),
-          ],
-        ]).reply_markup,
-      }
-    )
   }
 
   async completeSession(ctx: Context) {
@@ -153,6 +257,20 @@ export class VotesController {
       }
 
       await this.votesSessionService.completeSession(activeSession.id)
+
+      const telegramMessageId = activeSession.telegram_message_id
+      const telegramChatId = activeSession.telegram_chat_id
+      
+      if (telegramMessageId && telegramChatId) {
+        try {
+          await ctx.telegram.stopPoll(
+            telegramChatId,
+            telegramMessageId
+          )
+        } catch (e: any) {
+          console.error('Ошибка остановки poll:', e.message)
+        }
+      }
 
       await ctx.reply(MessagesConstant.VOTE_COMPLETE_SUCCESS)
 
@@ -180,83 +298,24 @@ export class VotesController {
         activeSession.id,
         ctx.user.id
       )
+
+      const telegramMessageId = activeSession.telegram_message_id
+      const telegramChatId = activeSession.telegram_chat_id
+      
+      if (telegramMessageId && telegramChatId) {
+        try {
+          await ctx.telegram.stopPoll(
+            telegramChatId,
+            telegramMessageId
+          )
+        } catch (e: any) {
+          console.error('Ошибка остановки poll:', e.message)
+        }
+      }
+
       await ctx.reply(MessagesConstant.VOTE_CANCEL_SUCCESS)
     } catch (e: any) {
       await ctx.reply(MessagesConstant.VOTE_CANCEL_ERROR(e.message))
-    }
-  }
-
-  async sendOrdersInRoom(ctx: Context, sendAllUserNotification?: boolean) {
-    const roomMember = await this.usersService.getRoomIdByUser(ctx)
-    const roomId = roomMember.room_id
-    const orders = await this.ordersService.getOrderInRoom(roomId)
-
-    let messageText = MessagesConstant.VOTE_SESSION_TITLE(roomMember.room.name)
-    const keyboard: any[][] = []
-
-    for (const order of orders) {
-      const userName = order.user?.first_name ?? 'Аноним'
-      const addons = order.addons ? `+ ${order.addons}` : ''
-      const comment = order.comment ? `(${order.comment})` : ''
-
-      messageText += `🍕 ${order.pizza_name} ${addons} ${comment} [${order.quantity}] — ${userName}\n`
-
-      const userVote = order.votes?.find(
-        (vote) => vote.voter_id === ctx.user.id
-      )
-
-      const row = [
-        Markup.button.callback(
-          MessagesConstant.VOTE_BUTTON_FOR,
-          MessagesConstant.VOTE_FOR_ACTION(order.id)
-        ),
-        Markup.button.callback(
-          MessagesConstant.VOTE_BUTTON_AGAINST,
-          MessagesConstant.VOTE_AGAINST_ACTION(order.id)
-        ),
-      ]
-
-      if (userVote) {
-        row.push(
-          Markup.button.callback(
-            MessagesConstant.VOTE_BUTTON_CANCEL,
-            MessagesConstant.VOTE_CANCEL_ACTION(order.id)
-          )
-        )
-      }
-
-      keyboard.push(row)
-    }
-
-    keyboard.push([
-      Markup.button.callback(
-        MessagesConstant.VOTE_BUTTON_COMPLETE,
-        MessagesConstant.VOTE_COMPLETE_ACTION
-      ),
-    ])
-    keyboard.push([
-      Markup.button.callback(
-        MessagesConstant.VOTE_BUTTON_CANCEL_SESSION,
-        MessagesConstant.VOTE_CANCEL_SESSION_ACTION
-      ),
-    ])
-
-    if (sendAllUserNotification) {
-      const users = (await roomsService.getUsersInRoom(roomId)).filter(
-        (u) => u.id != ctx.user.id
-      )
-      for (const user of users) {
-        const chatId = user.chat_id
-        if (!chatId) continue
-        ctx.telegram.sendMessage(chatId, messageText, {
-          reply_markup: Markup.inlineKeyboard(keyboard).reply_markup,
-        })
-      }
-    }
-
-    return {
-      text: messageText,
-      reply_markup: Markup.inlineKeyboard(keyboard).reply_markup,
     }
   }
 
@@ -266,63 +325,76 @@ export class VotesController {
     const sessions = await this.votesSessionService.getSessionsByRoom(
       roomMember.room.id
     )
-
-    const activeSession = sessions.find((s) => s.status === 'ACTIVE')
+    
+    const activeSession = sessions.find((s) => s.status === $Enums.VoteStatus.ACTIVE)
 
     if (!activeSession) {
       await ctx.reply(MessagesConstant.VOTE_NO_ACTIVE_SESSION)
       return
     }
 
-    return this.sendOrdersInRoom(ctx)
-  }
-
-  async voteFor(ctx: Context, orderId: number) {
-    const roomMember = await this.usersService.getRoomIdByUser(ctx)
-    try {
-      await this.votesService.castVote({
-        orderId,
-        voterId: ctx.user.id,
-        voteType: $Enums.VoteType.FOR,
-        roomId: roomMember.room.id,
-      })
-    } catch (e) {
-      await ctx.reply(`Error: ${e}`)
+    const telegramMessageId = activeSession.telegram_message_id
+    const telegramChatId = activeSession.telegram_chat_id
+    
+    if (!telegramMessageId || !telegramChatId) {
+      await ctx.reply('❌ Poll не найден')
+      return
     }
-  }
-
-  async voteAgainst(ctx: Context, orderId: number) {
-    const roomMember = await this.usersService.getRoomIdByUser(ctx)
 
     try {
-      await this.votesService.castVote({
-        orderId,
-        voterId: ctx.user.id,
-        voteType: $Enums.VoteType.AGAINST,
-        roomId: roomMember.room.id,
+      // Получаем сообщение с poll через callApi
+      const message: any = await (ctx.telegram as any).callApi('getMessage', {
+        chat_id: telegramChatId,
+        message_id: telegramMessageId,
       })
-    } catch (e) {
-      await ctx.reply(`Error: ${e}`)
-    }
-  }
+      
+      const poll = message?.poll
+      if (!poll) {
+        await ctx.reply('❌ Poll не найден в сообщении')
+        return
+      }
 
-  async voteCancel(ctx: Context, orderId: number) {
-    const roomMember = await this.usersService.getRoomIdByUser(ctx)
+      // Формируем сообщение с текущими результатами
+      const orders = await this.ordersService.getOrderInRoom(roomMember.room_id)
 
-    try {
-      await this.votesService.revokeVote({
-        orderId,
-        voterId: ctx.user.id,
-        roomId: roomMember.room.id,
-      })
-    } catch (e) {
-      await ctx.reply(`Error: ${e}`)
+      const resultsText = poll.options.map((option: any, index: number) => {
+        const order = orders[index]
+        const userName = order?.user?.first_name ?? 'Аноним'
+        const pizza = order?.pizza_name ?? 'Неизвестно'
+        const addons = order?.addons ? `+ ${order.addons}` : ''
+        const comment = order?.comment ? `(${order.comment})` : ''
+        const quantity = order?.quantity ?? 0
+
+        return `🍕 ${pizza} ${addons} ${comment} [${quantity}] — ${userName}\n   👍 ${option.voter_count}`
+      }).join('\n\n')
+
+      await ctx.reply(
+        `🗳️ Активное голосование в комнате "${roomMember.room.name}"\n\n${resultsText}`,
+        {
+          parse_mode: 'HTML',
+          reply_markup: Markup.inlineKeyboard([
+            [
+              Markup.button.callback(
+                MessagesConstant.VOTE_BUTTON_COMPLETE,
+                MessagesConstant.VOTE_COMPLETE_ACTION
+              ),
+            ],
+            [
+              Markup.button.callback(
+                MessagesConstant.VOTE_BUTTON_CANCEL_SESSION,
+                MessagesConstant.VOTE_CANCEL_SESSION_ACTION
+              ),
+            ],
+          ]).reply_markup,
+        }
+      )
+    } catch (e: any) {
+      await ctx.reply(`Ошибка: ${e.message}`)
     }
   }
 }
 
 export const votesController = new VotesController(
-  votesService,
   votesSessionService,
   ordersService,
   startService,
@@ -335,79 +407,17 @@ export const votesControllerConfig = (bot: Telegraf<Context<Update>>) => {
   )
 
   bot.command(MessagesConstant.VOTE_GET_ACTIVE_ACTION, async (ctx) => {
-    const data = await votesController.getActiveVoteSession(ctx)
-    if (!data?.text) return
+    return votesController.getActiveVoteSession(ctx)
+  })
 
-    await ctx.reply(data.text, {
-      reply_markup: data.reply_markup,
-    })
+  bot.action(MessagesConstant.VOTE_GET_ACTIVE_ACTION, async (ctx) => {
+    await ctx.answerCbQuery()
+    return votesController.getActiveVoteSession(ctx)
   })
 
   bot.action(MessagesConstant.BUTTON_VOTE_START_COMMAND, async (ctx) => {
     await ctx.answerCbQuery()
     return votesController.startVoteSession(ctx)
-  })
-  bot.action(MessagesConstant.VOTE_GET_ACTIVE_ACTION, async (ctx) => {
-    await ctx.answerCbQuery()
-    const data = await votesController.getActiveVoteSession(ctx)
-    if (!data?.text) return
-    await ctx.reply(data.text, {
-      reply_markup: data.reply_markup,
-    })
-  })
-
-  bot.action(/^vote_for_(\d+)$/, async (ctx) => {
-    await ctx.answerCbQuery()
-    const orderId = parseInt(ctx.match![1], 10)
-
-    try {
-      await votesController.voteFor(ctx, orderId)
-
-      const updated = await votesController.sendOrdersInRoom(ctx)
-
-      await ctx.editMessageText(updated.text, {
-        parse_mode: 'HTML',
-        reply_markup: updated.reply_markup,
-      })
-    } catch (e: any) {
-      await ctx.answerCbQuery(e.message, { show_alert: true })
-    }
-  })
-
-  bot.action(/^vote_against_(\d+)$/, async (ctx) => {
-    await ctx.answerCbQuery()
-    const orderId = parseInt(ctx.match![1], 10)
-
-    try {
-      await votesController.voteAgainst(ctx, orderId)
-
-      const updated = await votesController.sendOrdersInRoom(ctx)
-
-      await ctx.editMessageText(updated.text, {
-        parse_mode: 'HTML',
-        reply_markup: updated.reply_markup,
-      })
-    } catch (e: any) {
-      await ctx.answerCbQuery(e.message, { show_alert: true })
-    }
-  })
-
-  bot.action(/^vote_cancel_(\d+)$/, async (ctx) => {
-    await ctx.answerCbQuery()
-    const orderId = parseInt(ctx.match![1], 10)
-
-    try {
-      await votesController.voteCancel(ctx, orderId)
-
-      const updated = await votesController.sendOrdersInRoom(ctx)
-
-      await ctx.editMessageText(updated.text, {
-        parse_mode: 'HTML',
-        reply_markup: updated.reply_markup,
-      })
-    } catch (e: any) {
-      await ctx.answerCbQuery(e.message, { show_alert: true })
-    }
   })
 
   bot.action(MessagesConstant.VOTE_COMPLETE_ACTION, async (ctx) => {

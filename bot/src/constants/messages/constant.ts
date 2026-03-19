@@ -145,23 +145,18 @@ export const MessagesConstant = {
   ) =>
     `${medal} ${index + 1}. 🍕 ${pizza} ${addons} ${comment} [${quantity}] — ${userName}\n   👍 ${votesFor} | 👎 ${votesAgainst}`,
 
-  // Vote session
+  // Vote session - Poll
   VOTE_SESSION_TITLE: (roomName: string) =>
     `🗳️ Голосование в комнате "${roomName}"\n\n`,
-  VOTE_BUTTON_FOR: '👍 За',
-  VOTE_BUTTON_AGAINST: '👎 Против',
-  VOTE_BUTTON_CANCEL: '↩️',
+  VOTE_POLL_QUESTION: (pizzaName: string, addons: string | null, comment: string | null, quantity: number, userName: string) =>
+    `🍕 ${pizzaName}${addons ? ` + ${addons}` : ''}${comment ? ` (${comment})` : ''} [${quantity}] — ${userName}`,
+  VOTE_POLL_OPTION_FOR: '👍 За',
+  VOTE_POLL_OPTION_AGAINST: '👎 Против',
   VOTE_BUTTON_COMPLETE: '🗳️ Завершить голосование',
   VOTE_BUTTON_CANCEL_SESSION: '🗳️ Отменить голосование',
-  VOTE_BUTTON_REFRESH: '🔄 Обновить',
   VOTE_BUTTON_BACK_TO_ORDERS: '📋 Назад к заказам',
 
   // Vote actions
-  VOTE_FOR_ACTION: (orderId: number) => `vote_for_${orderId}`,
-  VOTE_AGAINST_ACTION: (orderId: number) => `vote_against_${orderId}`,
-  VOTE_CANCEL_ACTION: (orderId: number) => `vote_cancel_${orderId}`,
   VOTE_COMPLETE_ACTION: 'vote_complete',
   VOTE_CANCEL_SESSION_ACTION: 'vote_cancel_session',
-  VOTE_RESULTS_REFRESH_ACTION: 'vote_results_refresh',
-  VOTE_STATUS_ACTION: 'vote_status',
 } as const
