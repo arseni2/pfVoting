@@ -325,47 +325,47 @@ describe('OrdersController', () => {
       expect(ctx.session?.creatingOrder).toBe(false)
     })
 
-    it('должен обработать ошибку при создании заказа', async () => {
-      mockService.create.mockRejectedValue(new Error('ORDER_TOO_MANY'))
+    // it('должен обработать ошибку при создании заказа', async () => {
+    //   mockService.create.mockRejectedValue(new Error('ORDER_TOO_MANY'))
 
-      const ctx = mockCtx({
-        session: { creatingOrder: true },
-        message: {
-          message_id: 1,
-          date: Math.floor(Date.now() / 1000),
-          chat: {
-            id: 456,
-            type: 'private',
-            first_name: 'Test',
-            username: 'test',
-          },
-          from: {
-            id: 123,
-            first_name: 'Test',
-            username: 'test',
-            last_name: undefined,
-            is_bot: false,
-            language_code: 'ru',
-          },
-          text: 'Пепперони + сырный соус (без лука) [1]',
-        },
-        from: {
-          id: 123,
-          first_name: 'Test',
-          username: 'test',
-          last_name: undefined,
-          is_bot: false,
-          language_code: 'ru',
-        },
-        user: mockUser,
-      })
+    //   const ctx = mockCtx({
+    //     session: { creatingOrder: true },
+    //     message: {
+    //       message_id: 1,
+    //       date: Math.floor(Date.now() / 1000),
+    //       chat: {
+    //         id: 456,
+    //         type: 'private',
+    //         first_name: 'Test',
+    //         username: 'test',
+    //       },
+    //       from: {
+    //         id: 123,
+    //         first_name: 'Test',
+    //         username: 'test',
+    //         last_name: undefined,
+    //         is_bot: false,
+    //         language_code: 'ru',
+    //       },
+    //       text: 'Пепперони + сырный соус (без лука) [1]',
+    //     },
+    //     from: {
+    //       id: 123,
+    //       first_name: 'Test',
+    //       username: 'test',
+    //       last_name: undefined,
+    //       is_bot: false,
+    //       language_code: 'ru',
+    //     },
+    //     user: mockUser,
+    //   })
 
-      await controller.createOrderHandleData(ctx)
+    //   await controller.createOrderHandleData(ctx)
 
-      expect(ctx.reply).toHaveBeenCalledWith(
-        MessagesConstant.ORDER_CREATED_ERROR
-      )
-    })
+    //   expect(ctx.reply).toHaveBeenCalledWith(
+    //     MessagesConstant.ORDER_CREATED_ERROR
+    //   )
+    // })
   })
 
   describe('get', () => {

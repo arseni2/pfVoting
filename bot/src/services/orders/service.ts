@@ -109,17 +109,17 @@ export class OrdersService implements IOrdersService {
     comment: string | null,
     quantity: number
   ): Promise<Order> {
-    const userOrdersCount = await prisma.order.count({
-      where: {
-        room_id: roomId,
-        user_id: user.id,
-        is_deleted: false,
-      },
-    })
+    // const userOrdersCount = await prisma.order.count({
+    //   where: {
+    //     room_id: roomId,
+    //     user_id: user.id,
+    //     is_deleted: false,
+    //   },
+    // })
 
-    if (userOrdersCount >= 3) {
-      throw new Error('ORDER_TOO_MANY')
-    }
+    // if (userOrdersCount >= 3) {
+    //   throw new Error('ORDER_TOO_MANY')
+    // }
 
     return prisma.order.create({
       data: {

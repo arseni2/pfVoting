@@ -294,50 +294,7 @@ describe('RoomsController', () => {
       )
     })
 
-    it('должен показать ошибку если пользователь не найден', async () => {
-      const ctx = mockCtx({
-        session: { creatingRoom: true },
-        message: {
-          message_id: 1,
-          date: Math.floor(Date.now() / 1000),
-          chat: {
-            id: 456,
-            type: 'private',
-            first_name: 'Test',
-            username: 'test',
-          },
-          from: {
-            id: 123,
-            first_name: 'Test',
-            username: 'test',
-            last_name: undefined,
-            is_bot: false,
-            language_code: 'ru',
-          },
-          text: 'Тестовая комната',
-        },
-        from: undefined,
-      })
-
-      await controller.createRoomHandleTitle(ctx)
-
-      expect(ctx.reply).toHaveBeenCalledWith(
-        MessagesConstant.ROOMS_USER_NOT_FOUND
-      )
-    })
-
     it('должен создать комнату и показать подтверждение', async () => {
-      const mockUser: UserWithRoomMembers = {
-        id: 1,
-        tg_id: 123,
-        username: 'test',
-        first_name: 'Test',
-        last_name: null,
-        created_at: new Date(),
-        updated_at: new Date(),
-        memberships: [],
-      }
-
       const mockRoom = {
         id: 999,
         name: 'Тестовая комната',
@@ -350,7 +307,6 @@ describe('RoomsController', () => {
         updated_at: new Date(),
       }
 
-      vi.spyOn(startService, 'findOrCreateUser').mockResolvedValue(mockUser)
       mockService.createRoom.mockResolvedValue(mockRoom)
 
       const ctx = mockCtx({
@@ -386,16 +342,9 @@ describe('RoomsController', () => {
 
       await controller.createRoomHandleTitle(ctx)
 
-      expect(startService.findOrCreateUser).toHaveBeenCalledWith({
-        tg_id: 123,
-        username: 'test',
-        first_name: 'Test',
-        last_name: null,
-      })
-
       expect(mockService.createRoom).toHaveBeenCalledWith(
         'Тестовая комната',
-        mockUser
+        ctx.user
       )
 
       expect(ctx.reply).toHaveBeenCalledWith(
@@ -474,17 +423,6 @@ describe('RoomsController', () => {
       mockService.joinRoom = vi.fn()
     })
 
-    it('должен показать ошибку если пользователь не найден', async () => {
-      const ctx = mockCtx({ from: undefined })
-
-      await controller.joinRoom(ctx, 123)
-
-      expect(ctx.reply).toHaveBeenCalledWith(
-        MessagesConstant.ROOMS_USER_NOT_FOUND
-      )
-      expect(mockService.joinRoom).not.toHaveBeenCalled()
-    })
-
     it('должен присоединить пользователя к комнате и показать успех', async () => {
       const mockResult = {
         roomDetail: {
@@ -504,13 +442,15 @@ describe('RoomsController', () => {
       mockService.joinRoom.mockResolvedValue(mockResult)
 
       const ctx = mockCtx({
-        from: {
+        user: {
           id: 456,
           first_name: 'Test',
           username: 'test',
-          last_name: undefined,
-          is_bot: false,
-          language_code: 'ru',
+          last_name: null,
+          created_at: new Date(),
+          memberships: [],
+          tg_id: 456,
+          updated_at: new Date()
         },
       })
 

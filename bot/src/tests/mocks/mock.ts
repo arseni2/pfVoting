@@ -33,6 +33,10 @@ export const mockCtx = (overrides: Partial<Context> = {}) => {
       tg_id: 123,
       username: 'test',
       first_name: 'Test',
+      last_name: null,
+      created_at: new Date(),
+      updated_at: new Date(),
+      memberships: []
     },
     reply: vi.fn().mockResolvedValue(true),
     replyWithHTML: vi.fn().mockResolvedValue(true),

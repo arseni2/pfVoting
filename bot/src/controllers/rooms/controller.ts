@@ -4,7 +4,6 @@ import {
   roomsService,
   RoomWithMembers,
 } from '@/services/rooms/service'
-import { startService } from '@/services/start/service'
 import { Context, Markup, Telegraf } from 'telegraf'
 import { Update } from 'telegraf/types'
 
@@ -23,22 +22,8 @@ export class RoomsController {
       return
     }
 
-    const userId = ctx.from?.id
-
-    if (!userId) {
-      await ctx.reply(MessagesConstant.ROOMS_USER_NOT_FOUND)
-      return
-    }
-
     try {
-      const userData = await startService.findOrCreateUser({
-        tg_id: userId,
-        username: ctx.from?.username ?? null,
-        first_name: ctx.from?.first_name ?? null,
-        last_name: ctx.from?.last_name ?? null,
-      })
-
-      const room = await this.roomsService.createRoom(roomName, userData)
+      const room = await this.roomsService.createRoom(roomName, ctx.user)
 
       await ctx.reply(MessagesConstant.ROOMS_CREATED_SUCCESS(room.name), {
         reply_markup: Markup.inlineKeyboard([
@@ -142,19 +127,8 @@ export class RoomsController {
   }
 
   async joinRoom(ctx: Context, roomId: number) {
-    const userId = ctx.from?.id
-    if (!userId) {
-      await ctx.reply(MessagesConstant.ROOMS_USER_NOT_FOUND)
-      return
-    }
-
     try {
-      const result = await this.roomsService.joinRoom(roomId, {
-        tg_id: userId,
-        username: ctx.from?.username ?? null,
-        first_name: ctx.from?.first_name ?? null,
-        last_name: ctx.from?.last_name ?? null,
-      })
+      const result = await this.roomsService.joinRoom(roomId, ctx.user)
 
       await ctx.reply(
         MessagesConstant.ROOMS_JOINED_SUCCESS(
@@ -181,25 +155,13 @@ export class RoomsController {
   }
 
   async leaveRoom(ctx: Context, roomId: number) {
-    const userId = ctx.from?.id
-    if (!userId) {
-      await ctx.reply(MessagesConstant.ROOMS_USER_NOT_FOUND)
-      return
-    }
-    await this.roomsService.leaveRoom(roomId, {
-      tg_id: userId,
-    })
+    await this.roomsService.leaveRoom(roomId, ctx.user)
     await ctx.reply(MessagesConstant.ROOMS_LEAVE_SUCCESS)
     return this.get(ctx)
   }
 
   async deleteRoom(ctx: Context, roomId: number) {
-    const room = await this.roomsService.softDeleteRoom(roomId, {
-      tg_id: ctx.from?.id ?? 0,
-      username: ctx.from?.username ?? null,
-      first_name: ctx.from?.first_name ?? null,
-      last_name: ctx.from?.last_name ?? null,
-    })
+    const room = await this.roomsService.softDeleteRoom(roomId, ctx.user)
     ctx.reply(MessagesConstant.ROOMS_DELETED_SUCCESS(room.name))
     return this.get(ctx)
   }

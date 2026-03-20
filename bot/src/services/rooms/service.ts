@@ -22,11 +22,11 @@ export interface IRoomsService {
   createRoom(roomTitle: string, user: User): Promise<Room>
   joinRoom(
     roomId: number,
-    user: UserCreateInput
+    user: User
   ): Promise<{ roomDetail: RoomWithMembers; member: RoomMember }>
-  softDeleteRoom(roomId: number, user: UserCreateInput): Promise<Room>
+  softDeleteRoom(roomId: number, user: User): Promise<Room>
   getRoomById(roomId: number): Promise<Room | null>
-  leaveRoom(roomId: number, user: UserCreateInput): Promise<RoomMember>
+  leaveRoom(roomId: number, user: User): Promise<RoomMember>
   getUsersInRoom(roomId: number): Promise<User[]>
   // updateRoom(data: RoomUpdateInput): Promise<Room>
 }
@@ -47,7 +47,7 @@ export class RoomsService implements IRoomsService {
     })
     if (!room) throw new Error(`Нет комнаты с id ${roomId}`)
 
-    return room.roomMembers.map(roomMember => roomMember.user)  
+    return room.roomMembers.map((roomMember) => roomMember.user)
   }
 
   async leaveRoom(roomId: number, user: UserCreateInput): Promise<RoomMember> {
@@ -81,26 +81,20 @@ export class RoomsService implements IRoomsService {
     return roomDetail
   }
 
-  async softDeleteRoom(roomId: number, user: UserCreateInput): Promise<Room> {
-    const userData = await startService.findOrCreateUser({
-      tg_id: user.tg_id,
-      username: user.username,
-      first_name: user.first_name,
-      last_name: user.last_name,
-    })
+  async softDeleteRoom(roomId: number, user: User): Promise<Room> {
     return prisma.room.update({
       where: { id: roomId },
       data: {
         is_active: false,
         deleted_at: new Date(),
-        deleted_by: userData.id,
+        deleted_by: user.id,
       },
     })
   }
 
   async joinRoom(
     roomId: number,
-    user: UserCreateInput
+    user: User
   ): Promise<{ roomDetail: RoomWithMembers; member: RoomMember }> {
     const roomDetail = await this.getRoomById(roomId)
 
@@ -116,16 +110,9 @@ export class RoomsService implements IRoomsService {
       throw 'Ты уже участник этой комнаты'
     }
 
-    const userData = await startService.findOrCreateUser({
-      tg_id: user.tg_id,
-      username: user.username,
-      first_name: user.first_name,
-      last_name: user.last_name,
-    })
-
     await prisma.roomMember.updateMany({
       where: {
-        user_id: userData.id,
+        user_id: user.id,
         room_id: { not: roomId },
         is_active: true,
       },
@@ -139,7 +126,7 @@ export class RoomsService implements IRoomsService {
       where: {
         room_id_user_id: {
           room_id: roomId,
-          user_id: userData.id,
+          user_id: user.id,
         },
       },
       update: {
@@ -149,7 +136,7 @@ export class RoomsService implements IRoomsService {
       },
       create: {
         room_id: roomId,
-        user_id: userData.id,
+        user_id: user.id,
         is_active: true,
       },
     })
