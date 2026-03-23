@@ -27,7 +27,8 @@ export interface IUserService {
 
 export class UsersService implements IUserService {
   async findOrCreateUser(data: UserCreateInput): Promise<UserWithRoomMembers> {
-    const existingUser = await prisma.user.update({
+    // Сначала пытаемся найти пользователя
+    let existingUser = await prisma.user.findFirst({
       where: { tg_id: data.tg_id },
       include: {
         memberships: {
@@ -36,18 +37,29 @@ export class UsersService implements IUserService {
           },
         },
       },
-      data: {
-        username: data.username,
-        first_name: data.first_name,
-        last_name: data.last_name,
-        chat_id: data.chat_id,
-      },
     })
 
+    // Если найден — обновляем данные
     if (existingUser) {
-      return existingUser
+      return prisma.user.update({
+        where: { id: existingUser.id },
+        include: {
+          memberships: {
+            include: {
+              room: true,
+            },
+          },
+        },
+        data: {
+          username: data.username,
+          first_name: data.first_name,
+          last_name: data.last_name,
+          chat_id: data.chat_id,
+        },
+      })
     }
 
+    // Если не найден — создаём нового
     return prisma.user.create({
       data: {
         tg_id: data.tg_id,
@@ -60,7 +72,6 @@ export class UsersService implements IUserService {
         memberships: {
           include: {
             room: true,
-            user: true,
           },
         },
       },

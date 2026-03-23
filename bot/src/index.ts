@@ -1,5 +1,4 @@
 import { AppConstant } from '@/constants/env/constant'
-import { MessagesConstant } from '@/constants/messages/constant'
 import { helpControllerConfig } from '@/controllers/help/controller'
 import {
   ordersController,
@@ -11,7 +10,9 @@ import {
 } from '@/controllers/rooms/controller'
 import { startControllerConfig } from '@/controllers/start/controller'
 import { votesControllerConfig } from '@/controllers/votes/controller'
+import { prisma } from '@/config/orm/config'
 import { startService, UserWithRoomMembers } from '@/services/start/service'
+import { voteService } from '@/services/votes/service'
 import { HttpsProxyAgent } from 'https-proxy-agent'
 import { session, Telegraf } from 'telegraf'
 import { message } from 'telegraf/filters'
@@ -47,17 +48,57 @@ bot.use(
   })
 )
 
-bot.use(async (ctx, next) => {
+// Обработчик голосов в опросах - должен быть ДО middleware с ctx.user
+bot.on('poll_answer', async (ctx) => {
+  const { poll_id, option_ids } = ctx.pollAnswer
   const userId = ctx.from?.id
+
+  console.log(`[poll_answer] poll_id: ${poll_id}, option_ids: ${option_ids}, from:`, ctx.from)
+
   if (!userId) {
-    await ctx.reply(MessagesConstant.ROOMS_USER_NOT_FOUND)
+    console.warn('[poll_answer] no user in context')
     return
   }
+
+  try {
+    // Находим сессию по poll_id
+    const session = await prisma.voteSession.findFirst({
+      where: { telegram_poll_id: poll_id },
+    })
+
+    console.log(`[poll_answer] session:`, session ? `found (id: ${session.id})` : 'not found')
+
+    if (!session) {
+      console.warn(`[poll_answer] session not found for poll_id: ${poll_id}`)
+      return
+    }
+
+    // Сохраняем все выбранные голоса (option_ids - это массив индексов выбранных опций)
+    console.log(`[poll_answer] saving votes: session=${session.id}, user=${userId}, options=${option_ids}`)
+    await voteService.saveVote(session.id, userId, option_ids)
+    console.log(`[poll_answer] votes saved successfully`)
+  } catch (e) {
+    console.error('Ошибка сохранения голоса:', e)
+  }
+})
+
+bot.use(async (ctx, next) => {
+  // Пропускаем обновления без пользователя (poll, poll_answer и т.д.)
+  // Но poll_answer уже обработан выше
+  if (!ctx.from && ctx.updateType !== 'poll_answer') {
+    return next()
+  }
+
+  const userId = ctx.from?.id
+  if (!userId) {
+    return next()
+  }
+
   const userData: any = {
     tg_id: userId,
-    username: ctx.from?.username ?? null,
-    first_name: ctx.from?.first_name ?? null,
-    last_name: ctx.from?.last_name ?? null,
+    username: ctx.from.username ?? null,
+    first_name: ctx.from.first_name ?? null,
+    last_name: ctx.from.last_name ?? null,
   }
 
   // Получаем chat_id из сообщения или callback query
@@ -66,7 +107,7 @@ bot.use(async (ctx, next) => {
   } else if ('callback_query' in ctx.update && ctx.update.callback_query?.message?.chat?.id) {
     userData.chat_id = String(ctx.update.callback_query.message.chat.id)
   }
-  
+
   const user = await startService.findOrCreateUser(userData)
 
   ctx.user = user

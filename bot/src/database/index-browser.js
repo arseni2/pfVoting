@@ -172,9 +172,18 @@ exports.Prisma.VoteSessionScalarFieldEnum = {
   telegram_poll_id: 'telegram_poll_id',
   telegram_message_id: 'telegram_message_id',
   telegram_chat_id: 'telegram_chat_id',
+  options_snapshot: 'options_snapshot',
   is_deleted: 'is_deleted',
   created_at: 'created_at',
   updated_at: 'updated_at'
+};
+
+exports.Prisma.VoteScalarFieldEnum = {
+  id: 'id',
+  session_id: 'session_id',
+  user_id: 'user_id',
+  option_index: 'option_index',
+  created_at: 'created_at'
 };
 
 exports.Prisma.SortOrder = {
@@ -183,6 +192,11 @@ exports.Prisma.SortOrder = {
 };
 
 exports.Prisma.JsonNullValueInput = {
+  JsonNull: Prisma.JsonNull
+};
+
+exports.Prisma.NullableJsonNullValueInput = {
+  DbNull: Prisma.DbNull,
   JsonNull: Prisma.JsonNull
 };
 
@@ -213,7 +227,8 @@ exports.Prisma.ModelName = {
   Room: 'Room',
   RoomMember: 'RoomMember',
   Order: 'Order',
-  VoteSession: 'VoteSession'
+  VoteSession: 'VoteSession',
+  Vote: 'Vote'
 };
 
 /**

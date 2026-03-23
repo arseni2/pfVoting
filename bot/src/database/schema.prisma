@@ -21,6 +21,7 @@ model User {
   memberships   RoomMember[]  @relation("UserToRoomMember")
   orders        Order[]
   voteSessions  VoteSession[] @relation("VoteSessionCreator")
+  votes         Vote[]
 
   @@index([tg_id])
 }
@@ -95,18 +96,35 @@ model VoteSession {
   telegram_poll_id      String?
   telegram_message_id   Int?
   telegram_chat_id      String?
+  options_snapshot      Json?
   is_deleted            Boolean    @default(false)
   created_at            DateTime   @default(now())
   updated_at            DateTime   @updatedAt
 
-  room    Room @relation(fields: [room_id], references: [id], onDelete: Cascade)
-  creator User @relation("VoteSessionCreator", fields: [user_creator_id], references: [id])
+  room    Room   @relation(fields: [room_id], references: [id], onDelete: Cascade)
+  creator User   @relation("VoteSessionCreator", fields: [user_creator_id], references: [id])
+  votes   Vote[]
 
   @@index([room_id])
   @@index([status])
   @@index([user_creator_id])
   @@index([is_deleted])
   @@index([started_at])
+}
+
+model Vote {
+  id           Int      @id @default(autoincrement())
+  session_id   Int
+  user_id      Int
+  option_index Int
+  created_at   DateTime @default(now())
+
+  session VoteSession @relation(fields: [session_id], references: [id], onDelete: Cascade)
+  user    User        @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@unique([session_id, user_id, option_index])
+  @@index([session_id])
+  @@index([user_id])
 }
 
 enum VoteStatus {
