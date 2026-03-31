@@ -49,7 +49,7 @@ export class VotesController {
       const users = await this.roomsService.getUsersInRoom(roomMember.room.id)
       console.log(`[startVoteSession] пользователей в комнате: ${users.length}`, users.map(u => ({ tg_id: u.tg_id, chat_id: u.chat_id })))
       
-      for (const user of users) {
+      for (const user of users) {                               
         // Пропускаем текущего пользователя (ему уже отправлен poll)
         if (user.id === ctx.user.id) {
           console.log(`[startVoteSession] пропускаем текущего пользователя ${user.tg_id}`)

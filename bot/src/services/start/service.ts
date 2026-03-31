@@ -23,6 +23,7 @@ export type UserWithRoomMembers = Prisma.UserGetPayload<{
 export interface IUserService {
   findOrCreateUser(data: any): Promise<UserWithRoomMembers>
   getRoomIdByUser(ctx: Context): Promise<RoomMemberWithRoom>
+  getUserByTgId(tgId: number): Promise<User>
 }
 
 export class UsersService implements IUserService {
@@ -89,6 +90,19 @@ export class UsersService implements IUserService {
       throw new Error('пользователь не в комнате')
     }
     return roomMember
+  }
+
+  async getUserByTgId(tgId: number): Promise<UserWithRoomMembers | null> {
+    return prisma.user.findFirst({
+      where: { tg_id: tgId },
+      include: {
+        memberships: {
+          include: {
+            room: true,
+          },
+        },
+      },
+    })
   }
 }
 

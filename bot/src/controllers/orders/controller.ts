@@ -7,12 +7,56 @@ import {
 import { IUserService, startService } from '@/services/start/service'
 import { Context, Markup, Telegraf } from 'telegraf'
 import { Update } from 'telegraf/types'
+import { User } from '@/database'
+import { Response } from 'express'
+
+export interface ICreateOrderApi {
+  quantity: number
+  title: string
+  comment: string | null
+}
 
 export class OrdersController {
   constructor(
     private readonly ordersService: IOrdersService,
     private readonly usersService: IUserService
   ) {}
+
+  async createOrdersAPI(
+    payload: ICreateOrderApi[],
+    usr: { tg_id: string },
+    res: Response
+  ) {
+    try {
+      const user = await this.usersService.getUserByTgId(Number(usr.tg_id))
+
+      if (!user) {
+        return res.status(404).json({ message: 'User not found' })
+      }
+
+      // Get user's active room membership
+      const roomMember = user.memberships.find((m) => m.is_active)
+      if (!roomMember) {
+        return res.status(400).json({ message: 'User is not in any active room' })
+      }
+
+      for (const item of payload) {
+        await this.ordersService.create(
+          item.title,
+          user,
+          roomMember.room_id,
+          null,
+          item.comment,
+          item.quantity
+        )
+      }
+
+      res.status(201).json({ message: 'success creating order' })
+    } catch (e) {
+      console.error('Error creating orders:', e)
+      res.status(500).json({ message: 'Error creating order', error: e })
+    }
+  }
 
   private async sendOrders(
     ctx: Context,
@@ -387,12 +431,15 @@ export const ordersController = new OrdersController(
 )
 
 export const ordersControllerConfig = (bot: Telegraf<Context<Update>>) => {
-  bot.command(MessagesConstant.BUTTON_ORDERS_MY_COMMAND, (ctx) => ordersController.get(ctx))
-  bot.command(
-    MessagesConstant.BUTTON_ORDERS_ROOM_COMMAND,
-    (ctx) => ordersController.getAllOrdersInRoom(ctx)
+  bot.command(MessagesConstant.BUTTON_ORDERS_MY_COMMAND, (ctx) =>
+    ordersController.get(ctx)
   )
-  bot.command(MessagesConstant.ORDER_CREATE_ACTION, (ctx) => ordersController.create(ctx))
+  bot.command(MessagesConstant.BUTTON_ORDERS_ROOM_COMMAND, (ctx) =>
+    ordersController.getAllOrdersInRoom(ctx)
+  )
+  bot.command(MessagesConstant.ORDER_CREATE_ACTION, (ctx) =>
+    ordersController.create(ctx)
+  )
 
   bot.action(MessagesConstant.ORDER_CREATE_ACTION, async (ctx) => {
     await ctx.answerCbQuery()

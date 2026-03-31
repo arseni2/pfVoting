@@ -107,10 +107,6 @@ export class OrdersService implements IOrdersService {
       },
     })
 
-    if (userOrdersCount >= 3) {
-      throw new Error('ORDER_TOO_MANY')
-    }
-
     return prisma.order.create({
       data: {
         pizza_name: pizzaName,

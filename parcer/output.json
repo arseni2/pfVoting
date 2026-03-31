@@ -1,0 +1,3312 @@
+{
+  "categories": [
+    {
+      "availableAt": null,
+      "caption": "new",
+      "id": 108960,
+      "image": "",
+      "items": [
+        {
+          "availableAt": null,
+          "description": "Не забудьте добавить имбирь и васаби",
+          "editable": true,
+          "products": [
+            13026
+          ],
+          "stopped": false,
+          "title": "ГигаСет"
+        },
+        {
+          "availableAt": null,
+          "description": "Мы скучали! Хит 2021 снова в меню!",
+          "editable": true,
+          "products": [
+            13066
+          ],
+          "stopped": false,
+          "title": "Пицца Вок"
+        },
+        {
+          "availableAt": null,
+          "description": "Пицца с тайским характером",
+          "editable": true,
+          "products": [
+            12987
+          ],
+          "stopped": false,
+          "title": "Том ям с курицей"
+        },
+        {
+          "availableAt": null,
+          "description": "Как поездка в Таиланд, только вкуснее",
+          "editable": true,
+          "products": [
+            12990
+          ],
+          "stopped": false,
+          "title": "Том ям с морепродуктами"
+        },
+        {
+          "availableAt": null,
+          "description": "Совместно с благотворительным фондом «Народный Фронт. Всё для победы»",
+          "editable": true,
+          "products": [
+            12960
+          ],
+          "stopped": false,
+          "title": "Народная"
+        },
+        {
+          "availableAt": null,
+          "description": "Ммм... Картошечка — точь-в-точь как у бати!",
+          "editable": true,
+          "products": [
+            12957
+          ],
+          "stopped": false,
+          "title": "Батя"
+        },
+        {
+          "availableAt": null,
+          "description": "Без компромиссов: только для настоящих альфа",
+          "editable": true,
+          "products": [
+            12954
+          ],
+          "stopped": false,
+          "title": "Альфа"
+        },
+        {
+          "availableAt": null,
+          "description": "Пикантно, дерзко и очень вкусно",
+          "editable": true,
+          "products": [
+            12753
+          ],
+          "stopped": false,
+          "title": "Горчичная с колбасками"
+        },
+        {
+          "availableAt": null,
+          "description": "Сливочно, нежно, сочно",
+          "editable": true,
+          "products": [
+            12756
+          ],
+          "stopped": false,
+          "title": "Карбонара фри"
+        },
+        {
+          "availableAt": null,
+          "description": "Сочное мясо и ароматный перец — взрыв вкуса",
+          "editable": true,
+          "products": [
+            12765
+          ],
+          "stopped": false,
+          "title": "Мясное трио"
+        },
+        {
+          "availableAt": null,
+          "description": "С восточным колоритом",
+          "editable": true,
+          "products": [
+            12759
+          ],
+          "stopped": false,
+          "title": "Азиатская"
+        },
+        {
+          "availableAt": null,
+          "description": "Остро! Мясной микс, халапеньо и соус спайси",
+          "editable": true,
+          "products": [
+            12762
+          ],
+          "stopped": false,
+          "title": "Мясная спайси"
+        },
+        {
+          "availableAt": null,
+          "description": "Сладко и пикантно: креветки, груша и соус манго-чили",
+          "editable": true,
+          "products": [
+            12978
+          ],
+          "stopped": false,
+          "title": "Эби Тай"
+        },
+        {
+          "availableAt": null,
+          "description": "Сочные ломтики лосося, огурец, сыр и кунжутно-ореховый соус",
+          "editable": true,
+          "products": [
+            12980
+          ],
+          "stopped": false,
+          "title": "Нутами"
+        },
+        {
+          "availableAt": null,
+          "description": "Нежный лосось, авокадо, огурец и соус терияки",
+          "editable": true,
+          "products": [
+            12979
+          ],
+          "stopped": false,
+          "title": "Крейзи Терияки"
+        },
+        {
+          "availableAt": null,
+          "description": "Согревающий напиток на растительном молоке с малиной",
+          "editable": true,
+          "products": [
+            13002
+          ],
+          "stopped": false,
+          "title": "Какао с малиной"
+        }
+      ],
+      "stopped": false,
+      "title": "Новинки"
+    },
+    {
+      "availableAt": null,
+      "caption": "gluttonous-pizzas",
+      "id": 701407942,
+      "image": "",
+      "items": [
+        {
+          "availableAt": null,
+          "description": "Пикантно, дерзко и очень вкусно",
+          "editable": true,
+          "products": [
+            12753
+          ],
+          "stopped": false,
+          "title": "Горчичная с колбасками"
+        },
+        {
+          "availableAt": null,
+          "description": "Сливочно, нежно, сочно",
+          "editable": true,
+          "products": [
+            12756
+          ],
+          "stopped": false,
+          "title": "Карбонара фри"
+        },
+        {
+          "availableAt": null,
+          "description": "Сочное мясо и ароматный перец — взрыв вкуса",
+          "editable": true,
+          "products": [
+            12765
+          ],
+          "stopped": false,
+          "title": "Мясное трио"
+        },
+        {
+          "availableAt": null,
+          "description": "С восточным колоритом",
+          "editable": true,
+          "products": [
+            12759
+          ],
+          "stopped": false,
+          "title": "Азиатская"
+        },
+        {
+          "availableAt": null,
+          "description": "Остро! Мясной микс, халапеньо и соус спайси",
+          "editable": true,
+          "products": [
+            12762
+          ],
+          "stopped": false,
+          "title": "Мясная спайси"
+        }
+      ],
+      "stopped": false,
+      "title": "Обжористые пиццы"
+    },
+    {
+      "availableAt": null,
+      "caption": "rolls-for-249-rubles",
+      "id": 1975379500,
+      "image": "",
+      "items": [
+        {
+          "availableAt": null,
+          "description": "Нежный крем, куриное филе и два соуса",
+          "editable": true,
+          "products": [
+            11614
+          ],
+          "stopped": false,
+          "title": "Чикен Терияки"
+        },
+        {
+          "availableAt": null,
+          "description": "Просто ВАУ! Сливочный крем и соус терияки",
+          "editable": true,
+          "products": [
+            11613
+          ],
+          "stopped": false,
+          "title": "Бамбито"
+        },
+        {
+          "availableAt": null,
+          "description": "",
+          "editable": true,
+          "products": [
+            12993
+          ],
+          "stopped": false,
+          "title": "Темпура спайси"
+        },
+        {
+          "availableAt": null,
+          "description": "",
+          "editable": true,
+          "products": [
+            12995
+          ],
+          "stopped": false,
+          "title": "Темпура с курицей"
+        },
+        {
+          "availableAt": null,
+          "description": "",
+          "editable": true,
+          "products": [
+            12994
+          ],
+          "stopped": false,
+          "title": "Запечённый криспи"
+        },
+        {
+          "availableAt": null,
+          "description": "",
+          "editable": true,
+          "products": [
+            12996
+          ],
+          "stopped": false,
+          "title": "Запечённый с курицей"
+        }
+      ],
+      "stopped": false,
+      "title": "Роллы за 249 рублей"
+    },
+    {
+      "availableAt": null,
+      "caption": "pizza",
+      "id": 106683528,
+      "image": "",
+      "items": [
+        {
+          "availableAt": null,
+          "description": "Создайте свой рецепт большой пиццы, 37 см",
+          "editable": true,
+          "products": [
+            114
+          ],
+          "stopped": false,
+          "title": "Конструктор пиццы"
+        },
+        {
+          "availableAt": null,
+          "description": "Выберите половинки своих любимых пицц, 37 см",
+          "editable": true,
+          "products": [
+            288
+          ],
+          "stopped": false,
+          "title": "Большая из двух половин"
+        },
+        {
+          "availableAt": null,
+          "description": "Мы скучали! Хит 2021 снова в меню!",
+          "editable": true,
+          "products": [
+            13066
+          ],
+          "stopped": false,
+          "title": "Пицца Вок"
+        },
+        {
+          "availableAt": null,
+          "description": "Пицца с тайским характером",
+          "editable": true,
+          "products": [
+            12987
+          ],
+          "stopped": false,
+          "title": "Том ям с курицей"
+        },
+        {
+          "availableAt": null,
+          "description": "Как поездка в Таиланд, только вкуснее",
+          "editable": true,
+          "products": [
+            12990
+          ],
+          "stopped": false,
+          "title": "Том ям с морепродуктами"
+        },
+        {
+          "availableAt": null,
+          "description": "Совместно с благотворительным фондом «Народный Фронт. Всё для победы»",
+          "editable": true,
+          "products": [
+            12960
+          ],
+          "stopped": false,
+          "title": "Народная"
+        },
+        {
+          "availableAt": null,
+          "description": "Ммм... Картошечка — точь-в-точь как у бати!",
+          "editable": true,
+          "products": [
+            12957
+          ],
+          "stopped": false,
+          "title": "Батя"
+        },
+        {
+          "availableAt": null,
+          "description": "Без компромиссов: только для настоящих альфа",
+          "editable": true,
+          "products": [
+            12954
+          ],
+          "stopped": false,
+          "title": "Альфа"
+        },
+        {
+          "availableAt": null,
+          "description": "Копчёная сёмга, овощи и соус гриль-бургер",
+          "editable": true,
+          "products": [
+            12191
+          ],
+          "stopped": false,
+          "title": "С копчёной сёмгой"
+        },
+        {
+          "availableAt": null,
+          "description": "Охотничьи колбаски, ветчина и соус гриль-бургер",
+          "editable": true,
+          "products": [
+            11443
+          ],
+          "stopped": false,
+          "title": "Хоккейная"
+        },
+        {
+          "availableAt": null,
+          "description": "Яркие акценты: мясное ассорти, халапеньо и соус спайси",
+          "editable": true,
+          "products": [
+            11446
+          ],
+          "stopped": false,
+          "title": "С пастрами из говядины"
+        },
+        {
+          "availableAt": null,
+          "description": "Необычно: груша, мёд, сыр дорблю и сливочный крем",
+          "editable": true,
+          "products": [
+            9861
+          ],
+          "stopped": false,
+          "title": "С грушей и сыром дорблю"
+        },
+        {
+          "availableAt": null,
+          "description": "Любимые вкусы в одной пицце!",
+          "editable": true,
+          "products": [
+            9216
+          ],
+          "stopped": false,
+          "title": "Семейная"
+        },
+        {
+          "availableAt": null,
+          "description": "Нежная моцарелла, курочка, ветчина и соус цезарь",
+          "editable": true,
+          "products": [
+            10436
+          ],
+          "stopped": false,
+          "title": "С курочкой и ветчиной"
+        },
+        {
+          "availableAt": null,
+          "description": "Моцарелла, помидоры и томатный соус",
+          "editable": true,
+          "products": [
+            3587
+          ],
+          "stopped": false,
+          "title": "Маргарита"
+        },
+        {
+          "availableAt": null,
+          "description": "Фантастически сырная четвёрка на томатном соусе",
+          "editable": true,
+          "products": [
+            3416
+          ],
+          "stopped": false,
+          "title": "Четыре сыра"
+        },
+        {
+          "availableAt": null,
+          "description": "Классика: пепперони, моцарелла и томатный соус",
+          "editable": true,
+          "products": [
+            3612
+          ],
+          "stopped": false,
+          "title": "Пепперони"
+        },
+        {
+          "availableAt": null,
+          "description": "Ассорти колбас, бекон и томатный соус",
+          "editable": true,
+          "products": [
+            3598
+          ],
+          "stopped": false,
+          "title": "Мясное плато"
+        },
+        {
+          "availableAt": null,
+          "description": "Мясной босс! Три вида колбас и фирменный соус",
+          "editable": true,
+          "products": [
+            3429
+          ],
+          "stopped": false,
+          "title": "Аль-копчоне"
+        },
+        {
+          "availableAt": null,
+          "description": "Визитная карточка! Мясное ассорти, овощи и фирменный соус",
+          "editable": true,
+          "products": [
+            3481
+          ],
+          "stopped": false,
+          "title": "Всё и сразу"
+        },
+        {
+          "availableAt": null,
+          "description": "Остро! Мясное ассорти, халапеньо и соус спайси",
+          "editable": true,
+          "products": [
+            10930
+          ],
+          "stopped": false,
+          "title": "Дьябло"
+        },
+        {
+          "availableAt": null,
+          "description": "Ассорти колбас, маринованный огурец и фирменный соус",
+          "editable": true,
+          "products": [
+            3633
+          ],
+          "stopped": false,
+          "title": "По-домашнему"
+        },
+        {
+          "availableAt": null,
+          "description": "Тандем традиций! Ветчина, грибы и моцарелла",
+          "editable": true,
+          "products": [
+            3571
+          ],
+          "stopped": false,
+          "title": "Итальянцы в России"
+        },
+        {
+          "availableAt": null,
+          "description": "Сливочно-грибной вкус, куриное филе и овощи",
+          "editable": true,
+          "products": [
+            9846
+          ],
+          "stopped": false,
+          "title": "Жюльен"
+        },
+        {
+          "availableAt": null,
+          "description": "Пряные специи и нежное куриное филе",
+          "editable": true,
+          "products": [
+            3710
+          ],
+          "stopped": false,
+          "title": "Чесночный цыпа"
+        },
+        {
+          "availableAt": null,
+          "description": "Лосось, креветки, брокколи и фирменный соус",
+          "editable": true,
+          "products": [
+            9850
+          ],
+          "stopped": false,
+          "title": "Золотая рыбка"
+        },
+        {
+          "availableAt": null,
+          "description": "Удобный формат для маленьких гурманов",
+          "editable": true,
+          "products": [
+            5339
+          ],
+          "stopped": false,
+          "title": "Сырные палочки"
+        },
+        {
+          "availableAt": null,
+          "description": "Куриное филе, бекон, ветчина и медово-горчичный соус",
+          "editable": true,
+          "products": [
+            9856
+          ],
+          "stopped": false,
+          "title": "Французская"
+        },
+        {
+          "availableAt": null,
+          "description": "Мясное ассорти и овощи под соусом сладкий чили",
+          "editable": true,
+          "products": [
+            9853
+          ],
+          "stopped": false,
+          "title": "Пиццбургер"
+        },
+        {
+          "availableAt": null,
+          "description": "Много мяса: ассорти колбас, шампиньоны и томатный соус",
+          "editable": true,
+          "products": [
+            3677
+          ],
+          "stopped": false,
+          "title": "С копченостями"
+        },
+        {
+          "availableAt": null,
+          "description": "Мамма миа! Пикантная пепперони, сливки и соус пармеджано",
+          "editable": true,
+          "products": [
+            9859
+          ],
+          "stopped": false,
+          "title": "Пепперони ЧИЗ"
+        },
+        {
+          "availableAt": null,
+          "description": "Ассорти колбас, овощи и фирменный соус",
+          "editable": true,
+          "products": [
+            3506
+          ],
+          "stopped": false,
+          "title": "Деревенская"
+        },
+        {
+          "availableAt": null,
+          "description": "Охотничьи колбаски, овощи и соус барбекю",
+          "editable": true,
+          "products": [
+            11622
+          ],
+          "stopped": false,
+          "title": "Барбекю"
+        },
+        {
+          "availableAt": null,
+          "description": "Без мяса! Только овощи, сыр и соус гриль-бургер",
+          "editable": true,
+          "products": [
+            11151
+          ],
+          "stopped": false,
+          "title": "Овощной микс"
+        },
+        {
+          "availableAt": null,
+          "description": "На соусе чеддер с моцареллой, гаудой, пармезаном и фетой",
+          "editable": true,
+          "products": [
+            11163
+          ],
+          "stopped": false,
+          "title": "Сырная"
+        }
+      ],
+      "stopped": false,
+      "title": "Пицца"
+    },
+    {
+      "availableAt": null,
+      "caption": "postnoe",
+      "id": 391197148,
+      "image": "",
+      "items": [
+        {
+          "availableAt": null,
+          "description": "Растительное мясо, овощи и два соуса",
+          "editable": true,
+          "products": [
+            12967
+          ],
+          "stopped": false,
+          "title": "Пиццаролл вегетарианский"
+        },
+        {
+          "availableAt": null,
+          "description": "Постный вариант с растительными фрикадельками и овощами",
+          "editable": true,
+          "products": [
+            12966
+          ],
+          "stopped": false,
+          "title": "С фрикадельками и битыми огурцами"
+        },
+        {
+          "availableAt": null,
+          "description": "Пикантное блюдо в азиатском стиле",
+          "editable": true,
+          "products": [
+            12968
+          ],
+          "stopped": false,
+          "title": "Токпокки с растительным мясом в соусе терияки"
+        },
+        {
+          "availableAt": null,
+          "description": "Ароматный, согревающий суп без мяса",
+          "editable": true,
+          "products": [
+            12969
+          ],
+          "stopped": false,
+          "title": "Грибной с растительными фрикадельками"
+        },
+        {
+          "availableAt": null,
+          "description": "Нежный сырный крем-суп без мяса",
+          "editable": true,
+          "products": [
+            12970
+          ],
+          "stopped": false,
+          "title": "Сырный крем-суп с растительными фрикадельками"
+        },
+        {
+          "availableAt": null,
+          "description": "Минимализм: рис, нори и огурец",
+          "editable": true,
+          "products": [
+            11617
+          ],
+          "stopped": false,
+          "title": "С огурцом"
+        },
+        {
+          "availableAt": null,
+          "description": "Идеальная закуска для любого повода",
+          "editable": true,
+          "products": [
+            11912
+          ],
+          "stopped": false,
+          "title": "Картофельные крокеты"
+        },
+        {
+          "availableAt": null,
+          "description": "Лёгкий и питательный салат с овощами",
+          "editable": true,
+          "products": [
+            9887
+          ],
+          "stopped": false,
+          "title": "Винегрет"
+        },
+        {
+          "availableAt": null,
+          "description": "",
+          "editable": true,
+          "products": [
+            9793
+          ],
+          "stopped": false,
+          "title": "Рис с овощами в соевом соусе"
+        },
+        {
+          "availableAt": null,
+          "description": "Нежная каша на молоке, украшена маршмеллоу",
+          "editable": true,
+          "products": [
+            9886
+          ],
+          "stopped": false,
+          "title": "Овсяная каша с маршмеллоу"
+        },
+        {
+          "availableAt": null,
+          "description": "Выберите свой вкус",
+          "editable": true,
+          "products": [
+            12831
+          ],
+          "stopped": false,
+          "title": "Смузи, в ассортименте"
+        },
+        {
+          "availableAt": null,
+          "description": "Свежесть клубники с нотками ванили",
+          "editable": true,
+          "products": [
+            12839
+          ],
+          "stopped": false,
+          "title": "Лимонад в ассортименте"
+        }
+      ],
+      "stopped": false,
+      "title": "Постное"
+    },
+    {
+      "availableAt": null,
+      "caption": "author-menu-vol",
+      "id": 1109296793,
+      "image": "",
+      "items": [
+        {
+          "availableAt": null,
+          "description": "Копчёная сёмга, овощи и соус гриль-бургер",
+          "editable": true,
+          "products": [
+            12191
+          ],
+          "stopped": false,
+          "title": "С копчёной сёмгой"
+        },
+        {
+          "availableAt": null,
+          "description": "Ролл с креветками и крабовым мясом (сурими) с запечённой шапочкой",
+          "editable": true,
+          "products": [
+            12199
+          ],
+          "stopped": false,
+          "title": "Аляска"
+        },
+        {
+          "availableAt": null,
+          "description": "Яркий салат с овощами и творожным кремом",
+          "editable": true,
+          "products": [
+            12196
+          ],
+          "stopped": false,
+          "title": "С баклажанами и помидорами"
+        },
+        {
+          "availableAt": null,
+          "description": "Нежная курица, овощи и заправка в азиатском стиле",
+          "editable": true,
+          "products": [
+            12194
+          ],
+          "stopped": false,
+          "title": "С курицей по-тайски"
+        },
+        {
+          "availableAt": null,
+          "description": "Пряный тайский суп с курицей",
+          "editable": true,
+          "products": [
+            12195
+          ],
+          "stopped": false,
+          "title": "Том Кха"
+        },
+        {
+          "availableAt": null,
+          "description": "Пшеничная лапша, морепродукты и овощи в соусе том ям",
+          "editable": true,
+          "products": [
+            12197
+          ],
+          "stopped": false,
+          "title": "Удон с морепродуктами в соусе том ям"
+        },
+        {
+          "availableAt": null,
+          "description": "Тальятелле с говядиной, помидорами черри в сливочном соусе",
+          "editable": true,
+          "products": [
+            12198
+          ],
+          "stopped": false,
+          "title": "Паста с говядиной в сливочном соусе"
+        },
+        {
+          "availableAt": null,
+          "description": "Контраст вкусов: мороженое, сыр и солёная карамель",
+          "editable": true,
+          "products": [
+            12339
+          ],
+          "stopped": false,
+          "title": "Молочный сырный коктейль"
+        }
+      ],
+      "stopped": false,
+      "title": "Авторское"
+    },
+    {
+      "availableAt": null,
+      "caption": "rolls",
+      "id": 108695446,
+      "image": "",
+      "items": [
+        {
+          "availableAt": null,
+          "description": "",
+          "editable": true,
+          "products": [
+            115
+          ],
+          "stopped": false,
+          "title": "Конструктор роллов"
+        },
+        {
+          "availableAt": null,
+          "description": "Не забудьте добавить имбирь и васаби",
+          "editable": true,
+          "products": [
+            13026
+          ],
+          "stopped": false,
+          "title": "ГигаСет"
+        },
+        {
+          "availableAt": null,
+          "description": "",
+          "editable": true,
+          "products": [
+            13042
+          ],
+          "stopped": false,
+          "title": "Сет Трио"
+        },
+        {
+          "availableAt": null,
+          "description": "",
+          "editable": true,
+          "products": [
+            13043
+          ],
+          "stopped": false,
+          "title": "Сет Острый"
+        },
+        {
+          "availableAt": null,
+          "description": "",
+          "editable": true,
+          "products": [
+            13044
+          ],
+          "stopped": false,
+          "title": "Сет Запеченный микс"
+        },
+        {
+          "availableAt": null,
+          "description": "Сет тёплых роллов в хрустящей панировке",
+          "editable": true,
+          "products": [
+            13046
+          ],
+          "stopped": false,
+          "title": "Сет Темпура"
+        },
+        {
+          "availableAt": null,
+          "description": "",
+          "editable": true,
+          "products": [
+            13045
+          ],
+          "stopped": false,
+          "title": "Сет Мега"
+        },
+        {
+          "availableAt": null,
+          "description": "Сладко и пикантно: креветки, груша и соус манго-чили",
+          "editable": true,
+          "products": [
+            12978
+          ],
+          "stopped": false,
+          "title": "Эби Тай"
+        },
+        {
+          "availableAt": null,
+          "description": "Сочные ломтики лосося, огурец, сыр и кунжутно-ореховый соус",
+          "editable": true,
+          "products": [
+            12980
+          ],
+          "stopped": false,
+          "title": "Нутами"
+        },
+        {
+          "availableAt": null,
+          "description": "Нежный лосось, авокадо, огурец и соус терияки",
+          "editable": true,
+          "products": [
+            12979
+          ],
+          "stopped": false,
+          "title": "Крейзи Терияки"
+        },
+        {
+          "availableAt": null,
+          "description": "Ролл с креветками и крабовым мясом (сурими) с запечённой шапочкой",
+          "editable": true,
+          "products": [
+            12199
+          ],
+          "stopped": false,
+          "title": "Аляска"
+        },
+        {
+          "availableAt": null,
+          "description": "Нежный крем, куриное филе и два соуса",
+          "editable": true,
+          "products": [
+            11614
+          ],
+          "stopped": false,
+          "title": "Чикен Терияки"
+        },
+        {
+          "availableAt": null,
+          "description": "Ролл с куриным филе и сладким перцем с запечённой шапочкой",
+          "editable": true,
+          "products": [
+            11605
+          ],
+          "stopped": false,
+          "title": "Киото"
+        },
+        {
+          "availableAt": null,
+          "description": "Любимый вкус в новом исполнении",
+          "editable": true,
+          "products": [
+            12087
+          ],
+          "stopped": false,
+          "title": "Калифорния Том Ям"
+        },
+        {
+          "availableAt": null,
+          "description": "Ролл с крабовым мясом (сурими) и огурцом с запечённой шапочкой",
+          "editable": true,
+          "products": [
+            11606
+          ],
+          "stopped": false,
+          "title": "Окинава"
+        },
+        {
+          "availableAt": null,
+          "description": "Ролл с копчёным лососем с запечённой шапочкой",
+          "editable": true,
+          "products": [
+            11612
+          ],
+          "stopped": false,
+          "title": "Мияги"
+        },
+        {
+          "availableAt": null,
+          "description": "Ролл с куриным филе и сыром фета с запечённой шапочкой",
+          "editable": true,
+          "products": [
+            11608
+          ],
+          "stopped": false,
+          "title": "Ямато"
+        },
+        {
+          "availableAt": null,
+          "description": "Просто ВАУ! Сливочный крем и соус терияки",
+          "editable": true,
+          "products": [
+            11613
+          ],
+          "stopped": false,
+          "title": "Бамбито"
+        },
+        {
+          "availableAt": null,
+          "description": "Ролл с крабовым мясом (сурими), огурцом с запечённой шапочкой",
+          "editable": true,
+          "products": [
+            11653
+          ],
+          "stopped": false,
+          "title": "Запечённая Калифорния"
+        },
+        {
+          "availableAt": null,
+          "description": "Ролл с крабовым мясом (сурими) и огурцом",
+          "editable": true,
+          "products": [
+            12393
+          ],
+          "stopped": false,
+          "title": "Калифорния"
+        },
+        {
+          "availableAt": null,
+          "description": "Два вида роллов с копчёным лососем",
+          "editable": true,
+          "products": [
+            11448
+          ],
+          "stopped": false,
+          "title": "Микс с лососем"
+        },
+        {
+          "availableAt": null,
+          "description": "Острый ролл с копчёным лососем в стружке тунца",
+          "editable": true,
+          "products": [
+            9865
+          ],
+          "stopped": false,
+          "title": "Бонито"
+        },
+        {
+          "availableAt": null,
+          "description": "Креветки, авокадо и творожный сыр - сливочно и нежно",
+          "editable": true,
+          "products": [
+            9875
+          ],
+          "stopped": false,
+          "title": "Масаго эби"
+        },
+        {
+          "availableAt": null,
+          "description": "Лосось и творожный сыр - та самая легенда",
+          "editable": true,
+          "products": [
+            11600
+          ],
+          "stopped": false,
+          "title": "Филадельфия"
+        },
+        {
+          "availableAt": null,
+          "description": "Тёплый ролл с куриным филе, помидором и сыром пармезан",
+          "editable": true,
+          "products": [
+            3402
+          ],
+          "stopped": false,
+          "title": "Цезарь"
+        },
+        {
+          "availableAt": null,
+          "description": "Тёплый ролл с креветкой, огурцом и творожным сыром",
+          "editable": true,
+          "products": [
+            11603
+          ],
+          "stopped": false,
+          "title": "Катана"
+        },
+        {
+          "availableAt": null,
+          "description": "Тёплый ролл с копчёным лососем и креветками",
+          "editable": true,
+          "products": [
+            11602
+          ],
+          "stopped": false,
+          "title": "Шен"
+        },
+        {
+          "availableAt": null,
+          "description": "Все гениальное - просто! Рис, нори и лосось",
+          "editable": true,
+          "products": [
+            11616
+          ],
+          "stopped": false,
+          "title": "С лососем"
+        },
+        {
+          "availableAt": null,
+          "description": "Минимализм: рис, нори и огурец",
+          "editable": true,
+          "products": [
+            11617
+          ],
+          "stopped": false,
+          "title": "С огурцом"
+        }
+      ],
+      "stopped": false,
+      "title": "Роллы"
+    },
+    {
+      "availableAt": null,
+      "caption": "combo",
+      "id": 94843278,
+      "image": "",
+      "items": [
+        {
+          "availableAt": null,
+          "description": "Не забудьте добавить имбирь и васаби",
+          "editable": true,
+          "products": [
+            13026
+          ],
+          "stopped": false,
+          "title": "ГигаСет"
+        },
+        {
+          "availableAt": null,
+          "description": "Детское комбо с игрушкой-сюрпризом",
+          "editable": true,
+          "products": [
+            12842
+          ],
+          "stopped": false,
+          "title": "Хэппи"
+        },
+        {
+          "availableAt": null,
+          "description": "Детское комбо в машинке. Соберите на ваш вкус",
+          "editable": true,
+          "products": [
+            11390
+          ],
+          "stopped": false,
+          "title": "Комбо Врум"
+        },
+        {
+          "availableAt": null,
+          "description": "Комбо для уютных встреч. Три средние пиццы на выбор",
+          "editable": true,
+          "products": [
+            11283
+          ],
+          "stopped": false,
+          "title": "Три средние пиццы"
+        },
+        {
+          "availableAt": null,
+          "description": "Три большие пиццы на ваш выбор",
+          "editable": true,
+          "products": [
+            11284
+          ],
+          "stopped": false,
+          "title": "Три большие пиццы"
+        },
+        {
+          "availableAt": null,
+          "description": "Комбо для друзей: четыре пиццы на ваш выбор",
+          "editable": true,
+          "products": [
+            10017
+          ],
+          "stopped": false,
+          "title": "Четыре средние пиццы"
+        },
+        {
+          "availableAt": null,
+          "description": "Шестёрка горячих пицц на всю компанию",
+          "editable": true,
+          "products": [
+            10016
+          ],
+          "stopped": false,
+          "title": "Шесть средних пицц"
+        },
+        {
+          "availableAt": null,
+          "description": "Хватит точно всем! Выбирайте любимые вкусы",
+          "editable": true,
+          "products": [
+            11285
+          ],
+          "stopped": false,
+          "title": "Десять средних пицц"
+        },
+        {
+          "availableAt": null,
+          "description": "Выгодное предложение для большой компании",
+          "editable": true,
+          "products": [
+            11286
+          ],
+          "stopped": false,
+          "title": "Десять больших пицц"
+        },
+        {
+          "availableAt": null,
+          "description": "Две пиццы и напиток по выгодной цене на ваш выбор",
+          "editable": true,
+          "products": [
+            10018
+          ],
+          "stopped": false,
+          "title": "Две пиццы и напиток"
+        },
+        {
+          "availableAt": null,
+          "description": "Выбирайте любимое: пицца, закуска и напиток",
+          "editable": true,
+          "products": [
+            10019
+          ],
+          "stopped": false,
+          "title": "Пицца, закуска и напиток"
+        },
+        {
+          "availableAt": null,
+          "description": "Максимум вкуса! Любимые блюда на ваш выбор",
+          "editable": true,
+          "products": [
+            10771
+          ],
+          "stopped": false,
+          "title": "Большая четвёрка"
+        },
+        {
+          "availableAt": null,
+          "description": "Тут всё, что она любит. Просто оплати!",
+          "editable": true,
+          "products": [
+            10015
+          ],
+          "stopped": false,
+          "title": "Большая пицца и два ролла"
+        },
+        {
+          "availableAt": null,
+          "description": "Идеально на случай обсуждения бывших",
+          "editable": true,
+          "products": [
+            10022
+          ],
+          "stopped": false,
+          "title": "Три ролла"
+        },
+        {
+          "availableAt": null,
+          "description": "",
+          "editable": true,
+          "products": [
+            13042
+          ],
+          "stopped": false,
+          "title": "Сет Трио"
+        },
+        {
+          "availableAt": null,
+          "description": "",
+          "editable": true,
+          "products": [
+            13043
+          ],
+          "stopped": false,
+          "title": "Сет Острый"
+        },
+        {
+          "availableAt": null,
+          "description": "",
+          "editable": true,
+          "products": [
+            13044
+          ],
+          "stopped": false,
+          "title": "Сет Запеченный микс"
+        },
+        {
+          "availableAt": null,
+          "description": "Сет тёплых роллов в хрустящей панировке",
+          "editable": true,
+          "products": [
+            13046
+          ],
+          "stopped": false,
+          "title": "Сет Темпура"
+        },
+        {
+          "availableAt": null,
+          "description": "",
+          "editable": true,
+          "products": [
+            13045
+          ],
+          "stopped": false,
+          "title": "Сет Мега"
+        },
+        {
+          "availableAt": null,
+          "description": "То, что нужно волку-одиночке",
+          "editable": true,
+          "products": [
+            11049
+          ],
+          "stopped": false,
+          "title": "Врап-сет на одного"
+        },
+        {
+          "availableAt": null,
+          "description": "",
+          "editable": true,
+          "products": [
+            11051
+          ],
+          "stopped": false,
+          "title": "Врап-сет на двоих"
+        },
+        {
+          "availableAt": null,
+          "description": "",
+          "editable": true,
+          "products": [
+            11050
+          ],
+          "stopped": false,
+          "title": "Два врапа и два напитка"
+        },
+        {
+          "availableAt": null,
+          "description": "Для любителей азиатской кухни. Три вока на ваш выбор",
+          "editable": true,
+          "products": [
+            10024
+          ],
+          "stopped": false,
+          "title": "Три вока"
+        },
+        {
+          "availableAt": null,
+          "description": "Комбо на любой вкус - паста, вок и напиток",
+          "editable": true,
+          "products": [
+            10020
+          ],
+          "stopped": false,
+          "title": "Паста, вок и напиток"
+        },
+        {
+          "availableAt": null,
+          "description": "Сытное комбо! Бургер, закуска, напиток и соус",
+          "editable": true,
+          "products": [
+            10519
+          ],
+          "stopped": false,
+          "title": "Комбо Гранд"
+        },
+        {
+          "availableAt": null,
+          "description": "Вкусный перерыв! Комбо для ценителей стритфуда",
+          "editable": true,
+          "products": [
+            10768
+          ],
+          "stopped": false,
+          "title": "Двойной стритфуд"
+        },
+        {
+          "availableAt": null,
+          "description": "Миксуйте, как нравится!",
+          "editable": true,
+          "products": [
+            10774
+          ],
+          "stopped": false,
+          "title": "Четыре стритфуда"
+        },
+        {
+          "availableAt": null,
+          "description": "Четыре вида закусок на ваш выбор. Соберите комбо на свой вкус",
+          "editable": true,
+          "products": [
+            10023
+          ],
+          "stopped": false,
+          "title": "Четыре закуски"
+        },
+        {
+          "availableAt": null,
+          "description": "Вместе выгоднее! Два напитка на выбор",
+          "editable": true,
+          "products": [
+            10770
+          ],
+          "stopped": false,
+          "title": "Два напитка"
+        },
+        {
+          "availableAt": null,
+          "description": "Два соуса для разного настроения",
+          "editable": true,
+          "products": [
+            10769
+          ],
+          "stopped": false,
+          "title": "Два соуса"
+        }
+      ],
+      "stopped": false,
+      "title": "Комбо"
+    },
+    {
+      "availableAt": null,
+      "caption": "detskoe",
+      "id": 1558259905,
+      "image": "",
+      "items": [
+        {
+          "availableAt": null,
+          "description": "Детское комбо с игрушкой-сюрпризом",
+          "editable": true,
+          "products": [
+            12842
+          ],
+          "stopped": false,
+          "title": "Хэппи"
+        },
+        {
+          "availableAt": null,
+          "description": "Детское комбо в машинке. Соберите на ваш вкус",
+          "editable": true,
+          "products": [
+            11390
+          ],
+          "stopped": false,
+          "title": "Комбо Врум"
+        },
+        {
+          "availableAt": null,
+          "description": "Мамма миа! Пикантная пепперони, сливки и соус пармеджано",
+          "editable": true,
+          "products": [
+            10268
+          ],
+          "stopped": false,
+          "title": "Пицца Пепперони ЧИЗ"
+        },
+        {
+          "availableAt": null,
+          "description": "Нежная моцарелла, курочка, ветчина и соус цезарь",
+          "editable": true,
+          "products": [
+            8558
+          ],
+          "stopped": false,
+          "title": "Пицца С курочкой и ветчиной"
+        },
+        {
+          "availableAt": null,
+          "description": "Удобный формат для маленьких гурманов",
+          "editable": true,
+          "products": [
+            8356
+          ],
+          "stopped": false,
+          "title": "Пицца Сырные палочки"
+        },
+        {
+          "availableAt": null,
+          "description": "Сочные сосиски в хрустящем кляре",
+          "editable": true,
+          "products": [
+            9889
+          ],
+          "stopped": false,
+          "title": "Корн-доги"
+        },
+        {
+          "availableAt": null,
+          "description": "Нежное куриное филе в золотистой хрустящей корочке точно не оставит никого равнодушным.",
+          "editable": true,
+          "products": [
+            9817
+          ],
+          "stopped": false,
+          "title": "Наггетсы"
+        },
+        {
+          "availableAt": null,
+          "description": "Хрустящие картофельные ломтики",
+          "editable": true,
+          "products": [
+            9828
+          ],
+          "stopped": false,
+          "title": "Картофель фри"
+        },
+        {
+          "availableAt": null,
+          "description": "Идеальная закуска для любого повода",
+          "editable": true,
+          "products": [
+            11912
+          ],
+          "stopped": false,
+          "title": "Картофельные крокеты"
+        },
+        {
+          "availableAt": null,
+          "description": "Нежный сыр в панировке с ягодным соусом",
+          "editable": true,
+          "products": [
+            9816
+          ],
+          "stopped": false,
+          "title": "Жареный сыр с брусничным соусом"
+        },
+        {
+          "availableAt": null,
+          "description": "Нежная куриная котлета, овощи и фирменный соус",
+          "editable": true,
+          "products": [
+            9884
+          ],
+          "stopped": false,
+          "title": "Мистер Чикен"
+        },
+        {
+          "availableAt": null,
+          "description": "Сочная котлета из говядины, овощи и соус гриль-бургер",
+          "editable": true,
+          "products": [
+            9885
+          ],
+          "stopped": false,
+          "title": "Мистер Биф"
+        },
+        {
+          "availableAt": null,
+          "description": "Филе рыбы в хрустящей панировке, овощи и фирменный соус",
+          "editable": true,
+          "products": [
+            9883
+          ],
+          "stopped": false,
+          "title": "Мистер Фиш"
+        },
+        {
+          "availableAt": null,
+          "description": "Любителям сыра: нежная паста в сливочно-сырном соусе",
+          "editable": true,
+          "products": [
+            12090
+          ],
+          "stopped": false,
+          "title": "Мак энд Чиз"
+        },
+        {
+          "availableAt": null,
+          "description": "Ароматное куриное филе с овощами на шпажках",
+          "editable": true,
+          "products": [
+            9888
+          ],
+          "stopped": false,
+          "title": "Куриный шашлычок с овощами"
+        },
+        {
+          "availableAt": null,
+          "description": "Филе рыбы в панировке с пюре и черри",
+          "editable": true,
+          "products": [
+            8555
+          ],
+          "stopped": false,
+          "title": "Рыбный домик"
+        },
+        {
+          "availableAt": null,
+          "description": "Куриные котлеты с картофельным пюре и черри",
+          "editable": true,
+          "products": [
+            8137
+          ],
+          "stopped": false,
+          "title": "Весёлый маус"
+        },
+        {
+          "availableAt": null,
+          "description": "Тонкое тесто и сочный куриный фарш",
+          "editable": true,
+          "products": [
+            9893
+          ],
+          "stopped": false,
+          "title": "Пельмени"
+        },
+        {
+          "availableAt": null,
+          "description": "Понравится всем: лёгкий суп с куриным филе и макаронами",
+          "editable": true,
+          "products": [
+            12089
+          ],
+          "stopped": false,
+          "title": "Куриный с овощами"
+        },
+        {
+          "availableAt": null,
+          "description": "Байтсы, овощи, сыр пармезан и соус цезарь",
+          "editable": true,
+          "products": [
+            12088
+          ],
+          "stopped": false,
+          "title": "Цезарь с байтсами"
+        },
+        {
+          "availableAt": null,
+          "description": "Классика! Куриное филе, овощи и соус",
+          "editable": true,
+          "products": [
+            9775
+          ],
+          "stopped": false,
+          "title": "Оливье"
+        },
+        {
+          "availableAt": null,
+          "description": "Нежная каша на молоке, украшена маршмеллоу",
+          "editable": true,
+          "products": [
+            8556
+          ],
+          "stopped": false,
+          "title": "Овсяная каша с маршмеллоу"
+        },
+        {
+          "availableAt": null,
+          "description": "Тот самый домашний вкус на вологодском твороге",
+          "editable": true,
+          "products": [
+            13023
+          ],
+          "stopped": false,
+          "title": "Сырники по-вологодски"
+        },
+        {
+          "availableAt": null,
+          "description": "Нежные блинчики с ветчиной и сыром",
+          "editable": true,
+          "products": [
+            11456
+          ],
+          "stopped": false,
+          "title": "Блины с ветчиной и сыром"
+        },
+        {
+          "availableAt": null,
+          "description": "Нежные, воздушные, сладкие",
+          "editable": true,
+          "products": [
+            9896
+          ],
+          "stopped": false,
+          "title": "Блины"
+        },
+        {
+          "availableAt": null,
+          "description": "",
+          "editable": true,
+          "products": [
+            8365
+          ],
+          "stopped": false,
+          "title": "Картофельное пюре"
+        },
+        {
+          "availableAt": null,
+          "description": "",
+          "editable": true,
+          "products": [
+            9899
+          ],
+          "stopped": false,
+          "title": "Детский сок Агуша 0,2л"
+        },
+        {
+          "availableAt": null,
+          "description": "",
+          "editable": true,
+          "products": [
+            12094
+          ],
+          "stopped": false,
+          "title": "Вафля брюссельская"
+        },
+        {
+          "availableAt": null,
+          "description": "",
+          "editable": true,
+          "products": [
+            9995
+          ],
+          "stopped": false,
+          "title": "Детская вода 0,33 л"
+        },
+        {
+          "availableAt": null,
+          "description": "Как в детстве: сахарное тесто и сладкая начинка",
+          "editable": true,
+          "products": [
+            12097
+          ],
+          "stopped": false,
+          "title": "Вафельная трубочка со сгущёнкой"
+        },
+        {
+          "availableAt": null,
+          "description": "Пирожное-картошка в форме эскимо",
+          "editable": true,
+          "products": [
+            12098
+          ],
+          "stopped": false,
+          "title": "Кейк-попс Эскимо"
+        },
+        {
+          "availableAt": null,
+          "description": "Сладко, нежно, воздушно и на любой вкус",
+          "editable": true,
+          "products": [
+            12891
+          ],
+          "stopped": false,
+          "title": "Маффин, в ассортименте"
+        }
+      ],
+      "stopped": false,
+      "title": "Детское"
+    },
+    {
+      "availableAt": null,
+      "caption": "snacks",
+      "id": 898039323,
+      "image": "",
+      "items": [
+        {
+          "availableAt": null,
+          "description": "Пикантная вафля с куриным филе и шампиньонами",
+          "editable": true,
+          "products": [
+            12084
+          ],
+          "stopped": false,
+          "title": "Картофельная вафля с курицей и грибами"
+        },
+        {
+          "availableAt": null,
+          "description": "Сытная вафля с беконом и шампиньонами",
+          "editable": true,
+          "products": [
+            12085
+          ],
+          "stopped": false,
+          "title": "Картофельная вафля с беконом и грибами"
+        },
+        {
+          "availableAt": null,
+          "description": "Золотистое хрустящее тесто с сочной начинкой",
+          "editable": true,
+          "products": [
+            11893
+          ],
+          "stopped": false,
+          "title": "Мини-чебуреки с курицей"
+        },
+        {
+          "availableAt": null,
+          "description": "Идеальная закуска для любого повода",
+          "editable": true,
+          "products": [
+            11912
+          ],
+          "stopped": false,
+          "title": "Картофельные крокеты"
+        },
+        {
+          "availableAt": null,
+          "description": "Хрустящие картофельные ломтики",
+          "editable": true,
+          "products": [
+            13079
+          ],
+          "stopped": false,
+          "title": "Картофель фри"
+        },
+        {
+          "availableAt": null,
+          "description": "Картофельные дольки со специями и чесноком",
+          "editable": true,
+          "products": [
+            9827
+          ],
+          "stopped": false,
+          "title": "Картофель по-деревенски"
+        },
+        {
+          "availableAt": null,
+          "description": "Нежный сыр в панировке с ягодным соусом",
+          "editable": true,
+          "products": [
+            9816
+          ],
+          "stopped": false,
+          "title": "Жареный сыр с брусничным соусом"
+        },
+        {
+          "availableAt": null,
+          "description": "Сливочный камамбер в панировке с ягодным соусом",
+          "editable": true,
+          "products": [
+            12082
+          ],
+          "stopped": false,
+          "title": "Жареный камамбер с брусничным соусом"
+        },
+        {
+          "availableAt": null,
+          "description": "Нежное куриное филе в золотистой хрустящей корочке точно не оставит никого равнодушным.",
+          "editable": true,
+          "products": [
+            9818
+          ],
+          "stopped": false,
+          "title": "Наггетсы"
+        },
+        {
+          "availableAt": null,
+          "description": "Сочные креветки в хрустящей панировке с соусом спайси",
+          "editable": true,
+          "products": [
+            9787
+          ],
+          "stopped": false,
+          "title": "Креветки в кляре"
+        },
+        {
+          "availableAt": null,
+          "description": "Кусочки куриного филе в хрустящей панировке со специями",
+          "editable": true,
+          "products": [
+            9831
+          ],
+          "stopped": false,
+          "title": "Чикен байтс"
+        },
+        {
+          "availableAt": null,
+          "description": "Хрустящая курочка с картошечкой.",
+          "editable": true,
+          "products": [
+            8208
+          ],
+          "stopped": false,
+          "title": "Чикен байтс энд Фри"
+        },
+        {
+          "availableAt": null,
+          "description": "Хрустящий бекон, картофель фри и соус гриль-бургер",
+          "editable": true,
+          "products": [
+            9819
+          ],
+          "stopped": false,
+          "title": "Картофель фри с беконом и соусом гриль-бургер"
+        }
+      ],
+      "stopped": false,
+      "title": "Закуски"
+    },
+    {
+      "availableAt": null,
+      "caption": "streetfood",
+      "id": 1073241375,
+      "image": "",
+      "items": [
+        {
+          "availableAt": null,
+          "description": "Тортилья с сочной начинкой. Выберите свой вкус!",
+          "editable": true,
+          "products": [
+            12735
+          ],
+          "stopped": false,
+          "title": "Врап, в ассортименте"
+        },
+        {
+          "availableAt": null,
+          "description": "Сочная котлета, овощи и три соуса в пшеничной тортилье",
+          "editable": true,
+          "products": [
+            9842
+          ],
+          "stopped": false,
+          "title": "Врап бургер Три соуса"
+        },
+        {
+          "availableAt": null,
+          "description": "Сочная котлета и овощи в пшеничной тортилье",
+          "editable": true,
+          "products": [
+            9841
+          ],
+          "stopped": false,
+          "title": "Врап бургер Биф"
+        },
+        {
+          "availableAt": null,
+          "description": "С котлетой из говядины, овощами и пикантными соусами",
+          "editable": true,
+          "products": [
+            8828
+          ],
+          "stopped": false,
+          "title": "Бургер Три соуса"
+        },
+        {
+          "availableAt": null,
+          "description": "С котлетой из говядины, чеддером и овощами",
+          "editable": true,
+          "products": [
+            11595
+          ],
+          "stopped": false,
+          "title": "Бургер Биф"
+        },
+        {
+          "availableAt": null,
+          "description": "Куриное филе, овощи и соус ранч",
+          "editable": true,
+          "products": [
+            12703
+          ],
+          "stopped": false,
+          "title": "Пиццаролл фирменный"
+        },
+        {
+          "availableAt": null,
+          "description": "Ветчина, пепперони, овощи и соус спайси",
+          "editable": true,
+          "products": [
+            12704
+          ],
+          "stopped": false,
+          "title": "Пиццаролл мексиканский"
+        }
+      ],
+      "stopped": false,
+      "title": "Стритфуд"
+    },
+    {
+      "availableAt": null,
+      "caption": "not-pizza",
+      "id": 193130766,
+      "image": "",
+      "items": [
+        {
+          "availableAt": null,
+          "description": "Пшеничная лапша, морепродукты и овощи в соусе том ям",
+          "editable": true,
+          "products": [
+            12197
+          ],
+          "stopped": false,
+          "title": "Удон с морепродуктами в соусе том ям"
+        },
+        {
+          "availableAt": null,
+          "description": "Тальятелле с говядиной, помидорами черри в сливочном соусе",
+          "editable": true,
+          "products": [
+            12198
+          ],
+          "stopped": false,
+          "title": "Паста с говядиной в сливочном соусе"
+        },
+        {
+          "availableAt": null,
+          "description": "Пшеничная лапша, куриное филе, овощи и соус терияки",
+          "editable": true,
+          "products": [
+            9992
+          ],
+          "stopped": false,
+          "title": "Удон с курицей в соусе терияки"
+        },
+        {
+          "availableAt": null,
+          "description": "Пшеничная лапша, свинина, овощи и соус терияки",
+          "editable": true,
+          "products": [
+            9810
+          ],
+          "stopped": false,
+          "title": "Удон со свининой в соусе терияки"
+        },
+        {
+          "availableAt": null,
+          "description": "Пшеничная лапша, креветки, овощи и соус сладкий чили",
+          "editable": true,
+          "products": [
+            9994
+          ],
+          "stopped": false,
+          "title": "Удон с креветками и соусом сладкий чили"
+        },
+        {
+          "availableAt": null,
+          "description": "Пшеничная лапша, морепродукты, овощи и устричный соус",
+          "editable": true,
+          "products": [
+            9993
+          ],
+          "stopped": false,
+          "title": "Удон с морепродуктами в устричном соусе"
+        },
+        {
+          "availableAt": null,
+          "description": "",
+          "editable": true,
+          "products": [
+            9793
+          ],
+          "stopped": false,
+          "title": "Рис с овощами в соевом соусе"
+        },
+        {
+          "availableAt": null,
+          "description": "",
+          "editable": true,
+          "products": [
+            11907
+          ],
+          "stopped": false,
+          "title": "Рис с курицей в соевом соусе"
+        },
+        {
+          "availableAt": null,
+          "description": "",
+          "editable": true,
+          "products": [
+            11624
+          ],
+          "stopped": false,
+          "title": "Рис со свининой в соевом соусе"
+        },
+        {
+          "availableAt": null,
+          "description": "",
+          "editable": true,
+          "products": [
+            9794
+          ],
+          "stopped": false,
+          "title": "Рис с морепродуктами в соевом соусе"
+        },
+        {
+          "availableAt": null,
+          "description": "",
+          "editable": true,
+          "products": [
+            9837
+          ],
+          "stopped": false,
+          "title": "Картофельные драники с салатом из свежих овощей"
+        },
+        {
+          "availableAt": null,
+          "description": "",
+          "editable": true,
+          "products": [
+            11598
+          ],
+          "stopped": false,
+          "title": "Жюльен с курицей и грибами в сливочном соусе"
+        },
+        {
+          "availableAt": null,
+          "description": "",
+          "editable": true,
+          "products": [
+            11599
+          ],
+          "stopped": false,
+          "title": "Бефстроганов из говядины с картофельным пюре и маринованным огурцами"
+        },
+        {
+          "availableAt": null,
+          "description": "",
+          "editable": true,
+          "products": [
+            7191
+          ],
+          "stopped": false,
+          "title": "Медальоны из свинины в сливочном соусе с грибами"
+        },
+        {
+          "availableAt": null,
+          "description": "Тальятелле, бекон, черри и сливочный соус",
+          "editable": true,
+          "products": [
+            9835
+          ],
+          "stopped": false,
+          "title": "Паста Карбонара"
+        },
+        {
+          "availableAt": null,
+          "description": "Тальятелле, куриное филе, шампиньоны и сливочный соус",
+          "editable": true,
+          "products": [
+            9836
+          ],
+          "stopped": false,
+          "title": "Паста с курицей и грибами"
+        },
+        {
+          "availableAt": null,
+          "description": "Шампиньоны, пармезан и нежная паста - сытно и вкусно",
+          "editable": true,
+          "products": [
+            11655
+          ],
+          "stopped": false,
+          "title": "Паста ризо с грибами"
+        },
+        {
+          "availableAt": null,
+          "description": "Томлёная по старинке в нежных вологодских сливках",
+          "editable": true,
+          "products": [
+            13024
+          ],
+          "stopped": false,
+          "title": "Жарёха Вологодская с курицей и грибами"
+        },
+        {
+          "availableAt": null,
+          "description": "",
+          "editable": true,
+          "products": [
+            9801
+          ],
+          "stopped": false,
+          "title": "Скоблянка с говядиной и свининой под соусом чеддер"
+        },
+        {
+          "availableAt": null,
+          "description": "",
+          "editable": true,
+          "products": [
+            11154
+          ],
+          "stopped": false,
+          "title": "Скоблянка по-баварски в остром соусе"
+        },
+        {
+          "availableAt": null,
+          "description": "Тонкое тесто и сочный куриный фарш",
+          "editable": true,
+          "products": [
+            9893
+          ],
+          "stopped": false,
+          "title": "Пельмени"
+        },
+        {
+          "availableAt": null,
+          "description": "",
+          "editable": true,
+          "products": [
+            9838
+          ],
+          "stopped": false,
+          "title": "Картофельное пюре"
+        }
+      ],
+      "stopped": false,
+      "title": "Горячие блюда"
+    },
+    {
+      "availableAt": null,
+      "caption": "soups",
+      "id": 109627740,
+      "image": "",
+      "items": [
+        {
+          "availableAt": null,
+          "description": "Пряный тайский суп с курицей",
+          "editable": true,
+          "products": [
+            12195
+          ],
+          "stopped": false,
+          "title": "Том Кха"
+        },
+        {
+          "availableAt": null,
+          "description": "Наваристый бульон, ассорти колбас и овощи",
+          "editable": true,
+          "products": [
+            1393
+          ],
+          "stopped": false,
+          "title": "Солянка со сметаной"
+        },
+        {
+          "availableAt": null,
+          "description": "Настоящий северный борщ с вологодской сметаной",
+          "editable": true,
+          "products": [
+            12878
+          ],
+          "stopped": false,
+          "title": "Борщ Купеческий с вологодской сметаной"
+        },
+        {
+          "availableAt": null,
+          "description": "Легендарный тайский суп с куриным филе и острым соусом",
+          "editable": true,
+          "products": [
+            9812
+          ],
+          "stopped": false,
+          "title": "Том Ям с курицей"
+        },
+        {
+          "availableAt": null,
+          "description": "Традиционный тайский суп с морепродуктами и острым соусом",
+          "editable": true,
+          "products": [
+            9811
+          ],
+          "stopped": false,
+          "title": "Том Ям с морепродуктами"
+        },
+        {
+          "availableAt": null,
+          "description": "Нежный сливочный крем-суп из шампиньонов",
+          "editable": true,
+          "products": [
+            11597
+          ],
+          "stopped": false,
+          "title": "Грибной крем-суп"
+        },
+        {
+          "availableAt": null,
+          "description": "Яркий крем-суп из тыквы с поджаренным беконом",
+          "editable": true,
+          "products": [
+            5056
+          ],
+          "stopped": false,
+          "title": "Тыквенный крем-суп"
+        },
+        {
+          "availableAt": null,
+          "description": "Понравится всем: лёгкий суп с куриным филе и макаронами",
+          "editable": true,
+          "products": [
+            12089
+          ],
+          "stopped": false,
+          "title": "Куриный с овощами"
+        }
+      ],
+      "stopped": false,
+      "title": "Супы"
+    },
+    {
+      "availableAt": null,
+      "caption": "salad",
+      "id": 109201537,
+      "image": "",
+      "items": [
+        {
+          "availableAt": null,
+          "description": "Постный вариант с растительными фрикадельками и овощами",
+          "editable": true,
+          "products": [
+            12966
+          ],
+          "stopped": false,
+          "title": "С фрикадельками и битыми огурцами"
+        },
+        {
+          "availableAt": null,
+          "description": "Яркий салат с овощами и творожным кремом",
+          "editable": true,
+          "products": [
+            12196
+          ],
+          "stopped": false,
+          "title": "С баклажанами и помидорами"
+        },
+        {
+          "availableAt": null,
+          "description": "Нежная курица, овощи и заправка в азиатском стиле",
+          "editable": true,
+          "products": [
+            12194
+          ],
+          "stopped": false,
+          "title": "С курицей по-тайски"
+        },
+        {
+          "availableAt": null,
+          "description": "Куриное филе, рис, овощи и ароматный соус",
+          "editable": true,
+          "products": [
+            11905
+          ],
+          "stopped": false,
+          "title": "Поке с курицей"
+        },
+        {
+          "availableAt": null,
+          "description": "Креветки, рис, овощи и ароматный соус",
+          "editable": true,
+          "products": [
+            11903
+          ],
+          "stopped": false,
+          "title": "Поке с креветками"
+        },
+        {
+          "availableAt": null,
+          "description": "Нежный лосось, рис, овощи и ароматный соус",
+          "editable": true,
+          "products": [
+            9779
+          ],
+          "stopped": false,
+          "title": "Поке с лососем"
+        },
+        {
+          "availableAt": null,
+          "description": "Микс из свежих овощей в сочетании с сыром фета",
+          "editable": true,
+          "products": [
+            212
+          ],
+          "stopped": false,
+          "title": "Греческий"
+        },
+        {
+          "availableAt": null,
+          "description": "Байтсы, овощи, сыр пармезан и соус цезарь",
+          "editable": true,
+          "products": [
+            12088
+          ],
+          "stopped": false,
+          "title": "Цезарь с байтсами"
+        },
+        {
+          "availableAt": null,
+          "description": "Нежное куриное филе, овощи, сыр и хрустящие гренки",
+          "editable": true,
+          "products": [
+            9773
+          ],
+          "stopped": false,
+          "title": "Цезарь с курицей"
+        },
+        {
+          "availableAt": null,
+          "description": "Сочные креветки, овощи, сыр и хрустящие гренки",
+          "editable": true,
+          "products": [
+            1278
+          ],
+          "stopped": false,
+          "title": "Цезарь с креветками"
+        },
+        {
+          "availableAt": null,
+          "description": "Лёгкий и питательный салат с овощами",
+          "editable": true,
+          "products": [
+            9887
+          ],
+          "stopped": false,
+          "title": "Винегрет"
+        },
+        {
+          "availableAt": null,
+          "description": "Классика! Куриное филе, овощи и соус",
+          "editable": true,
+          "products": [
+            9775
+          ],
+          "stopped": false,
+          "title": "Оливье"
+        }
+      ],
+      "stopped": false,
+      "title": "Салаты"
+    },
+    {
+      "availableAt": null,
+      "caption": "breakfast",
+      "id": 1897424421,
+      "image": "",
+      "items": [
+        {
+          "availableAt": null,
+          "description": "Необычные розовые блинчики с творожным кремом",
+          "editable": true,
+          "products": [
+            5636
+          ],
+          "stopped": false,
+          "title": "Розовые блины с творожным кремом и клубничным соусом"
+        },
+        {
+          "availableAt": null,
+          "description": "Нежные блинчики с ветчиной и сыром",
+          "editable": true,
+          "products": [
+            11456
+          ],
+          "stopped": false,
+          "title": "Блины с ветчиной и сыром"
+        },
+        {
+          "availableAt": null,
+          "description": "Сытные блинчики с курицей и грибами",
+          "editable": true,
+          "products": [
+            11457
+          ],
+          "stopped": false,
+          "title": "Блины с курицей и грибами"
+        },
+        {
+          "availableAt": null,
+          "description": "Ароматные блинчики  с лососем и творожным сыром",
+          "editable": true,
+          "products": [
+            11458
+          ],
+          "stopped": false,
+          "title": "Блины с лососем и творожным сыром"
+        },
+        {
+          "availableAt": null,
+          "description": "Нежные, воздушные, сладкие",
+          "editable": true,
+          "products": [
+            9896
+          ],
+          "stopped": false,
+          "title": "Блины"
+        },
+        {
+          "availableAt": null,
+          "description": "Тот самый домашний вкус на вологодском твороге",
+          "editable": true,
+          "products": [
+            13023
+          ],
+          "stopped": false,
+          "title": "Сырники по-вологодски"
+        },
+        {
+          "availableAt": null,
+          "description": "",
+          "editable": true,
+          "products": [
+            9837
+          ],
+          "stopped": false,
+          "title": "Картофельные драники с салатом из свежих овощей"
+        },
+        {
+          "availableAt": null,
+          "description": "Нежная каша на молоке, украшена маршмеллоу",
+          "editable": true,
+          "products": [
+            8556
+          ],
+          "stopped": false,
+          "title": "Овсяная каша с маршмеллоу"
+        },
+        {
+          "availableAt": null,
+          "description": "Классическая овсяная каша на молоке",
+          "editable": true,
+          "products": [
+            9901
+          ],
+          "stopped": false,
+          "title": "Овсяная каша"
+        }
+      ],
+      "stopped": false,
+      "title": "Завтраки"
+    },
+    {
+      "availableAt": null,
+      "caption": "dessert",
+      "id": 1557330726,
+      "image": "",
+      "items": [
+        {
+          "availableAt": null,
+          "description": "Сочетание тонких блинчиков и нежного крема",
+          "editable": true,
+          "products": [
+            12953
+          ],
+          "stopped": false,
+          "title": "Блинный торт"
+        },
+        {
+          "availableAt": null,
+          "description": "Нежный десерт с ярким вкусом сгущённого молока",
+          "editable": true,
+          "products": [
+            12937
+          ],
+          "stopped": false,
+          "title": "Торт Молочная девочка"
+        },
+        {
+          "availableAt": null,
+          "description": "Шоколадный бисквит, грецкий орех и сладкий крем",
+          "editable": true,
+          "products": [
+            12938
+          ],
+          "stopped": false,
+          "title": "Торт Кудрявый пинчер"
+        },
+        {
+          "availableAt": null,
+          "description": "Тающий десерт с белым шоколадом, брусникой и клюквой",
+          "editable": true,
+          "products": [
+            12705
+          ],
+          "stopped": false,
+          "title": "Торт Брусника-белый шоколад"
+        },
+        {
+          "availableAt": null,
+          "description": "Сладко, нежно, воздушно и на любой вкус",
+          "editable": true,
+          "products": [
+            12893
+          ],
+          "stopped": false,
+          "title": "Маффин, в ассортименте"
+        },
+        {
+          "availableAt": null,
+          "description": "",
+          "editable": true,
+          "products": [
+            12094
+          ],
+          "stopped": false,
+          "title": "Вафля брюссельская"
+        },
+        {
+          "availableAt": null,
+          "description": "Как в детстве: сахарное тесто и сладкая начинка",
+          "editable": true,
+          "products": [
+            12097
+          ],
+          "stopped": false,
+          "title": "Вафельная трубочка со сгущёнкой"
+        },
+        {
+          "availableAt": null,
+          "description": "Пирожное-картошка в форме эскимо",
+          "editable": true,
+          "products": [
+            12098
+          ],
+          "stopped": false,
+          "title": "Кейк-попс Эскимо"
+        },
+        {
+          "availableAt": null,
+          "description": "Тот самый вкус",
+          "editable": true,
+          "products": [
+            11757
+          ],
+          "stopped": false,
+          "title": "Торт Дубайский шоколад"
+        },
+        {
+          "availableAt": null,
+          "description": "Восторг! Яблоки, корица и карамель",
+          "editable": true,
+          "products": [
+            11758
+          ],
+          "stopped": false,
+          "title": "Чизкейк Яблочно-карамельный"
+        },
+        {
+          "availableAt": null,
+          "description": "Нежный лимонный крем и воздушная меренга",
+          "editable": true,
+          "products": [
+            11759
+          ],
+          "stopped": false,
+          "title": "Лимонный тарт"
+        },
+        {
+          "availableAt": null,
+          "description": "Сливочный сыр, манговый мусс и пюре маракуйи",
+          "editable": true,
+          "products": [
+            11760
+          ],
+          "stopped": false,
+          "title": "Чизкейк  Манго-маракуйя"
+        },
+        {
+          "availableAt": null,
+          "description": "Освежающий десерт с ярким вкусом чёрной смородины",
+          "editable": true,
+          "products": [
+            11828
+          ],
+          "stopped": false,
+          "title": "Мороженое Шербет  с чёрной смородиной"
+        },
+        {
+          "availableAt": null,
+          "description": "Освежающий десерт с кисло-сладким клюквенным вкусом",
+          "editable": true,
+          "products": [
+            11829
+          ],
+          "stopped": false,
+          "title": "Мороженое Шербет с клюквой"
+        }
+      ],
+      "stopped": false,
+      "title": "Десерты"
+    },
+    {
+      "availableAt": null,
+      "caption": "cold-drinks",
+      "id": 1632473628,
+      "image": "",
+      "items": [
+        {
+          "availableAt": null,
+          "description": "Нежный ванильный вкус и джус-боллы",
+          "editable": true,
+          "products": [
+            12829
+          ],
+          "stopped": false,
+          "title": "Бабл-ти Таро Латте"
+        },
+        {
+          "availableAt": null,
+          "description": "Свежесть клубники с нотками ванили",
+          "editable": true,
+          "products": [
+            12839
+          ],
+          "stopped": false,
+          "title": "Лимонад в ассортименте"
+        },
+        {
+          "availableAt": null,
+          "description": "Выберите свой вкус",
+          "editable": true,
+          "products": [
+            12834
+          ],
+          "stopped": false,
+          "title": "Смузи, в ассортименте"
+        },
+        {
+          "availableAt": null,
+          "description": "Выберите свой вкус",
+          "editable": true,
+          "products": [
+            12835
+          ],
+          "stopped": false,
+          "title": "Молочный коктейль, в ассортименте"
+        },
+        {
+          "availableAt": null,
+          "description": "",
+          "editable": true,
+          "products": [
+            10910
+          ],
+          "stopped": false,
+          "title": "Морс 0,5л, в ассортименте"
+        },
+        {
+          "availableAt": null,
+          "description": "",
+          "editable": true,
+          "products": [
+            12458
+          ],
+          "stopped": false,
+          "title": "Натахтари 0,5 л, в ассортименте"
+        },
+        {
+          "availableAt": null,
+          "description": "",
+          "editable": true,
+          "products": [
+            8685
+          ],
+          "stopped": false,
+          "title": "Эвервес Кола"
+        },
+        {
+          "availableAt": null,
+          "description": "",
+          "editable": true,
+          "products": [
+            9384
+          ],
+          "stopped": false,
+          "title": "Фрустайл лимон"
+        },
+        {
+          "availableAt": null,
+          "description": "",
+          "editable": true,
+          "products": [
+            9385
+          ],
+          "stopped": false,
+          "title": "Фрустайл апельсин"
+        },
+        {
+          "availableAt": null,
+          "description": "",
+          "editable": true,
+          "products": [
+            9926
+          ],
+          "stopped": false,
+          "title": "Холодный чай Липтон 0,5л"
+        },
+        {
+          "availableAt": null,
+          "description": "",
+          "editable": true,
+          "products": [
+            9899
+          ],
+          "stopped": false,
+          "title": "Детский сок Агуша 0,2л"
+        },
+        {
+          "availableAt": null,
+          "description": "",
+          "editable": true,
+          "products": [
+            4057
+          ],
+          "stopped": false,
+          "title": "Аква Минерале 0,5л"
+        },
+        {
+          "availableAt": null,
+          "description": "",
+          "editable": true,
+          "products": [
+            11751
+          ],
+          "stopped": false,
+          "title": "Пиво Крушовице светлое 0,33л б/а"
+        },
+        {
+          "availableAt": null,
+          "description": "",
+          "editable": true,
+          "products": [
+            11934
+          ],
+          "stopped": false,
+          "title": "Семён Дежнёв Кружево безалкогольное"
+        }
+      ],
+      "stopped": false,
+      "title": "Холодные напитки"
+    },
+    {
+      "availableAt": null,
+      "caption": "hot-drinks",
+      "id": 1759555493,
+      "image": "",
+      "items": [
+        {
+          "availableAt": null,
+          "description": "Согревающий напиток на растительном молоке с малиной",
+          "editable": true,
+          "products": [
+            13002
+          ],
+          "stopped": false,
+          "title": "Какао с малиной"
+        },
+        {
+          "availableAt": null,
+          "description": "Уют и тепло в каждом глотке",
+          "editable": true,
+          "products": [
+            12838
+          ],
+          "stopped": false,
+          "title": "Какао Молочный шоколад"
+        },
+        {
+          "availableAt": null,
+          "description": "Согревающий напиток с ярким вкусом апельсина",
+          "editable": true,
+          "products": [
+            12945
+          ],
+          "stopped": false,
+          "title": "Апероль горячий б/а"
+        },
+        {
+          "availableAt": null,
+          "description": "Согревающий напиток с ярким ореховым вкусом",
+          "editable": true,
+          "products": [
+            12069
+          ],
+          "stopped": false,
+          "title": "Какао Сливочный фундук"
+        }
+      ],
+      "stopped": false,
+      "title": "Горячие напитки"
+    },
+    {
+      "availableAt": null,
+      "caption": "sauce",
+      "id": 109210249,
+      "image": "",
+      "items": [
+        {
+          "availableAt": null,
+          "description": "Нежный сливочный вкус",
+          "editable": true,
+          "products": [
+            224
+          ],
+          "stopped": false,
+          "title": "Сырный"
+        },
+        {
+          "availableAt": null,
+          "description": "Яркий копчёный аромат",
+          "editable": true,
+          "products": [
+            223
+          ],
+          "stopped": false,
+          "title": "Барбекю"
+        },
+        {
+          "availableAt": null,
+          "description": "Фруктовая сладость и приятная горчинка",
+          "editable": true,
+          "products": [
+            226
+          ],
+          "stopped": false,
+          "title": "Кисло-сладкий"
+        },
+        {
+          "availableAt": null,
+          "description": "Классический соус с выраженным вкусом томатов",
+          "editable": true,
+          "products": [
+            4425
+          ],
+          "stopped": false,
+          "title": "Кетчуп"
+        },
+        {
+          "availableAt": null,
+          "description": "Яркий пряный вкус",
+          "editable": true,
+          "products": [
+            227
+          ],
+          "stopped": false,
+          "title": "Острый"
+        },
+        {
+          "availableAt": null,
+          "description": "Мягкий соус с нотками пармезана и чеснока",
+          "editable": true,
+          "products": [
+            5902
+          ],
+          "stopped": false,
+          "title": "Цезарь"
+        },
+        {
+          "availableAt": null,
+          "description": "Пикантный соус из маринованных огурчиков и зелени",
+          "editable": true,
+          "products": [
+            6797
+          ],
+          "stopped": false,
+          "title": "Тартар"
+        },
+        {
+          "availableAt": null,
+          "description": "Классика! Идеальное дополнение к роллам",
+          "editable": true,
+          "products": [
+            228
+          ],
+          "stopped": false,
+          "title": "Соевый"
+        },
+        {
+          "availableAt": null,
+          "description": "Остро! Яркая, ароматная добавка к роллам",
+          "editable": true,
+          "products": [
+            230
+          ],
+          "stopped": false,
+          "title": "Васаби"
+        },
+        {
+          "availableAt": null,
+          "description": "Пряная добавка, идеально к роллам",
+          "editable": true,
+          "products": [
+            9004
+          ],
+          "stopped": false,
+          "title": "Имбирь"
+        },
+        {
+          "availableAt": null,
+          "description": "Свежие ягоды с лёгкой кислинкой",
+          "editable": true,
+          "products": [
+            5906
+          ],
+          "stopped": false,
+          "title": "Брусничный соус"
+        },
+        {
+          "availableAt": null,
+          "description": "Насыщенный и сладкий вкус клубники",
+          "editable": true,
+          "products": [
+            5905
+          ],
+          "stopped": false,
+          "title": "Джем клубничный"
+        },
+        {
+          "availableAt": null,
+          "description": "Соль",
+          "editable": true,
+          "products": [
+            6177
+          ],
+          "stopped": false,
+          "title": ""
+        },
+        {
+          "availableAt": null,
+          "description": "",
+          "editable": true,
+          "products": [
+            6178
+          ],
+          "stopped": false,
+          "title": ""
+        },
+        {
+          "availableAt": null,
+          "description": "Всегда готов к играм и объятиям.\nВысота игрушки - 30 см.",
+          "editable": true,
+          "products": [
+            10522
+          ],
+          "stopped": false,
+          "title": ""
+        },
+        {
+          "availableAt": null,
+          "description": "",
+          "editable": true,
+          "products": [
+            1643
+          ],
+          "stopped": false,
+          "title": ""
+        },
+        {
+          "availableAt": null,
+          "description": "",
+          "editable": true,
+          "products": [
+            325
+          ],
+          "stopped": false,
+          "title": ""
+        },
+        {
+          "availableAt": null,
+          "description": "",
+          "editable": true,
+          "products": [
+            6626
+          ],
+          "stopped": false,
+          "title": ""
+        },
+        {
+          "availableAt": null,
+          "description": "",
+          "editable": true,
+          "products": [
+            6627
+          ],
+          "stopped": false,
+          "title": ""
+        },
+        {
+          "availableAt": null,
+          "description": "",
+          "editable": true,
+          "products": [
+            1642
+          ],
+          "stopped": false,
+          "title": ""
+        },
+        {
+          "availableAt": null,
+          "description": "",
+          "editable": true,
+          "products": [
+            4734
+          ],
+          "stopped": false,
+          "title": ""
+        },
+        {
+          "availableAt": null,
+          "description": "",
+          "editable": true,
+          "products": [
+            430
+          ],
+          "stopped": false,
+          "title": ""
+        },
+        {
+          "availableAt": null,
+          "description": "Салфетки, зубочистки",
+          "editable": true,
+          "products": [
+            691
+          ],
+          "stopped": false,
+          "title": ""
+        }
+      ],
+      "stopped": false,
+      "title": "Соусы и другое"
+    },
+    {
+      "availableAt": null,
+      "caption": "discounts-from-25",
+      "id": 301343691,
+      "image": "",
+      "items": [
+        {
+          "availableAt": null,
+          "description": "Фантастически сырная четвёрка на томатном соусе",
+          "editable": true,
+          "products": [
+            3416
+          ],
+          "stopped": false,
+          "title": "Четыре сыра"
+        },
+        {
+          "availableAt": null,
+          "description": "Пряные специи и нежное куриное филе",
+          "editable": true,
+          "products": [
+            3710
+          ],
+          "stopped": false,
+          "title": "Чесночный цыпа"
+        },
+        {
+          "availableAt": null,
+          "description": "Ассорти колбас, овощи и фирменный соус",
+          "editable": true,
+          "products": [
+            3506
+          ],
+          "stopped": false,
+          "title": "Деревенская"
+        },
+        {
+          "availableAt": null,
+          "description": "Просто ВАУ! Сливочный крем и соус терияки",
+          "editable": true,
+          "products": [
+            11613
+          ],
+          "stopped": false,
+          "title": "Бамбито"
+        },
+        {
+          "availableAt": null,
+          "description": "Тёплый ролл с куриным филе, помидором и сыром пармезан",
+          "editable": true,
+          "products": [
+            3402
+          ],
+          "stopped": false,
+          "title": "Цезарь"
+        },
+        {
+          "availableAt": null,
+          "description": "Идеальная закуска для любого повода",
+          "editable": true,
+          "products": [
+            11912
+          ],
+          "stopped": false,
+          "title": "Картофельные крокеты"
+        },
+        {
+          "availableAt": null,
+          "description": "Картофельные дольки со специями и чесноком",
+          "editable": true,
+          "products": [
+            9827
+          ],
+          "stopped": false,
+          "title": "Картофель по-деревенски"
+        },
+        {
+          "availableAt": null,
+          "description": "Тальятелле, куриное филе, шампиньоны и сливочный соус",
+          "editable": true,
+          "products": [
+            9836
+          ],
+          "stopped": false,
+          "title": "Паста с курицей и грибами"
+        },
+        {
+          "availableAt": null,
+          "description": "Наваристый бульон, ассорти колбас и овощи",
+          "editable": true,
+          "products": [
+            1393
+          ],
+          "stopped": false,
+          "title": "Солянка со сметаной"
+        },
+        {
+          "availableAt": null,
+          "description": "",
+          "editable": true,
+          "products": [
+            11624
+          ],
+          "stopped": false,
+          "title": "Рис со свининой в соевом соусе"
+        },
+        {
+          "availableAt": null,
+          "description": "Куриное филе, рис, овощи и ароматный соус",
+          "editable": true,
+          "products": [
+            11905
+          ],
+          "stopped": false,
+          "title": "Поке с курицей"
+        }
+      ],
+      "stopped": false,
+      "title": "C подпиской  Плюс"
+    }
+  ],
+  "parameters": {
+    "pizza": {
+      "diameter": {},
+      "dough": {},
+      "size": {}
+    }
+  },
+  "products": {}
+}

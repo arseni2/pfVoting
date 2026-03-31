@@ -1,0 +1,24 @@
+{
+  "name": "parcer",
+  "version": "1.0.0",
+  "description": "Парсер на Node.js + TypeScript + Playwright",
+  "main": "dist/index.js",
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "tsc && node dist/index.js",
+    "debug": "tsc && node dist/debug.js",
+    "lint": "eslint src/**/*.ts"
+  },
+  "keywords": ["parser", "playwright", "scraper"],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "playwright": "^1.58.2"
+  },
+  "devDependencies": {
+    "@types/node": "^25.5.0",
+    "typescript": "^6.0.2"
+  }
+}
