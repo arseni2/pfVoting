@@ -9,18 +9,184 @@ import { Context, Markup, Telegraf } from 'telegraf'
 import { Update } from 'telegraf/types'
 import { User } from '@/database'
 import { Response } from 'express'
+import path from "path"
+import * as fs from 'node:fs/promises'
+import {
+  DataArray,
+  FeatureExtractionPipeline,
+  pipeline,
+} from '@xenova/transformers'
 
 export interface ICreateOrderApi {
   quantity: number
   title: string
   comment: string | null
 }
+export type PizzaMenuItem = {
+  id: number
+  title: string
+  description: string
+  price: string
+  image: string
+  caption?: string
+  badges?: string[]
+}
 
 export class OrdersController {
+  private extractor: FeatureExtractionPipeline | null = null
+  private menuCache: PizzaMenuItem[] | null = null
+  private menuVectors: Map<number, DataArray> = new Map()
+  private initPromise: Promise<void> | null = null
+
   constructor(
     private readonly ordersService: IOrdersService,
     private readonly usersService: IUserService
-  ) {}
+  ) {
+    this.initPromise = this.initSemanticSearch().then(async () => {
+      const data = await this.findPizzaByQuery('с копченостями', 0.4) // 👈 0.4 вместо 0.65
+      console.log('✅ Результат:', data)
+    })
+  }
+
+  private async findPizzaByQuery(query: string, threshold = 0.65) {
+    console.log(`🔍 Поиск: "${query}"`)
+
+    if (!this.extractor || !this.menuCache) {
+      console.error('❌ Модель или меню не инициализированы')
+      return null
+    }
+
+    const queryVector = await this.extractor(query, {
+      pooling: 'mean',
+      normalize: true,
+    })
+
+    let bestMatch: PizzaMenuItem | null = null
+    let bestScore = -1
+    let topResults: Array<{ title: string; score: number }> = []
+
+    for (const [id, vector] of this.menuVectors) {
+      const score = this.cosineSimilarity(queryVector.data, vector)
+      if (score > bestScore) {
+        bestScore = score
+        bestMatch = this.menuCache.find((item) => item.id === id) || null
+      }
+      // Сохраняем топ-3 для отладки
+      if (topResults.length < 3) {
+        topResults.push({
+          title: this.menuCache.find((i) => i.id === id)?.title || 'Unknown',
+          score,
+        })
+      }
+    }
+
+    // Сортируем топ-3 по убыванию
+    topResults.sort((a, b) => b.score - a.score)
+
+    console.log(
+      `📊 Лучший результат: ${bestMatch?.title} (score: ${bestScore.toFixed(3)})`
+    )
+    console.log('🥇 Топ-3 совпадения:', topResults)
+    console.log(
+      `🎯 Порог: ${threshold}, Найдено: ${bestScore >= threshold ? '✅' : '❌'}`
+    )
+
+    if (bestScore < threshold) {
+      return null
+    }
+
+    return { item: bestMatch!, score: bestScore }
+  }
+
+  private async loadMenuAndVectorize() {
+    try {
+      const pathData = path.join(
+        import.meta.dirname,
+        '..',
+        '..',
+        '..',
+        '..',
+        'parcer',
+        'menu.json'
+      )
+      const menuData = await fs.readFile(pathData, 'utf-8')
+      const parsed = JSON.parse(menuData)
+
+      const productIds = new Set<number>()
+      for (const category of parsed.categories) {
+        for (const item of category.items) {
+          for (const productId of item.products) {
+            productIds.add(productId)
+          }
+        }
+      }
+
+      const menuItems: PizzaMenuItem[] = []
+      for (const id of productIds) {
+        const product = parsed.products[id]
+          if (
+            product &&
+            !product.stopped &&
+            product.constructorType != 'combo' &&
+            !product.caption.includes('sauce') &&
+            !product.caption.includes('sous') &&
+            product?.parameters?.pizza?.size !== 'big'
+          ) {
+            menuItems.push({
+              id: product.id,
+              title: product.title,
+              description: product.description || '',
+              price: product.price,
+              image: product.image,
+              caption: product.caption,
+              badges: product.badges || [],
+            })
+          }
+      }
+
+      this.menuCache = menuItems
+      console.log(`📦 Загружено ${menuItems.length} активных товаров`)
+
+      for (const item of menuItems) {
+        const searchText = `${item.title} ${item.description.replaceAll(",", "")}`.toLowerCase()
+
+        const vector = await this.extractor!(searchText, {
+          pooling: 'mean',
+          normalize: true,
+        })
+
+        this.menuVectors.set(item.id, vector.data)
+      }
+
+      console.log(`✅ Векторизовано ${menuItems.length} товаров`)
+    } catch (e) {
+      console.error('❌ Ошибка загрузки и векторизации меню:', e)
+    }
+  }
+
+  async initSemanticSearch() {
+    if (!this.extractor) {
+      this.extractor = await pipeline(
+        'feature-extraction',
+        'Xenova/paraphrase-multilingual-mpnet-base-v2'
+      )
+      await this.loadMenuAndVectorize()
+    }
+  }
+
+  private cosineSimilarity(a: DataArray, b: DataArray): number {
+    let dot = 0
+    let normA = 0
+    let normB = 0
+
+    for (let i = 0; i < a.length; i++) {
+      dot += a[i] * b[i]
+      normA += a[i] * a[i]
+      normB += b[i] * b[i]
+    }
+
+    return dot / (Math.sqrt(normA) * Math.sqrt(normB))
+  }
 
   async createOrdersAPI(
     payload: ICreateOrderApi[],
@@ -37,7 +203,9 @@ export class OrdersController {
       // Get user's active room membership
       const roomMember = user.memberships.find((m) => m.is_active)
       if (!roomMember) {
-        return res.status(400).json({ message: 'User is not in any active room' })
+        return res
+          .status(400)
+          .json({ message: 'User is not in any active room' })
       }
 
       for (const item of payload) {
